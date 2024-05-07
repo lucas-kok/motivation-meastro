@@ -3,58 +3,33 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // UI 
-    public GameObject menuPrefab;
+    public MenuManager menuManager;
 
-    private Canvas ui;
-    private GameObject startMenuPanel;
-    private GameObject gameMenuPanel;
-    private GameObject menuInstance;
-
-    // Menu screen 
-    public GameObject OptionsController;
-
-    /// <summary>
-    /// We instantiate a MenuInstance that will always be reused. 
-    /// A menu contains panels, that vary based on the scene 
-    /// (e.g. a start menu panel and a game menu panel during active gameplay).
-    /// </summary>
     private void Start()
     {
-        ui = GameObject.Find("UI").GetComponent<Canvas>();
-        menuInstance = Instantiate(menuPrefab, ui.transform);
-        startMenuPanel = menuInstance.transform.Find("Start Menu Panel").gameObject;
-        gameMenuPanel = menuInstance.transform.Find("Game Menu Panel").gameObject;
-
-        menuInstance.SetActive(true);
-        ToggleMenu();
-    }
-
-    public void ToggleMenu()
-    {
-        // The menu panel is different for the main menu (StartScene) 
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "StartScene")
+        // If its the start scene, welcome the user instantly with the main menu
+        if (SceneManager.GetActiveScene().name == "StartScene")
         {
-            startMenuPanel.SetActive(!startMenuPanel.activeSelf);
-            gameMenuPanel.SetActive(false);
-        }
-        // If we're not in the start scene, we're in gameplay. Show a suitable panel. 
-        else
-        {
-            gameMenuPanel.SetActive(!gameMenuPanel.activeSelf);
-            startMenuPanel.SetActive(false);
+            menuManager.OpenMainMenu();  
         }
     }
-
-    // Navigation methods
+    
+    // Here needs to be managed what happens when starting the game 
+    // This is can for example be called in the main menu (via an event on the MenuManager) 
     public void StartGame()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("TemplateScene");
+        SceneManager.LoadScene("TemplateScene");
+    }   
+
+    // Same here, but for resuming the game
+    public void ResumeGame()
+    {
+        Debug.Log("Resuming game"); 
     }
 
-    public void GoToOptions()
+    // Same here, but for quitting the game
+    public void QuitGame()
     {
-        menuInstance.SetActive(false); 
-        Instantiate(OptionsController);
+        Application.Quit();
     }
 }
