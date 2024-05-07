@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524121c5925544d40bad57fe89d64bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneManager: {fileID: 1322335818158204138}
+  menuPrefab: {fileID: 1176113479847334325, guid: 732d5a08875603e47af1a18a8f5b7696, type: 3}
+  UI: {fileID: 0}
 --- !u!114 &1322335818158204138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,3 +59,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77747145ed700d94cb23b5b6392c15bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _logger: {fileID: 0}

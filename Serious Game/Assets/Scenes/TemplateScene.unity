@@ -568,6 +568,10 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 1604688069280003999, guid: 612be868b233e674c968d466d6426ea7, type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 2064651890}
+    - target: {fileID: 1604688069280003999, guid: 612be868b233e674c968d466d6426ea7, type: 3}
       propertyPath: SceneManager
       value: 
       objectReference: {fileID: 658824546}
