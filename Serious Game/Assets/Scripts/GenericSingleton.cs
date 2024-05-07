@@ -23,7 +23,6 @@ public class GenericSingleton<T> : MonoBehaviour where T : Component
 
     public virtual void Awake()
     {
-        // Create the instance
         if (instance == null)
         {
             instance = this as T;
