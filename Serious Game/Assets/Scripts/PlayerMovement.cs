@@ -51,7 +51,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        rb.velocity = new Vector2(movementInput.x * speed * Time.deltaTime, movementInput.y * speed * Time.deltaTime);
+        if (movementInput.x != 0 && movementInput.y != 0)
+        {
+            Debug.Log("hoitest1323~!");
+            rb.velocity = new Vector2(movementInput.x * speed * Time.deltaTime * 0.707f, movementInput.y * speed * Time.deltaTime * 0.707f);
+        } else
+        {
+            rb.velocity = new Vector2(movementInput.x * speed * Time.deltaTime, movementInput.y * speed * Time.deltaTime);
+        }
     }
 
     private IEnumerator Dash()
@@ -59,12 +66,14 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
 
-        if (movementInput.x != Mathf.Epsilon && movementInput.y != Mathf.Epsilon)
+        if (movementInput.x != 0 && movementInput.y != 0)
         {
-             rb.velocity = new Vector2(movementInput.x * dashingPower * 0.5f, movementInput.y * dashingPower * 0.5f);
+            rb.velocity = new Vector2(movementInput.x * dashingPower * 0.707f, movementInput.y * dashingPower * 0.707f);
+            Debug.Log(rb.velocity);
         } else
         {
             rb.velocity = new Vector2(movementInput.x * dashingPower, movementInput.y * dashingPower);
+            Debug.Log(rb.velocity);
         }
 
        
