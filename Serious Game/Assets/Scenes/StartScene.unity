@@ -271,6 +271,10 @@ PrefabInstance:
       propertyPath: startMenuPanel
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1604688069280003999, guid: 612be868b233e674c968d466d6426ea7, type: 3}
+      propertyPath: OptionsController
+      value: 
+      objectReference: {fileID: 3283808576245203104, guid: 89b1b3e903073ff4ab0820997ca57fb1, type: 3}
     - target: {fileID: 7770866663987276913, guid: 612be868b233e674c968d466d6426ea7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
