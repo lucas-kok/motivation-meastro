@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c0ed2a0fd4a5c40af225c0531a1f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
   inputType: 0
   left: 97
   right: 100
@@ -159,7 +160,10 @@ MonoBehaviour:
   down: 115
   dash: 304
   pause: 27
-  submit: 13
+  interact: 13
+  OnPauseGameEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &153192427
 Transform:
   m_ObjectHideFlags: 0
@@ -313,7 +317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
-  inputManager: {fileID: 153192426}
   tr: {fileID: 2060785629}
   dashingPower: 0.05
   dashingTime: 0.2
@@ -666,17 +669,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &658824546 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1322335818158204138, guid: 612be868b233e674c968d466d6426ea7, type: 3}
-  m_PrefabInstance: {fileID: 2018853648}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77747145ed700d94cb23b5b6392c15bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2018853648
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -692,7 +684,7 @@ PrefabInstance:
     - target: {fileID: 1604688069280003999, guid: 612be868b233e674c968d466d6426ea7, type: 3}
       propertyPath: SceneManager
       value: 
-      objectReference: {fileID: 658824546}
+      objectReference: {fileID: 0}
     - target: {fileID: 7770866663987276913, guid: 612be868b233e674c968d466d6426ea7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

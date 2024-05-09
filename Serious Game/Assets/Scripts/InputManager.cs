@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using static UnityEngine.Rendering.DebugUI;
 
 public class InputManager : MonoBehaviour
 {
+    // Action controllers, managers et cetera
+    public PlayerMovement playerMovement;
+
+    // Input types
     public enum InputType { Keyboard, Controller }
     public InputType inputType = InputType.Keyboard;
 
+    // Input keys
     [Header("Keyboard Controls")]
     public KeyCode left = KeyCode.A;
     public KeyCode right = KeyCode.D;
@@ -17,9 +23,36 @@ public class InputManager : MonoBehaviour
 
     public KeyCode dash = KeyCode.LeftShift;
     public KeyCode pause = KeyCode.Escape;
-    public KeyCode submit = KeyCode.Return;
+    public KeyCode interact = KeyCode.Return;
 
-    public Vector2 CheckMovementInputs()
+    // Events
+    public UnityEvent OnPauseGameEvent;
+
+    private void Update()
+    {
+        // TODO: consider refactor: does a "PlayerMovement" really interact? 
+        if (CheckInteractInput())
+        {
+            playerMovement.Interact();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        // Current movements 
+        Vector2 movementInputs = GetMovementInputs();
+
+        // Delegate Moving 
+        playerMovement.Move(movementInputs);
+
+        // Delegate Dashing
+        if (CheckDashInput())
+        {
+            StartCoroutine(playerMovement.Dash(movementInputs));
+        }
+    }
+
+    private Vector2 GetMovementInputs()
     {
         //movement input
         float x = 0f;
@@ -33,19 +66,14 @@ public class InputManager : MonoBehaviour
         return new Vector2(x, y);
     }
 
-    public bool CheckDashInput()
+    private bool CheckDashInput()
     {
         return Input.GetKey(dash);
     }
 
-    public bool CheckPauseInput()
+    public bool CheckInteractInput()
     {
-        return Input.GetKeyDown(pause);
-    }
-
-    public bool CheckSubmitInput()
-    {
-        return Input.GetKeyDown(submit);
+        return Input.GetKeyDown(interact);
     }
     
 }

@@ -6,16 +6,12 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Vector2 movementInput;
-    private bool dashInput;
-    private bool pauseInput;
-    private bool submitInput;
 
+    // Dash states
     private bool canDash = true;
-    private bool isDashing;
+    private bool isDashing = false;
 
     [SerializeField] public float speed;
-    [SerializeField] public InputManager inputManager;
     [SerializeField] public TrailRenderer tr;
     [SerializeField] public float dashingPower = 0.075f;
     [SerializeField] public float dashingTime = 0.2f;
@@ -28,37 +24,21 @@ public class PlayerMovement : MonoBehaviour
         tr.emitting = false;
     }
 
-    void Update()
-    {
-        pauseInput = inputManager.CheckPauseInput();
-        submitInput = inputManager.CheckSubmitInput();
-
-        if (pauseInput) Pause();
-        if (submitInput) Submit();
-    }
-
-    void FixedUpdate()
+    public void Move(Vector2 movementInput)
     {
         if (isDashing) return;
-
-        movementInput = inputManager.CheckMovementInputs();
-        dashInput = inputManager.CheckDashInput();
-
-        Move();
-
-        if (dashInput && canDash) StartCoroutine(Dash());
-    }
-
-    private void Move()
-    {
         rb.velocity = new Vector2(movementInput.x * speed * Time.deltaTime, movementInput.y * speed * Time.deltaTime);
     }
 
-    private IEnumerator Dash()
+    public IEnumerator Dash(Vector2 movementInput)
     {
+        // Check on dashing state
+        if (isDashing) yield break;
+        if (!canDash) yield break;
         canDash = false;
         isDashing = true;
 
+        // Apply movement 
         if (movementInput.x != Mathf.Epsilon && movementInput.y != Mathf.Epsilon)
         {
              rb.velocity = new Vector2(movementInput.x * dashingPower * 0.5f, movementInput.y * dashingPower * 0.5f);
@@ -67,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(movementInput.x * dashingPower, movementInput.y * dashingPower);
         }
 
-       
         tr.emitting = true;
         
         yield return new WaitForSeconds(dashingTime);
@@ -78,13 +57,8 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
     }
 
-    private void Pause()
+    public void Interact()
     {
-        // Pause the game
-    }
-
-    private void Submit()
-    {
-        // Submit the game
+        // Let the player interact 
     }
 }

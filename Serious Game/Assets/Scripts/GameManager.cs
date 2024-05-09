@@ -21,13 +21,17 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("TemplateScene");
     }   
 
-    // Same here, but for resuming the game
+    public void PauseGame()
+    {
+        menuManager.OpenInGameMenu();
+        Time.timeScale = 0;
+    }
+
     public void ResumeGame()
     {
         Debug.Log("Resuming game"); 
     }
 
-    // Same here, but for quitting the game
     public void QuitGame()
     {
         Application.Quit();
