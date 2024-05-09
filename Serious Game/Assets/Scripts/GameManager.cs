@@ -1,63 +1,76 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : GenericSingleton<GameManager>
 {
-    [SerializeField]  public MenuManager menuManager;
+    public MenuManager menuManager;
 
     // States
-    [SerializeField] private bool gameIsActive = true;
+    private bool gameIsActive;
 
     private void Start()
     {
-        // If its the start scene, welcome the user instantly with the main menu
-        if (SceneManager.GetActiveScene().name == "StartScene")
+        if (CheckIsMainMenuScene() is true)
         {
             gameIsActive = false;
-            menuManager.OpenMainMenu();  
-        } else
+        }
+        else
         {
             gameIsActive = true;
         }
     }
-    
-    // Here needs to be managed what happens when starting the game 
-    // This is can for example be called in the main menu (via an event on the MenuManager) 
-    public void StartGame()
+
+    public void GoToMainMenuScene()
     {
-        SceneManager.LoadScene("TestScenePlayerMovement");
-        gameIsActive = true;
+        SceneManager.LoadScene("MainMenuScene");
+        gameIsActive = false;
     }
 
-    private void PauseGame()
+    public void StartGame()
+    {
+        SceneManager.LoadScene("FirstScene");
+        gameIsActive = true;
+        menuManager.CloseMenu();
+    }
+
+    public void PauseGame()
     {
         if (!gameIsActive) return;
         gameIsActive = false;
 
-        menuManager.OpenInGameMenu();
+        menuManager.OpenMenu(CheckIsMainMenuScene());
     }
 
-    private void ResumeGame()
+    public void ResumeGame()
     {
         if (gameIsActive) return;
         gameIsActive = true;
 
-        menuManager.CloseInGameMenu();
+        menuManager.CloseMenu();
     }
     public void QuitGame()
     {
         Application.Quit();
     }
 
-    // Helper method for client code
-    public void TogglePauseResumeGame() { 
+    public void ToggleMenu()
+    {
+        if (menuManager is null)
+        { 
+            Debug.Log("You didn't start the game from the MainMenuScene.");
+            Debug.LogError("Start from the MainMenuScene if you want to have a menu later on...");
+            return; 
+        }
 
         if (gameIsActive)
         {
             PauseGame();
-        } else
+        }
+        else
         {
             ResumeGame();
         }
     }
+
+    private bool CheckIsMainMenuScene() => gameIsActive = SceneManager.GetActiveScene().name == "MainMenuScene";
 }
