@@ -24,9 +24,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(Vector2 movementInput)
     {
+        if (isDashing)
+        {
+            return;
+        }
+        
         if (movementInput.x != 0 && movementInput.y != 0)
         {
-            Debug.Log("hoitest1323~!");
             rb.velocity = new Vector2(movementInput.x * speed * Time.deltaTime * 0.707f, movementInput.y * speed * Time.deltaTime * 0.707f);
         } else
         {
@@ -37,21 +41,25 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator Dash(Vector2 movementInput)
     {
         // Check on dashing state
-        if (isDashing) yield break;
-        if (!canDash) yield break;
+        if (isDashing || !canDash)
+        {
+            yield break;
+        }
+
         canDash = false;
         isDashing = true;
 
         if (movementInput.x != 0 && movementInput.y != 0)
         {
             rb.velocity = new Vector2(movementInput.x * dashingPower * 0.707f, movementInput.y * dashingPower * 0.707f);
-            Debug.Log(rb.velocity);
         } else
         {
             rb.velocity = new Vector2(movementInput.x * dashingPower, movementInput.y * dashingPower);
-            Debug.Log(rb.velocity);
         }
 
+        Debug.Log(rb.velocity);
+
+        Debug.Log("Dashing activated");
 
         dustParticle.Play();
 
