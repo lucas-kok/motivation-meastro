@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 417151523478491682}
   - component: {fileID: 7757762776031770626}
   - component: {fileID: 2353158795609980032}
-  - component: {fileID: 2558124393936169935}
+  - component: {fileID: 9220655830165324374}
   m_Layer: 0
   m_Name: Teacher
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 25
   m_Sprite: {fileID: -311171248, guid: aa2d386e68e930f46a10de0481b34165, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   speed: 0.5
   inputManager: {fileID: 0}
   dustParticle: {fileID: 5307328732681486241}
-  dashingPower: 0.05
+  dashingPower: 0.03
   dashingTime: 0.2
   dashingCooldown: 1
 --- !u!114 &7757762776031770626
@@ -170,9 +170,9 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &2558124393936169935
-CircleCollider2D:
+  m_Constraints: 4
+--- !u!61 &9220655830165324374
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -203,9 +203,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.33}
+  m_Offset: {x: 0.0038348883, y: -0.6704819}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 2}
+    newSize: {x: 0.48093933, y: 0.9599999}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 0.6088394, y: 0.65903616}
+  m_EdgeRadius: 0
 --- !u!1 &5751234099050628791
 GameObject:
   m_ObjectHideFlags: 0
@@ -5003,7 +5013,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -5
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
