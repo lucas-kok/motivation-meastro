@@ -5,10 +5,13 @@ public class PlayerAnimationController : MonoBehaviour
 {
     private AppLogger _logger;
     private Animator animator;
-    
+
     public int secondsUntilAfk = 5;
-    private bool isAfk = false;
-    private bool isIdleCoroutineRunning = false;
+    public bool isAfk = false;
+    public bool isIdleCoroutineRunning = false;
+
+    // Coroutine reference
+    private Coroutine idleTimerCoroutine;
 
     void Start()
     {
@@ -22,17 +25,24 @@ public class PlayerAnimationController : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         Vector2 movement = new Vector2(moveX, moveY);
 
-        // Check for movement
         if (movement != Vector2.zero)
         {
-            StopCoroutine(IdleTimerCoroutine());
-            isIdleCoroutineRunning = false;
             isAfk = false;
+            if (isIdleCoroutineRunning)
+            {
+                // Properly stop the running coroutine
+                if (idleTimerCoroutine != null)
+                {
+                    StopCoroutine(idleTimerCoroutine);
+                    idleTimerCoroutine = null;
+                }
+                
+                isIdleCoroutineRunning = false;
+            }
 
             animator.SetFloat("VelocityX", moveX);
             animator.SetFloat("VelocityY", moveY);
-
-            animator.ResetTrigger("OpenBook");
+            animator.SetBool("IsAfk", false);
             animator.SetBool("IsIdle", false);
         }
         else
@@ -41,7 +51,7 @@ public class PlayerAnimationController : MonoBehaviour
 
             if (!isIdleCoroutineRunning && !isAfk)
             {
-                StartCoroutine(IdleTimerCoroutine());
+                idleTimerCoroutine = StartCoroutine(IdleTimerCoroutine());
             }
         }
     }
@@ -49,17 +59,18 @@ public class PlayerAnimationController : MonoBehaviour
     private IEnumerator IdleTimerCoroutine()
     {
         isIdleCoroutineRunning = true;
-        
+
         yield return new WaitForSeconds(secondsUntilAfk);
         PlayAfkAnimation();
 
         isAfk = true;
         isIdleCoroutineRunning = false;
+        idleTimerCoroutine = null;
     }
 
     public void PlayAfkAnimation()
     {
-        animator.SetTrigger("OpenBook");
+        animator.SetBool("IsAfk", true);
     }
 
     public void PlayHurtAnimation()
