@@ -10,6 +10,9 @@ public class InputManager : MonoBehaviour
     // Action controllers, managers et cetera
     public PlayerMovement playerMovement;
 
+    // Events
+    public UnityEvent OnTogglePauseResumeGame;
+
     // Input types
     public enum InputType { Keyboard, Controller }
     public InputType inputType = InputType.Keyboard;
@@ -22,14 +25,16 @@ public class InputManager : MonoBehaviour
     public KeyCode down = KeyCode.S;
 
     public KeyCode dash = KeyCode.LeftShift;
-    public KeyCode pause = KeyCode.Escape;
+    public KeyCode pauseOrResume = KeyCode.Escape;
     public KeyCode interact = KeyCode.Return;
-
-    // Events
-    public UnityEvent OnPauseGameEvent;
 
     private void Update()
     {
+        if (CheckPauseAndResumeInput())
+        {
+            OnTogglePauseResumeGame.Invoke();
+        }
+
         // TODO: consider refactor: does a "PlayerMovement" really interact? 
         if (CheckInteractInput())
         {
@@ -66,14 +71,18 @@ public class InputManager : MonoBehaviour
         return new Vector2(x, y);
     }
 
+    private bool CheckPauseAndResumeInput()
+    {
+        return Input.GetKeyDown(pauseOrResume);
+    }
+
     private bool CheckDashInput()
     {
         return Input.GetKey(dash);
     }
 
-    public bool CheckInteractInput()
+    private bool CheckInteractInput()
     {
         return Input.GetKeyDown(interact);
     }
-    
 }
