@@ -6,18 +6,18 @@ public class GameManager : MonoBehaviour
     [SerializeField]  public MenuManager menuManager;
 
     // States
-    [SerializeField] private bool gameIsActive = true;
+    [SerializeField] private bool _gameIsActive = true;
 
     private void Start()
     {
         // If its the start scene, welcome the user instantly with the main menu
         if (SceneManager.GetActiveScene().name == "StartScene")
         {
-            gameIsActive = false;
+            _gameIsActive = false;
             menuManager.OpenMainMenu();  
         } else
         {
-            gameIsActive = true;
+            _gameIsActive = true;
         }
     }
     
@@ -26,21 +26,21 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("TestScenePlayerMovement");
-        gameIsActive = true;
+        _gameIsActive = true;
     }
 
     private void PauseGame()
     {
-        if (!gameIsActive) return;
-        gameIsActive = false;
+        if (!_gameIsActive) return;
+        _gameIsActive = false;
 
         menuManager.OpenInGameMenu();
     }
 
     private void ResumeGame()
     {
-        if (gameIsActive) return;
-        gameIsActive = true;
+        if (_gameIsActive) return;
+        _gameIsActive = true;
 
         menuManager.CloseInGameMenu();
     }
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     // Helper method for client code
     public void TogglePauseResumeGame() { 
 
-        if (gameIsActive)
+        if (_gameIsActive)
         {
             PauseGame();
         } else

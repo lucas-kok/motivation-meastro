@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using static UnityEngine.Rendering.DebugUI;
 
 public class InputManager : MonoBehaviour
 {
@@ -38,7 +34,7 @@ public class InputManager : MonoBehaviour
         // TODO: consider refactor: does a "PlayerMovement" really interact? 
         if (CheckInteractInput())
         {
-            playerMovement.Interact();
+            if (playerMovement != null) playerMovement.Interact();
         }
     }
 

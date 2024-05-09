@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DoorAnimationController : MonoBehaviour
 {
-    public Animator _animator;
+    public Animator Animator;
     private AppLogger _logger;
 
     private void Start()
@@ -14,7 +14,7 @@ public class DoorAnimationController : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            _animator.SetBool("OpenDoor", true);
+            Animator.SetBool("OpenDoor", true);
         }
     }
 
@@ -22,7 +22,7 @@ public class DoorAnimationController : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            _animator.SetBool("OpenDoor", false);
+            Animator.SetBool("OpenDoor", false);
         }
     }
 }
