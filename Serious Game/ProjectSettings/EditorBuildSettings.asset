@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScenePlayerMovement.unity
     guid: b9766669fa8cd0c43a4d41ffc0c3f18d
+  - enabled: 1
+    path: Assets/Scenes/DecisionRoomScene.unity
+    guid: 51121c694a1625646a0b58121e8cd266
   m_configObjects: {}

@@ -28,7 +28,7 @@ public class GameManager : GenericSingleton<GameManager>
 
     public void StartGame()
     {
-        SceneManager.LoadScene("FirstScene");
+        SceneManager.LoadScene("DecisionRoomScene");
         gameIsActive = true;
         menuManager.CloseMenu();
     }
@@ -55,7 +55,7 @@ public class GameManager : GenericSingleton<GameManager>
 
     public void ToggleMenu()
     {
-        if (menuManager is null)
+        if (menuManager == null)
         { 
             Debug.Log("You didn't start the game from the MainMenuScene.");
             Debug.LogError("Start from the MainMenuScene if you want to have a menu later on...");

@@ -1,18 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
-using static UnityEngine.Rendering.DebugUI;
 
 public class InputManager : MonoBehaviour
 {
     // Action controllers, managers et cetera
     public PlayerMovement playerMovement;
     private GameManager gameManagerInstance;
-
-    // Events
-    public UnityEvent OnToggleMenu;
 
     // Input types
     public enum InputType { Keyboard, Controller }
@@ -31,7 +23,9 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-        gameManagerInstance = FindFirstObjectByType<GameManager>();
+        // TODO: bug: singleton doesn't work, new instances are made if gamemanager prefab is dragged into a scene
+        var gameManagers = FindObjectsOfType<GameManager>();
+        gameManagerInstance = gameManagers[gameManagers.Length - 1];
     }
 
     private void Update()
