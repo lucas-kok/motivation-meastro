@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] public float speed;
     [SerializeField] public InputManager inputManager;
-    [SerializeField] public TrailRenderer tr;
+    [SerializeField] public ParticleSystem dustParticle;
     [SerializeField] public float dashingPower = 0.075f;
     [SerializeField] public float dashingTime = 0.2f;
     [SerializeField] public float dashingCooldown = 1f;
@@ -25,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
-        tr.emitting = false;
     }
 
     void Update()
@@ -67,11 +66,10 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(movementInput.x * dashingPower, movementInput.y * dashingPower);
         }
 
-       
-        tr.emitting = true;
-        
+
+        dustParticle.Play();
+
         yield return new WaitForSeconds(dashingTime);
-        tr.emitting = false;
         isDashing = false;
 
         yield return new WaitForSeconds(dashingCooldown);
