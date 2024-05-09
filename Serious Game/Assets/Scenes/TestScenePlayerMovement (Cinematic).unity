@@ -152,14 +152,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c0ed2a0fd4a5c40af225c0531a1f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovement: {fileID: 0}
+  OnTogglePauseResumeGame:
+    m_PersistentCalls:
+      m_Calls: []
   inputType: 0
   left: 97
   right: 100
   up: 119
   down: 115
   dash: 304
-  pause: 27
-  submit: 13
+  pauseOrResume: 27
+  interact: 13
 --- !u!4 &153192427
 Transform:
   m_ObjectHideFlags: 0
