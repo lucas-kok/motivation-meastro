@@ -1,52 +1,106 @@
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : GenericSingleton<GameManager>
+public class GameManager : MonoBehaviour
 {
-    public MenuManager menuManager;
+    public MenuManager MenuManager;
+    public LevelLoadingAnimationController LevelLoadingAnimationController; // Link this object in the scene to get level animations
+    public PlayerManager PlayerManager;
 
     // States
-    private bool gameIsActive;
+    private bool _gameIsActive;
+    private CoroutineUtility _coroutineUtility;
+    private AppLogger _logger;
 
     private void Start()
     {
         if (CheckIsMainMenuScene() is true)
         {
-            gameIsActive = false;
-        }
-        else
+            _gameIsActive = false;
+            MenuManager.OpenMenu(true);  
+        } else
         {
-            gameIsActive = true;
+            _gameIsActive = true;
         }
+
+        _logger = AppLogger.Instance;
+        _coroutineUtility = CoroutineUtility.Instance;
+
+        PlayLevelLoadingAnimation();
     }
 
     public void GoToMainMenuScene()
     {
         SceneManager.LoadScene("MainMenuScene");
-        gameIsActive = false;
+        _gameIsActive = false;
     }
 
     public void StartGame()
     {
+        InitializePlayerDecisions();
+        
         SceneManager.LoadScene("DecisionRoomScene");
-        gameIsActive = true;
-        menuManager.CloseMenu();
+        _gameIsActive = true;
+
+        MenuManager.CloseMenu();
+    }
+    
+    public async void StartNextScene()
+    {
+        if (LevelLoadingAnimationController != null && PlayerManager != null && _coroutineUtility != null)
+        {
+            PlayerManager.SetCanMove(false);
+            await _coroutineUtility.RunCoroutineAndWait(LevelLoadingAnimationController, "PlayExitLevelAnimation");
+        }
+    }
+
+    public async void RestartScene()
+    {
+        if (LevelLoadingAnimationController != null && _coroutineUtility != null)
+        {
+            await _coroutineUtility.RunCoroutineAndWait(LevelLoadingAnimationController, "PlayExitLevelAnimation");
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayLevelLoadingAnimation();
+    }
+
+    public async void PlayLevelLoadingAnimation()
+    {
+        if (LevelLoadingAnimationController == null)
+        {
+            return;
+        }
+        
+        LevelLoadingAnimationController.Initialize();
+        if (PlayerManager != null) PlayerManager.SetCanMove(false);
+        await _coroutineUtility.RunCoroutineAndWait(LevelLoadingAnimationController, "PlayLoadLevelAnimation");
+        if (PlayerManager != null) PlayerManager.SetCanMove(true);
+    }
+
+    public void InitializePlayerDecisions()
+    {
+        var filePath = "Assets/Data/PlayerScenarios.json";
+        var emptyJsonData = JsonUtility.ToJson(new List<ScenarioRecord>());
+        File.WriteAllText(filePath, emptyJsonData);
     }
 
     public void PauseGame()
     {
-        if (!gameIsActive) return;
-        gameIsActive = false;
+        if (!_gameIsActive) return;
+        _gameIsActive = false;
 
-        menuManager.OpenMenu(CheckIsMainMenuScene());
+        MenuManager.OpenMenu(CheckIsMainMenuScene());
     }
 
     public void ResumeGame()
     {
-        if (gameIsActive) return;
-        gameIsActive = true;
+        if (_gameIsActive) return;
+        _gameIsActive = true;
 
-        menuManager.CloseMenu();
+        MenuManager.CloseMenu();
     }
     public void QuitGame()
     {
@@ -55,14 +109,14 @@ public class GameManager : GenericSingleton<GameManager>
 
     public void ToggleMenu()
     {
-        if (menuManager == null)
+        if (MenuManager == null)
         { 
             Debug.Log("You didn't start the game from the MainMenuScene.");
             Debug.LogError("Start from the MainMenuScene if you want to have a menu later on...");
             return; 
         }
 
-        if (gameIsActive)
+        if (_gameIsActive)
         {
             PauseGame();
         }
@@ -72,5 +126,5 @@ public class GameManager : GenericSingleton<GameManager>
         }
     }
 
-    private bool CheckIsMainMenuScene() => gameIsActive = SceneManager.GetActiveScene().name == "MainMenuScene";
+    private bool CheckIsMainMenuScene() => _gameIsActive = SceneManager.GetActiveScene().name == "MainMenuScene";
 }

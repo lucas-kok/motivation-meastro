@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
     // Dash states
     private bool canDash = true;
     private bool isDashing = false;
+    private IInteractableBehaviour _interactableBehaviour;
+    private AppLogger _logger;
+
+    private bool _canMove = true;
 
     [SerializeField] public float speed;
     [SerializeField] public InputManager inputManager;
@@ -18,13 +22,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        _logger = AppLogger.Instance;
+
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
     }
 
     public void Move(Vector2 movementInput)
     {
-        if (isDashing)
+        if (!_canMove || isDashing)
         {
             return;
         }
@@ -41,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator Dash(Vector2 movementInput)
     {
         // Check on dashing state
-        if (isDashing || !canDash)
+        if (!_canMove || isDashing || !canDash)
         {
             yield break;
         }
@@ -66,8 +72,32 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
     }
 
+    public void SetInteractableBehaviour(IInteractableBehaviour interactableBehaviour)
+    {
+        _interactableBehaviour = interactableBehaviour;
+        _logger.LogInfo("Setting Interactable Behaviour", this);
+    }
+    
     public void Interact()
     {
-        // Let the player interact 
+        if (_interactableBehaviour != null)
+        {
+            _interactableBehaviour.Interact();
+        }
+    }
+
+    public void SetCanMove(bool canMove)
+    {
+        if (!canMove && rb != null)
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+        _canMove = canMove;
+    }
+
+    public bool GetCanMove()
+    {
+        return _canMove;
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Door1
   - Door2
+  - Object
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Post Processing
+  - Mask Layer
   - 
   - 
   - 

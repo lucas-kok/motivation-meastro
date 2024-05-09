@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
 
         if (CheckInteractInput())
         {
-            playerMovement.Interact();
+            if (playerMovement != null) playerMovement.Interact();
         }
     }
 
