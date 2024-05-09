@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -15}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0.0014877, y: -40.171}
+  m_SizeDelta: {x: 398.45, y: 80.341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8765351850290023377
 CanvasRenderer:
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -170,8 +170,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -15.0000305}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -0.0000000038999133, y: -40.1705}
+  m_SizeDelta: {x: 398.45, y: 80.341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &465975658509990203
 CanvasRenderer:
@@ -285,11 +285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3171992686242260358, guid: 3b1390df67d40c048b4f9d2f53c39fec, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3171992686242260358, guid: 3b1390df67d40c048b4f9d2f53c39fec, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3171992686242260358, guid: 3b1390df67d40c048b4f9d2f53c39fec, type: 3}
       propertyPath: m_AnchorMin.x
@@ -301,11 +301,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3171992686242260358, guid: 3b1390df67d40c048b4f9d2f53c39fec, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1820
+      value: 1908.1582
       objectReference: {fileID: 0}
     - target: {fileID: 3171992686242260358, guid: 3b1390df67d40c048b4f9d2f53c39fec, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 980
+      value: 867.522
       objectReference: {fileID: 0}
     - target: {fileID: 3171992686242260358, guid: 3b1390df67d40c048b4f9d2f53c39fec, type: 3}
       propertyPath: m_LocalPosition.x

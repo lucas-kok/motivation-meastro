@@ -19,7 +19,15 @@ public class MenuManager : MonoBehaviour
     public UnityEvent OnStartGameEvent;
     public UnityEvent OnResumeGameEvent;
     public UnityEvent OnQuitGameEvent;
-    
+
+    private void Start()
+    {
+        if (UI == null)
+        {
+            UI = GetComponent<Canvas>();
+        }
+    }
+
     // Open and close menus 
     public void OpenMainMenu()
     {
@@ -28,17 +36,17 @@ public class MenuManager : MonoBehaviour
 
     public void CloseMainMenu()
     {
-        Destroy(_mainMenuInstance);
+        Destroy(UI);
     }
 
     public void OpenInGameMenu()
     {
-        _inGameMenuInstance = Instantiate(InGameMenuPrefab, UI.transform);
+        Instantiate(UI);
     }
 
     public void CloseInGameMenu()
     {
-        Destroy(_inGameMenuInstance);
+        Destroy(UI);
     }
 
     // Button click events
