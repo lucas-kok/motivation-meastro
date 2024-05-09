@@ -57,10 +57,6 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(movementInput.x * dashingPower, movementInput.y * dashingPower);
         }
 
-        Debug.Log(rb.velocity);
-
-        Debug.Log("Dashing activated");
-
         dustParticle.Play();
 
         yield return new WaitForSeconds(dashingTime);
