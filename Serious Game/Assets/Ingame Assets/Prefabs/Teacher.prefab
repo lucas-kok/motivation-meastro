@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5400641233567744322}
   - component: {fileID: 3890366308571164505}
   - component: {fileID: 417151523478491682}
-  - component: {fileID: 7757762776031770626}
   - component: {fileID: 2353158795609980032}
   - component: {fileID: 9220655830165324374}
   m_Layer: 0
@@ -143,21 +142,6 @@ MonoBehaviour:
   dashingPower: 0.03
   dashingTime: 0.2
   dashingCooldown: 1
---- !u!114 &7757762776031770626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 386825533968335583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8e6ae6bd0f01d44dab0d8677a9e897c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  secondsUntilAfk: 5
-  isAfk: 0
-  isIdleCoroutineRunning: 0
 --- !u!50 &2353158795609980032
 Rigidbody2D:
   serializedVersion: 4
