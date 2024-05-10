@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 232644188}
   - component: {fileID: 232644187}
   - component: {fileID: 232644186}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Floating Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -475,6 +475,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: DecisionTitle
       objectReference: {fileID: 0}
+    - target: {fileID: 7152871540565325308, guid: e8e702c3e4dc6194992717e17711fb85, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1143476059, guid: c030de19806ec0c42ba123b05003419c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -977,7 +981,7 @@ GameObject:
   - component: {fileID: 1238729803}
   - component: {fileID: 1238729802}
   - component: {fileID: 1238729804}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2288,7 +2292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1376852690}
   - component: {fileID: 1376852689}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2572,7 +2576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1553818128}
   - component: {fileID: 1553818129}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Wall Overlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2765,6 +2769,17 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 884650366}
+--- !u!114 &1823255654 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3793291351529128352, guid: 930c84e1e24c7c44d8a4fee10038f99d, type: 3}
+  m_PrefabInstance: {fileID: 2587093075124215855}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8867b9487b24bd40a66b838ec4874a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1849718517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6331197905189413608, guid: 5dec2d13413c33c44a0eb2fd263eab12, type: 3}
@@ -2781,7 +2796,7 @@ GameObject:
   - component: {fileID: 1932721203}
   - component: {fileID: 1932721205}
   - component: {fileID: 1932721204}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3929,7 +3944,7 @@ GameObject:
   - component: {fileID: 2012165928}
   - component: {fileID: 2012165931}
   - component: {fileID: 2012165930}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Objects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4422,6 +4437,10 @@ PrefabInstance:
       propertyPath: SceneManager
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5461504344707685754, guid: 612be868b233e674c968d466d6426ea7, type: 3}
+      propertyPath: levelLoadingManager
+      value: 
+      objectReference: {fileID: 1823255654}
     - target: {fileID: 7770866663987276913, guid: 612be868b233e674c968d466d6426ea7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4581,7 +4600,7 @@ GameObject:
   - component: {fileID: 2097577709}
   - component: {fileID: 2097577711}
   - component: {fileID: 2097577710}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Floor (Hallway)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5827,6 +5846,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3793291351529128352, guid: 930c84e1e24c7c44d8a4fee10038f99d, type: 3}
+      propertyPath: vignetteMoveSeed
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793291351529128352, guid: 930c84e1e24c7c44d8a4fee10038f99d, type: 3}
+      propertyPath: vignetteIntensitySpeed
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 7228528298510843915, guid: 930c84e1e24c7c44d8a4fee10038f99d, type: 3}
       propertyPath: m_Name
       value: Box Volume

@@ -11,8 +11,6 @@ public class DoorEntryTrigger : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        _logger.LogInfo(col.gameObject.name, this);
-        _logger.LogInfo(gameObject.tag, this);
         if (col.gameObject.tag == "Player")
         {
             if (gameObject.tag == "Door1")

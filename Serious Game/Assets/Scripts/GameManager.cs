@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : GenericSingleton<GameManager>
 {
     public MenuManager menuManager;
+    public LevelLoadingManager levelLoadingManager; // Link this object in the scene to get level animations
 
     // States
     private bool _gameIsActive;
@@ -17,6 +18,12 @@ public class GameManager : GenericSingleton<GameManager>
         } else
         {
             _gameIsActive = true;
+        }
+
+        if (levelLoadingManager != null)
+        {
+            levelLoadingManager.Initialize();
+            levelLoadingManager.PlayLoadLevelAnimation();
         }
     }
 
@@ -33,6 +40,8 @@ public class GameManager : GenericSingleton<GameManager>
 
         menuManager.CloseMenu();
     }
+
+    
 
     public void PauseGame()
     {

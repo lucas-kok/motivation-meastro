@@ -38,7 +38,6 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
         }
 
         enterKeypressHintUI.SetActive(true);
-        _logger.LogInfo("Showing press enter", this);
         playerManager.SetInteractableBehaviour(this);
         _canMakeDecision = true;
     }
@@ -46,7 +45,6 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
     public void HidePressEnterButtonUI()
     {
         enterKeypressHintUI.SetActive(false);
-        _logger.LogInfo("Hiding press enter", this);
         _canMakeDecision = false;
     }
 

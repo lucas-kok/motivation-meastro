@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8358622576765893434}
   - component: {fileID: 8692788511802794847}
   - component: {fileID: 6106840158454841922}
+  - component: {fileID: 3793291351529128352}
   m_Layer: 0
   m_Name: Box Volume
   m_TagString: Untagged
@@ -71,3 +72,17 @@ MonoBehaviour:
   blendDistance: 10
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 3a24e9f8649f46646ad95ed4075696cc, type: 2}
+--- !u!114 &3793291351529128352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7228528298510843915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8867b9487b24bd40a66b838ec4874a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VignetteAnimationSpeed: 0.5
+  volume: {fileID: 6106840158454841922}

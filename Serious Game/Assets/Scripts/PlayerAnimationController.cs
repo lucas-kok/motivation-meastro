@@ -4,11 +4,11 @@ using UnityEngine;
 public class PlayerAnimationController : MonoBehaviour
 {
     private AppLogger _logger;
-    private Animator animator;
+    private Animator _animator;
 
     public int secondsUntilAfk = 5;
-    public bool isAfk = false;
-    public bool isIdleCoroutineRunning = false;
+    private bool _isAfk = false;
+    private bool _isIdleCoroutineRunning = false;
 
     // Coroutine reference
     private Coroutine idleTimerCoroutine;
@@ -16,7 +16,7 @@ public class PlayerAnimationController : MonoBehaviour
     void Start()
     {
         _logger = AppLogger.Instance;
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -27,8 +27,8 @@ public class PlayerAnimationController : MonoBehaviour
 
         if (movement != Vector2.zero)
         {
-            isAfk = false;
-            if (isIdleCoroutineRunning)
+            _isAfk = false;
+            if (_isIdleCoroutineRunning)
             {
                 // Properly stop the running coroutine
                 if (idleTimerCoroutine != null)
@@ -36,20 +36,20 @@ public class PlayerAnimationController : MonoBehaviour
                     StopCoroutine(idleTimerCoroutine);
                     idleTimerCoroutine = null;
                 }
-                
-                isIdleCoroutineRunning = false;
+
+                _isIdleCoroutineRunning = false;
             }
 
-            animator.SetFloat("VelocityX", moveX);
-            animator.SetFloat("VelocityY", moveY);
-            animator.SetBool("IsAfk", false);
-            animator.SetBool("IsIdle", false);
+            _animator.SetFloat("VelocityX", moveX);
+            _animator.SetFloat("VelocityY", moveY);
+            _animator.SetBool("IsAfk", false);
+            _animator.SetBool("IsIdle", false);
         }
         else
         {
-            animator.SetBool("IsIdle", true);
+            _animator.SetBool("IsIdle", true);
 
-            if (!isIdleCoroutineRunning && !isAfk)
+            if (!_isIdleCoroutineRunning && !_isAfk)
             {
                 idleTimerCoroutine = StartCoroutine(IdleTimerCoroutine());
             }
@@ -58,28 +58,28 @@ public class PlayerAnimationController : MonoBehaviour
 
     private IEnumerator IdleTimerCoroutine()
     {
-        isIdleCoroutineRunning = true;
+        _isIdleCoroutineRunning = true;
 
         yield return new WaitForSeconds(secondsUntilAfk);
         PlayAfkAnimation();
 
-        isAfk = true;
-        isIdleCoroutineRunning = false;
+        _isAfk = true;
+        _isIdleCoroutineRunning = false;
         idleTimerCoroutine = null;
     }
 
     public void PlayAfkAnimation()
     {
-        animator.SetBool("IsAfk", true);
+        _animator.SetBool("IsAfk", true);
     }
 
     public void PlayHurtAnimation()
     {
-        animator.Play("Hurt");
+        _animator.Play("Hurt");
     }
 
     public void PlayHitAnimation()
     {
-        animator.Play("Hit");
+        _animator.Play("Hit");
     }
 }

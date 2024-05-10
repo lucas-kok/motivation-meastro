@@ -14,7 +14,6 @@ public class DecisionColliderDetector : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            _logger.LogInfo("Showing press enter", this);
             decisionManager.ShowPressEnterButtonUI();
         }
     }
@@ -23,7 +22,6 @@ public class DecisionColliderDetector : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
         {
-            _logger.LogInfo("Hiding press enter", this);
             decisionManager.HidePressEnterButtonUI();
             decisionManager.HideDecisions();
         }
