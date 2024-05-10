@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     // Dash states
     private bool canDash = true;
     private bool isDashing = false;
+    private IInteractableBehaviour _interactableBehaviour;
+    private AppLogger _logger;
 
     [SerializeField] public float speed;
     [SerializeField] public InputManager inputManager;
@@ -18,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        _logger = AppLogger.Instance;
+
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
     }
@@ -66,8 +70,17 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
     }
 
+    public void SetInteractableBehaviour(IInteractableBehaviour interactableBehaviour)
+    {
+        _interactableBehaviour = interactableBehaviour;
+        _logger.LogInfo("Setting Interactable Behaviour", this);
+    }
+    
     public void Interact()
     {
-        // Let the player interact 
+        if (_interactableBehaviour != null)
+        {
+            _interactableBehaviour.Interact();
+        }
     }
 }

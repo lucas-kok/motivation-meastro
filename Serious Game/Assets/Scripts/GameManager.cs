@@ -13,10 +13,10 @@ public class GameManager : GenericSingleton<GameManager>
         if (CheckIsMainMenuScene() is true)
         {
             gameIsActive = false;
-        }
-        else
+            menuManager.OpenMainMenu();  
+        } else
         {
-            gameIsActive = true;
+            _gameIsActive = true;
         }
     }
 
@@ -28,23 +28,22 @@ public class GameManager : GenericSingleton<GameManager>
 
     public void StartGame()
     {
-        SceneManager.LoadScene("DecisionRoomScene");
+        SceneManager.LoadScene("TestScenePlayerMovement");
         gameIsActive = true;
-        menuManager.CloseMenu();
     }
 
     public void PauseGame()
     {
-        if (!gameIsActive) return;
-        gameIsActive = false;
+        if (!_gameIsActive) return;
+        _gameIsActive = false;
 
         menuManager.OpenMenu(CheckIsMainMenuScene());
     }
 
     public void ResumeGame()
     {
-        if (gameIsActive) return;
-        gameIsActive = true;
+        if (_gameIsActive) return;
+        _gameIsActive = true;
 
         menuManager.CloseMenu();
     }
@@ -62,7 +61,7 @@ public class GameManager : GenericSingleton<GameManager>
             return; 
         }
 
-        if (gameIsActive)
+        if (_gameIsActive)
         {
             PauseGame();
         }
