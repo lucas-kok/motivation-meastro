@@ -20,19 +20,11 @@ public class MenuManager : GenericSingleton<MenuManager>
 
     public void OpenMenu(bool isMainMenu)
     {
-        if (isMainMenu)
-        {
-            startButton.gameObject.SetActive(true);
-            resumeButton.gameObject.SetActive(false);
-        } else
-        {
-            resumeButton.gameObject.SetActive(true);
-            startButton.gameObject.SetActive(false);
-        }
+        startButton.gameObject.SetActive(isMainMenu);
+        resumeButton.gameObject.SetActive(!isMainMenu);
 
         menu.SetActive(true);
     }
-
 
     public void CloseMenu()
     {
