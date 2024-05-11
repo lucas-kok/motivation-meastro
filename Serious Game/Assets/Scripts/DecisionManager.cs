@@ -27,8 +27,8 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
 
     void Start()
     {
-        EnterKeypressHintUI.SetActive(false);
-        DecisionsPanelsUI.SetActive(false);
+        if (EnterKeypressHintUI != null) EnterKeypressHintUI.SetActive(false);
+        if (DecisionsPanelsUI != null) DecisionsPanelsUI.SetActive(false);
 
         _logger = AppLogger.Instance;
 
@@ -116,19 +116,28 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
         File.WriteAllText(filePath, newJsonData);
     }
 
-    private List<Scenario> LoadScenariosAndDecisions()
+    private List<ScenarioRecord> GetPlayerScenarioRecords()
     {
         var decisionsFilePath = "Assets/Data/PlayerScenarios.json";
-        var completedTitles = new HashSet<string>();
-        
+
         if (File.Exists(decisionsFilePath))
         {
             var jsonData = File.ReadAllText(decisionsFilePath);
             var scenarioRecords = JsonUtility.FromJson<ScenarioRecordsWrapper>(jsonData) ?? new ScenarioRecordsWrapper();
-            foreach (var record in scenarioRecords.ScenarioRecords)
-            {
-                completedTitles.Add(record.Title);
-            }
+
+            return scenarioRecords.ScenarioRecords;
+        }
+
+        return new List<ScenarioRecord>();
+    }
+
+    private List<Scenario> LoadScenariosAndDecisions()
+    {
+        var completedTitles = new HashSet<string>();
+        var scenarioRecords = GetPlayerScenarioRecords();
+        foreach (var record in scenarioRecords)
+        {
+            completedTitles.Add(record.Title);
         }
 
         var filePath = "Assets/Data/ScenariosDecisions.csv";
@@ -155,6 +164,11 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
 
     private void SetNewScenarioAndDecisions()
     {
+        if (ScenarioPanelUI == null || FirstDecisionPanel == null || SecondDecisionPanel == null)
+        {
+            return;
+        }
+        
         List<Scenario> availableScenarios = _scenarios.Where(scenario => !scenario.IsCompleted).ToList();
 
         if (availableScenarios.Count == 0)
