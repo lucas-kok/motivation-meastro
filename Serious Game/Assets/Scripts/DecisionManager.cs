@@ -11,8 +11,8 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
     // UI
     public GameObject enterKeypressHintUI;
     public GameObject decisionsPanelsUI;
-    public GameObject leftDecisionPanel;
-    public GameObject rightDecisionPanel;
+    public GameObject firstDecisionPanel;
+    public GameObject secondDecisionPanel;
 
     public PlayerManager playerManager;
 
@@ -64,6 +64,16 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
         _isReadingDecisions = false;
     }
 
+    public void ChooseFirstDecision()
+    {
+
+    }
+
+    public void ChooseSecondDecision()
+    {
+
+    }
+
     public void Interact()
     {
         if (!_canMakeDecision)
@@ -72,6 +82,11 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
         }
 
         ShowDecisions();
+    }
+
+    private void SaveScenarioWithDecision()
+    {
+
     }
 
     private List<Scenario> LoadScenariosAndDecisions()
@@ -100,23 +115,23 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
     {
         if (_currentScenario >= scenarios.Count)
         {
-            Debug.LogError("No more scenarios to show");
+            _logger.LogError("No more scenarios to show", this);
             return;
         }
+        
+        var scenario = scenarios[_currentScenario];
 
-        Scenario scenario = scenarios[_currentScenario];
+        bool leftDecisionIsRight = Random.Range(0, 2) == 0;
 
-        bool makeLeftPanelTheCorrectDecisionRNG = Random.Range(0, 2) == 0;
-
-        var leftDecisionPanelScenario = makeLeftPanelTheCorrectDecisionRNG ? scenario.CorrectDecision : scenario.IncorrectDecision;
-        var rightDecisionPanelScenario = makeLeftPanelTheCorrectDecisionRNG ? scenario.IncorrectDecision : scenario.CorrectDecision;
+        var firstDecisionPanelResult = leftDecisionIsRight ? scenario.CorrectDecision : scenario.IncorrectDecision;
+        var secondDecisionPanelResult = leftDecisionIsRight ? scenario.IncorrectDecision : scenario.CorrectDecision;
 
         // Set Panel object (view) data
-        leftDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = leftDecisionPanelScenario.title;
-        leftDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = leftDecisionPanelScenario.description;
+        firstDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = firstDecisionPanelResult.title;
+        firstDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = firstDecisionPanelResult.description;
 
-        rightDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = rightDecisionPanelScenario.title;
-        rightDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = rightDecisionPanelScenario.description;
+        secondDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = secondDecisionPanelResult.title;
+        secondDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = secondDecisionPanelResult.description;
 
         _currentScenario++;
     }
