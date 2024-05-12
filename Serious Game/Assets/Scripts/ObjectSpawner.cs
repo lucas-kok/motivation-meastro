@@ -4,6 +4,8 @@ public class Objectspawner : MonoBehaviour
 {
     public GameObject[] Objects;
     public GameObject ObjectContainer;
+    public PlayerManager PlayerManager;
+    
     public float SpawnInterval = 2.0f;
     public float LaunchForce = 10.0f;
 
@@ -16,6 +18,11 @@ public class Objectspawner : MonoBehaviour
 
     void Update()
     {
+        if (PlayerManager != null && !PlayerManager.CanMove)
+        {
+            return;
+        }
+        
         _timer -= Time.deltaTime;
         if (_timer <= 0)
         {

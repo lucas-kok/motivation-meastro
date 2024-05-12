@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class LevelLoadingManager : MonoBehaviour
+public class LevelLoadingAnimationController : MonoBehaviour
 {
     public float vignetteMoveSeed = 0.1f;
     public float vignetteIntensitySpeed = 0.5f;

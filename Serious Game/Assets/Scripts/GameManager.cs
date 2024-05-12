@@ -3,13 +3,15 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : GenericSingleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     public MenuManager MenuManager;
-    public LevelLoadingManager LevelLoadingManager; // Link this object in the scene to get level animations
+    public LevelLoadingAnimationController LevelLoadingAnimationController; // Link this object in the scene to get level animations
+    public PlayerManager PlayerManager;
 
     // States
     private bool _gameIsActive;
+    private CoroutineUtility _coroutineUtility;
     private AppLogger _logger;
 
     private void Start()
@@ -24,12 +26,9 @@ public class GameManager : GenericSingleton<GameManager>
         }
 
         _logger = AppLogger.Instance;
+        _coroutineUtility = CoroutineUtility.Instance;
 
-        if (LevelLoadingManager != null)
-        {
-            LevelLoadingManager.Initialize();
-            LevelLoadingManager.StartCoroutine("PlayLoadLevelAnimation");
-        }
+        PlayLevelLoadingAnimation();
     }
 
     public void GoToMainMenuScene()
@@ -47,15 +46,40 @@ public class GameManager : GenericSingleton<GameManager>
 
         MenuManager.CloseMenu();
     }
-
-    public void StartNextScene()
+    
+    public async void StartNextScene()
     {
-        if (LevelLoadingManager != null)
+        if (LevelLoadingAnimationController != null && PlayerManager != null && _coroutineUtility != null)
         {
-            LevelLoadingManager.StartCoroutine("PlayExitLevelAnimation");
+            PlayerManager.SetCanMove(false);
+            await _coroutineUtility.RunCoroutineAndWait(LevelLoadingAnimationController, "PlayExitLevelAnimation");
         }
     }
-    
+
+    public async void RestartScene()
+    {
+        if (LevelLoadingAnimationController != null && _coroutineUtility != null)
+        {
+            await _coroutineUtility.RunCoroutineAndWait(LevelLoadingAnimationController, "PlayExitLevelAnimation");
+        }
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        PlayLevelLoadingAnimation();
+    }
+
+    public async void PlayLevelLoadingAnimation()
+    {
+        if (LevelLoadingAnimationController == null)
+        {
+            return;
+        }
+        
+        LevelLoadingAnimationController.Initialize();
+        if (PlayerManager != null) PlayerManager.SetCanMove(false);
+        await _coroutineUtility.RunCoroutineAndWait(LevelLoadingAnimationController, "PlayLoadLevelAnimation");
+        if (PlayerManager != null) PlayerManager.SetCanMove(true);
+    }
+
     public void InitializePlayerDecisions()
     {
         var filePath = "Assets/Data/PlayerScenarios.json";

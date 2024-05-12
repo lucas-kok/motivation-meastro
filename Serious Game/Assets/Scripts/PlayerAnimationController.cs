@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
+    public PlayerManager PlayerManager;
     private AppLogger _logger;
     private Animator _animator;
 
@@ -21,6 +22,12 @@ public class PlayerAnimationController : MonoBehaviour
 
     void Update()
     {
+        if (PlayerManager != null && !PlayerManager.CanMove)
+        {
+            _animator.SetBool("IsIdle", true);
+            return;
+        }
+
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         Vector2 movement = new Vector2(moveX, moveY);
