@@ -6,8 +6,7 @@ TagManager:
   tags:
   - Door1
   - Door2
-  - DecisionTitle
-  - DecisionDescription
+  - Object
   layers:
   - Default
   - TransparentFX

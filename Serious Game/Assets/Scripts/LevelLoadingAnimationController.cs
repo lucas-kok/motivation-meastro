@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class LevelLoadingManager : MonoBehaviour
+public class LevelLoadingAnimationController : MonoBehaviour
 {
     public float vignetteMoveSeed = 0.1f;
     public float vignetteIntensitySpeed = 0.5f;
@@ -23,8 +23,6 @@ public class LevelLoadingManager : MonoBehaviour
         {
             _vignette.intensity.value = 1f;
             _vignette.center.value = new Vector2(0.5f, 1.5f);
-
-            StartCoroutine("PlayLoadLevelAnimation");
         }
         else
         {
@@ -34,6 +32,7 @@ public class LevelLoadingManager : MonoBehaviour
 
     public IEnumerator PlayLoadLevelAnimation()
     {
+        StopCoroutine("PlayExitLevelAnimation");
         if (_vignette == null) yield break;
 
         while (_vignette.center.value.y > 0.5f || _vignette.intensity.value > 0.25)
@@ -54,6 +53,7 @@ public class LevelLoadingManager : MonoBehaviour
 
     public IEnumerator PlayExitLevelAnimation()
     {
+        StopCoroutine("PlayLoadLevelAnimation");
         if (_vignette == null) yield break;
 
         while (_vignette.intensity.value < 1f || _vignette.center.value.y < 1.5f)

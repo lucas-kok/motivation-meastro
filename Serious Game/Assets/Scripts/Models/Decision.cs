@@ -1,5 +1,6 @@
+[System.Serializable]
 public class Decision
 {
-    public string title;
-    public string description;
+    public string Title;
+    public string Description;
 }

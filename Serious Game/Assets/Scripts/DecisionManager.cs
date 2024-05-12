@@ -1,18 +1,23 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableBehaviour
 {
     // Data
-    public List<Scenario> scenarios;
-    private int _currentScenario = 0; 
+    private List<Scenario> _scenarios;
+
+    private Scenario _currentScenario;
+    private Decision _leftDecision;
+    private Decision _rightDecision;
 
     // UI
-    public GameObject enterKeypressHintUI;
-    public GameObject decisionsPanelsUI;
-    public GameObject leftDecisionPanel;
-    public GameObject rightDecisionPanel;
+    public GameObject EnterKeypressHintUI;
+    public GameObject DecisionsPanelsUI;
+    public GameObject ScenarioPanelUI;
+    public GameObject FirstDecisionPanel;
+    public GameObject SecondDecisionPanel;
 
     public PlayerManager playerManager;
 
@@ -22,12 +27,13 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
 
     void Start()
     {
-        enterKeypressHintUI.SetActive(false);
-        decisionsPanelsUI.SetActive(false);
+        if (EnterKeypressHintUI != null) EnterKeypressHintUI.SetActive(false);
+        if (DecisionsPanelsUI != null) DecisionsPanelsUI.SetActive(false);
 
         _logger = AppLogger.Instance;
 
-        scenarios = LoadScenariosAndDecisions();
+        _scenarios = LoadScenariosAndDecisions();
+        SetNewScenarioAndDecisions();
     }
 
     public void ShowPressEnterButtonUI()
@@ -37,30 +43,27 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
             return;
         }
 
-        enterKeypressHintUI.SetActive(true);
+        EnterKeypressHintUI.SetActive(true);
         playerManager.SetInteractableBehaviour(this);
         _canMakeDecision = true;
     }
 
     public void HidePressEnterButtonUI()
     {
-        enterKeypressHintUI.SetActive(false);
+        EnterKeypressHintUI.SetActive(false);
         _canMakeDecision = false;
     }
 
-    public void ShowDecisions()
+    public void ShowScenarioAndDecisions()
     {
-        decisionsPanelsUI.SetActive(true);
+        DecisionsPanelsUI.SetActive(true);
         _isReadingDecisions = true;
         HidePressEnterButtonUI();
-
-        // temp 
-        ShowNextScenario();
     }
 
-    public void HideDecisions()
+    public void HideScenarioAndDecisions()
     {
-        decisionsPanelsUI.SetActive(false);
+        DecisionsPanelsUI.SetActive(false);
         _isReadingDecisions = false;
     }
 
@@ -71,53 +74,125 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
             return;
         }
 
-        ShowDecisions();
+        ShowScenarioAndDecisions();
+    }
+
+    public void ChooseLeftDecision()
+    {
+        RecordDecision(_leftDecision);
+    }
+
+    public void ChooseRightDecision()
+    {
+        RecordDecision(_rightDecision);
+    }
+
+    private void RecordDecision(Decision decision)
+    {
+        var filePath = "Assets/Data/PlayerScenarios.json";
+        var scenarioRecordsWrapper = new ScenarioRecordsWrapper();
+
+        if (File.Exists(filePath))
+        {
+            var jsonData = File.ReadAllText(filePath);
+            scenarioRecordsWrapper = JsonUtility.FromJson<ScenarioRecordsWrapper>(jsonData);
+            if (scenarioRecordsWrapper == null)
+            {
+                scenarioRecordsWrapper = new ScenarioRecordsWrapper();
+            }
+        }
+
+        var isCorrectDecision = _currentScenario.CorrectDecision == decision;
+        scenarioRecordsWrapper.ScenarioRecords.Add(new ScenarioRecord
+        {
+            Title = _currentScenario.Title,
+            Description = _currentScenario.Description,
+            ChosenDecision = decision,
+            PlayerHasChosenCorrectly = isCorrectDecision,
+            ReasonWhy = isCorrectDecision ? _currentScenario.ReasonWhyPlayerChoseCorrectly : _currentScenario.ReasonWhyPlayerChoseIncorrectly
+        });
+
+        var newJsonData = JsonUtility.ToJson(scenarioRecordsWrapper);
+        File.WriteAllText(filePath, newJsonData);
+    }
+
+    private List<ScenarioRecord> GetPlayerScenarioRecords()
+    {
+        var decisionsFilePath = "Assets/Data/PlayerScenarios.json";
+
+        if (File.Exists(decisionsFilePath))
+        {
+            var jsonData = File.ReadAllText(decisionsFilePath);
+            var scenarioRecords = JsonUtility.FromJson<ScenarioRecordsWrapper>(jsonData) ?? new ScenarioRecordsWrapper();
+
+            return scenarioRecords.ScenarioRecords;
+        }
+
+        return new List<ScenarioRecord>();
     }
 
     private List<Scenario> LoadScenariosAndDecisions()
     {
-        string filePath = "Assets/Data/ScenariosDecisions.csv";
-        string[] lines = File.ReadAllLines(filePath);
+        var completedTitles = new HashSet<string>();
+        var scenarioRecords = GetPlayerScenarioRecords();
+        foreach (var record in scenarioRecords)
+        {
+            completedTitles.Add(record.Title);
+        }
 
+        var filePath = "Assets/Data/ScenariosDecisions.csv";
+        var lines = File.ReadAllLines(filePath);
         var scenariosBuffer = new List<Scenario>();
 
-        //Parse SCV, load scenarios and decisions
         for (int i = 1; i < lines.Length; i++)
         {
-            string[] values = lines[i].Split(';');
-            var scenario = new Scenario() { title = values[0], description = values[1] };
-            scenario.CorrectDecision = new Decision() { title = values[2], description = values[3] };
-            scenario.IncorrectDecision = new Decision() { title = values[4], description = values[5] };
+            var values = lines[i].Split(';');
+            var scenario = new Scenario()
+            {
+                Title = values[0],
+                Description = values[1],
+                CorrectDecision = new Decision() { Title = values[2], Description = values[3] },
+                IncorrectDecision = new Decision() { Title = values[4], Description = values[5] },
+                IsCompleted = completedTitles.Contains(values[0])
+            };
 
             scenariosBuffer.Add(scenario);
-
         }
 
         return scenariosBuffer;
     }
 
-    private void ShowNextScenario()
+    private void SetNewScenarioAndDecisions()
     {
-        if (_currentScenario >= scenarios.Count)
+        if (ScenarioPanelUI == null || FirstDecisionPanel == null || SecondDecisionPanel == null)
         {
-            Debug.LogError("No more scenarios to show");
+            return;
+        }
+        
+        List<Scenario> availableScenarios = _scenarios.Where(scenario => !scenario.IsCompleted).ToList();
+
+        if (availableScenarios.Count == 0)
+        {
+            // Todo: End game
+            _logger.LogError("No more scenarios to show", this);
             return;
         }
 
-        Scenario scenario = scenarios[_currentScenario];
+        int randomIndex = Random.Range(0, availableScenarios.Count);
+        _currentScenario = availableScenarios[randomIndex];
 
-        bool makeLeftPanelTheCorrectDecisionRNG = Random.Range(0, 2) == 0;
+        bool leftDecisionIsRight = Random.Range(0, 2) == 0;
+        _leftDecision = leftDecisionIsRight ? _currentScenario.CorrectDecision : _currentScenario.IncorrectDecision;
+        _rightDecision = leftDecisionIsRight ? _currentScenario.IncorrectDecision : _currentScenario.CorrectDecision;
 
-        var leftDecisionPanelScenario = makeLeftPanelTheCorrectDecisionRNG ? scenario.CorrectDecision : scenario.IncorrectDecision;
-        var rightDecisionPanelScenario = makeLeftPanelTheCorrectDecisionRNG ? scenario.IncorrectDecision : scenario.CorrectDecision;
+        ScenarioPanelUI.transform.Find("Scenario Title").GetComponent<TMPro.TextMeshProUGUI>().text = _currentScenario.Title;
+        ScenarioPanelUI.transform.Find("Scenario Description").GetComponent<TMPro.TextMeshProUGUI>().text = _currentScenario.Description;
 
-        // Set Panel object (view) data
-        leftDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = leftDecisionPanelScenario.title;
-        leftDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = leftDecisionPanelScenario.description;
+        FirstDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = _leftDecision.Title;
+        FirstDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = _leftDecision.Description;
 
-        rightDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = rightDecisionPanelScenario.title;
-        rightDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = rightDecisionPanelScenario.description;
-
-        _currentScenario++;
+        SecondDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = _rightDecision.Title;
+        SecondDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = _rightDecision.Description;
     }
+
 }

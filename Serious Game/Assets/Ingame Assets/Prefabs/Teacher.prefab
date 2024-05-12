@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3890366308571164505}
   - component: {fileID: 417151523478491682}
   - component: {fileID: 6254199083388798693}
+  - component: {fileID: 5536002062049205804}
   - component: {fileID: 2353158795609980032}
   - component: {fileID: 9220655830165324374}
   m_Layer: 0
@@ -124,7 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b690511028a8e4d85fb90c5dadc17b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovement: {fileID: 417151523478491682}
+  GameManager: {fileID: 0}
+  PlayerMovement: {fileID: 417151523478491682}
+  PlayerHealth: {fileID: 5536002062049205804}
+  PlayerAnimationController: {fileID: 6254199083388798693}
 --- !u!114 &417151523478491682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,9 +159,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e6ae6bd0f01d44dab0d8677a9e897c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerManager: {fileID: 0}
   secondsUntilAfk: 5
-  isAfk: 0
-  isIdleCoroutineRunning: 0
+--- !u!114 &5536002062049205804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386825533968335583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05698e11aa898ca47bb3864a1c3e3e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HearthFull: {fileID: -1146291707, guid: 9662401c2a161b54eaa5623dcca77ddd, type: 3}
+  HearthEmpty: {fileID: 1352975553, guid: 9662401c2a161b54eaa5623dcca77ddd, type: 3}
+  HealthSprites: []
 --- !u!50 &2353158795609980032
 Rigidbody2D:
   serializedVersion: 4

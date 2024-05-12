@@ -1,10 +1,13 @@
 public class Scenario
 {
-    public string title;
-    public string description;
+    public string Title;
+    public string Description;
 
     public Decision CorrectDecision;
     public Decision IncorrectDecision;
 
-    public bool PlayerHasChosenCorrectly = false;   
+    public string ReasonWhyPlayerChoseCorrectly;
+    public string ReasonWhyPlayerChoseIncorrectly;
+
+    public bool IsCompleted;
 }

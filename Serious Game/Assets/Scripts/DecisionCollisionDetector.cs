@@ -23,7 +23,7 @@ public class DecisionColliderDetector : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             decisionManager.HidePressEnterButtonUI();
-            decisionManager.HideDecisions();
+            decisionManager.HideScenarioAndDecisions();
         }
     }
 }

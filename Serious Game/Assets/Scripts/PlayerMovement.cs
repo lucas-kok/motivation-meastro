@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     private IInteractableBehaviour _interactableBehaviour;
     private AppLogger _logger;
 
+    private bool _canMove = true;
+
     [SerializeField] public float speed;
     [SerializeField] public InputManager inputManager;
     [SerializeField] public ParticleSystem dustParticle;
@@ -28,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(Vector2 movementInput)
     {
-        if (isDashing)
+        if (!_canMove || isDashing)
         {
             return;
         }
@@ -45,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     public IEnumerator Dash(Vector2 movementInput)
     {
         // Check on dashing state
-        if (isDashing || !canDash)
+        if (!_canMove || isDashing || !canDash)
         {
             yield break;
         }
@@ -82,5 +84,20 @@ public class PlayerMovement : MonoBehaviour
         {
             _interactableBehaviour.Interact();
         }
+    }
+
+    public void SetCanMove(bool canMove)
+    {
+        if (!canMove)
+        {
+            rb.velocity = Vector2.zero;
+        }
+
+        _canMove = canMove;
+    }
+
+    public bool GetCanMove()
+    {
+        return _canMove;
     }
 }
