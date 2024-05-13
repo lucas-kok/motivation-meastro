@@ -2930,7 +2930,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fff0e2dd7d97e04ca0a9b32195e9e59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 5251234164910050345}
   menu: {fileID: 3789120857846753601}
   optionsPanel: {fileID: 1837535146}
   progressPanel: {fileID: 1724525060}

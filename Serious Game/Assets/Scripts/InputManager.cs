@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
-    // Action controllers, managers et cetera
+    // Managers
     public PlayerMovement playerMovement;
+
+    // Events
+    public UnityEvent OnToggleMenuKeyPressed; 
 
     // Input types
     public enum InputType { Keyboard, Controller }
@@ -24,7 +28,7 @@ public class InputManager : MonoBehaviour
     {
         if (CheckToggleMenuInput())
         {
-            gameManagerInstance.ToggleMenu();
+            OnToggleMenuKeyPressed.Invoke();
         }
 
         if (CheckInteractInput())

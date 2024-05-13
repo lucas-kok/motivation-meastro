@@ -32,12 +32,15 @@ public class GameManager : MonoBehaviour
             menuManager.OpenMenu(MenuType.MAIN_MENU);
         }
         else
-        {
+        { 
             _gameState.GameIsActive = true;
         }
 
         // For every scene, always execute starting animation
         PlayLevelLoadingAnimation();
+
+        // Dev warning 
+        Debug.LogWarning("IF YOU DIDNT START FROM MAINMENUSCENE: don't count on the gameloop to be working: 'Start game' has to be used from the main menu to start fresh!");
     }
 
     // Start game from main menu means a fresh start of the game 
@@ -67,9 +70,16 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void ToggleMenu()
+    public void TogglePauseResume()
     {
-
+        if (_gameState.GameIsActive)
+        {
+            PauseGame();
+        }
+        else
+        {
+            ResumeGame();
+        }
     }
 
     // When the players survives a challenge room
@@ -77,7 +87,7 @@ public class GameManager : MonoBehaviour
     {
         _gameState.IncrementPlayedChallengeRoomCount();
 
-        GoToNextRoom(_gameState.NextRoomShouldBeFinalRoom() ? SceneType.FINAL_ROOM_SCENE : SceneType.CHALLENGE_ROOM_SCENE);
+        GoToNextRoom(_gameState.NextRoomShouldBeFinalRoom() ? SceneType.FINAL_ROOM_SCENE : SceneType.DECISION_ROOM_SCENE);
     }
 
     // When the player made a decision
