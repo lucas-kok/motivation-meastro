@@ -20,10 +20,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // Assign singletons
         _logger = AppLogger.Instance;
         _coroutineUtility = CoroutineUtility.Instance;
         _gameState = GameState.Instance;
 
+        // If we are in the main menu scene, we should not start the game yet, instead open the main menu
         if (SceneManager.GetActiveScene().name.Equals(SceneType.MAIN_MENU_SCENE))
         {
             _gameState.GameIsActive = false;
@@ -34,8 +36,11 @@ public class GameManager : MonoBehaviour
             _gameState.GameIsActive = true;
         }
 
+        // For every scene, always execute starting animation
         PlayLevelLoadingAnimation();
     }
+
+    // Start game from main menu means a fresh start of the game 
     public void StartGame()
     {
         menuManager.CloseMenu();
@@ -44,6 +49,7 @@ public class GameManager : MonoBehaviour
         _gameState.Initialize();
         SceneManager.LoadScene(SceneType.DECISION_ROOM_SCENE.GetSceneName());
     }
+
     public void PauseGame()
     {
         _gameState.Pause();
@@ -54,6 +60,16 @@ public class GameManager : MonoBehaviour
     {
         _gameState.Resume();
         menuManager.CloseMenu();
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void ToggleMenu()
+    {
+
     }
 
     // When the players survives a challenge room
@@ -118,38 +134,5 @@ public class GameManager : MonoBehaviour
         if (playerManager != null) playerManager.SetCanMove(false);
         await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayLoadLevelAnimation");
         if (playerManager != null) playerManager.SetCanMove(true);
-    }
-
-    //public void PauseGame()
-    //{
-    //    if (!_gameIsActive) return;
-    //    _gameIsActive = false;
-
-    //    menuManager.OpenMenu(CheckIsMainMenuScene());
-    //}
-
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
-    public void ToggleMenu()
-    {
-        if (menuManager == null)
-        {
-            Debug.Log("You didn't start the game from the MainMenuScene.");
-            Debug.LogError("Start from the MainMenuScene if you want to have a menu later on...");
-            return;
-        }
-
-        //if (_gameIsActive)
-        //{
-        //    PauseGame();
-        //}
-        //else
-        //{
-        //    ResumeGame();
-        //}
     }
 }
