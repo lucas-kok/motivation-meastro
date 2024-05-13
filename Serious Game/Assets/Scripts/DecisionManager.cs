@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 
-public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableBehaviour
+public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 {
     // Data
     private List<Scenario> _scenarios;

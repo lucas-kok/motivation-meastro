@@ -12,22 +12,24 @@ public class DoorEntryTrigger : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag == "Player" && DecisionManager != null)
+   {
+        if (col.gameObject.tag == "Player")
         {
-            if (gameObject.tag == "Door1")
+            if (gameObject.CompareTag("ExitChallengeRoomDoor"))
             {
-                DecisionManager.ChooseLeftDecision();
+                GameManager.OnReachChallengeRoomExitDoor();
             }
-            else if (gameObject.tag == "Door2")
+            else if (gameObject.CompareTag("Door1"))
             {
-                DecisionManager.ChooseRightDecision();
+                //DecisionManager?.ChooseLeftDecision();
+                GameManager.OnReachDecisionRoomExitDoor();
+            }
+            else if (gameObject.CompareTag("Door2"))
+            {
+                //DecisionManager?.ChooseRightDecision();
+                GameManager.OnReachDecisionRoomExitDoor();
             }
 
-            if (GameManager != null)
-            {
-                GameManager.StartNextScene();
-            }
         }
     }
 }

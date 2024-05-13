@@ -1124,6 +1124,14 @@ PrefabInstance:
       propertyPath: menuManager
       value: 
       objectReference: {fileID: 3757874253590469474}
+    - target: {fileID: 5461504344707685754, guid: 612be868b233e674c968d466d6426ea7, type: 3}
+      propertyPath: PlayerManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5461504344707685754, guid: 612be868b233e674c968d466d6426ea7, type: 3}
+      propertyPath: LevelLoadingAnimationController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7770866663987276913, guid: 612be868b233e674c968d466d6426ea7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
