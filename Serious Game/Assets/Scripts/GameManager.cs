@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public MenuManager MenuManager;
-    public LevelLoadingAnimationController LevelLoadingAnimationController; // Link this object in the scene to get level animations
-    public PlayerManager PlayerManager;
+    public MenuManager menuManager;
+    public LevelLoadingAnimationController levelLoadingAnimationController; // Link this object in the scene to get level animations
+    public PlayerManager playerManager;
 
     // Scenes
     private static readonly string MAINMENUSCENE = "MainMenuScene";
@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
         if (CheckIsMainMenuScene() is true)
         {
             _gameIsActive = false;
-            MenuManager.OpenMenu(true);
-        }
+            menuManager.OpenMenu(true);  
+        } 
         else
         {
             _gameIsActive = true;
@@ -91,9 +91,9 @@ public class GameManager : MonoBehaviour
 
     public async void StartNextScene(string sceneName)
     {
-        if (LevelLoadingAnimationController != null && PlayerManager != null && _coroutineUtility != null)
+        if (levelLoadingAnimationController != null && playerManager != null && _coroutineUtility != null)
         {
-            PlayerManager.SetCanMove(false);
+            playerManager.SetCanMove(false);
             await _coroutineUtility.RunCoroutineAndWait(LevelLoadingAnimationController, "PlayExitLevelAnimation");
             SceneManager.LoadScene(sceneName);
         }
@@ -101,9 +101,9 @@ public class GameManager : MonoBehaviour
 
     public async void RestartScene()
     {
-        if (LevelLoadingAnimationController != null && _coroutineUtility != null)
+        if (levelLoadingAnimationController != null && _coroutineUtility != null)
         {
-            await _coroutineUtility.RunCoroutineAndWait(LevelLoadingAnimationController, "PlayExitLevelAnimation");
+            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
         }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -112,15 +112,15 @@ public class GameManager : MonoBehaviour
 
     public async void PlayLevelLoadingAnimation()
     {
-        if (LevelLoadingAnimationController == null)
+        if (levelLoadingAnimationController == null)
         {
             return;
         }
 
-        LevelLoadingAnimationController.Initialize();
-        if (PlayerManager != null) PlayerManager.SetCanMove(false);
-        await _coroutineUtility.RunCoroutineAndWait(LevelLoadingAnimationController, "PlayLoadLevelAnimation");
-        if (PlayerManager != null) PlayerManager.SetCanMove(true);
+        levelLoadingAnimationController.Initialize();
+        if (playerManager != null) playerManager.SetCanMove(false);
+        await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayLoadLevelAnimation");
+        if (playerManager != null) playerManager.SetCanMove(true);
     }
 
     public void InitializePlayerDecisions()
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
         if (!_gameIsActive) return;
         _gameIsActive = false;
 
-        MenuManager.OpenMenu(CheckIsMainMenuScene());
+        menuManager.OpenMenu(CheckIsMainMenuScene());
     }
 
     public void ResumeGame()
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
         if (_gameIsActive) return;
         _gameIsActive = true;
 
-        MenuManager.CloseMenu();
+        menuManager.CloseMenu();
     }
     public void QuitGame()
     {
@@ -152,8 +152,8 @@ public class GameManager : MonoBehaviour
 
     public void ToggleMenu()
     {
-        if (MenuManager == null)
-        {
+        if (menuManager == null)
+        { 
             Debug.Log("You didn't start the game from the MainMenuScene.");
             Debug.LogError("Start from the MainMenuScene if you want to have a menu later on...");
             return;

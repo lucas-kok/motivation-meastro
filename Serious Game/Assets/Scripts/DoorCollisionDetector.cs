@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class DoorEntryTrigger : MonoBehaviour
 {
-    public DecisionManager DecisionManager;
-    public GameManager GameManager;
+    public DecisionManager decisionManager;
+    public GameManager gameManager;
     private AppLogger _logger;
 
     private void Start()

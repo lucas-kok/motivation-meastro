@@ -13,11 +13,11 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
     private Decision _rightDecision;
 
     // UI
-    public GameObject EnterKeypressHintUI;
-    public GameObject DecisionsPanelsUI;
-    public GameObject ScenarioPanelUI;
-    public GameObject FirstDecisionPanel;
-    public GameObject SecondDecisionPanel;
+    public GameObject enterKeypressHintUI;
+    public GameObject decisionsPanelsUI;
+    public GameObject scenarioPanelUI;
+    public GameObject firstDecisionPanel;
+    public GameObject secondDecisionPanel;
 
     public PlayerManager playerManager;
 
@@ -27,8 +27,8 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 
     void Start()
     {
-        if (EnterKeypressHintUI != null) EnterKeypressHintUI.SetActive(false);
-        if (DecisionsPanelsUI != null) DecisionsPanelsUI.SetActive(false);
+        if (enterKeypressHintUI != null) enterKeypressHintUI.SetActive(false);
+        if (decisionsPanelsUI != null) decisionsPanelsUI.SetActive(false);
 
         _logger = AppLogger.Instance;
 
@@ -43,27 +43,27 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
             return;
         }
 
-        EnterKeypressHintUI.SetActive(true);
+        enterKeypressHintUI.SetActive(true);
         playerManager.SetInteractableBehaviour(this);
         _canMakeDecision = true;
     }
 
     public void HidePressEnterButtonUI()
     {
-        EnterKeypressHintUI.SetActive(false);
+        enterKeypressHintUI.SetActive(false);
         _canMakeDecision = false;
     }
 
     public void ShowScenarioAndDecisions()
     {
-        DecisionsPanelsUI.SetActive(true);
+        decisionsPanelsUI.SetActive(true);
         _isReadingDecisions = true;
         HidePressEnterButtonUI();
     }
 
     public void HideScenarioAndDecisions()
     {
-        DecisionsPanelsUI.SetActive(false);
+        decisionsPanelsUI.SetActive(false);
         _isReadingDecisions = false;
     }
 
@@ -153,8 +153,9 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
                 Description = values[1],
                 CorrectDecision = new Decision() { Title = values[2], Description = values[3] },
                 IncorrectDecision = new Decision() { Title = values[4], Description = values[5] },
-                IsCompleted = completedTitles.Contains(values[0])
-            };
+                IsCompleted = completedTitles.Contains(values[0]),
+                ReasonWhyPlayerChoseIncorrectly = values[6]
+        };
 
             scenariosBuffer.Add(scenario);
         }
@@ -164,7 +165,7 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 
     private void SetNewScenarioAndDecisions()
     {
-        if (ScenarioPanelUI == null || FirstDecisionPanel == null || SecondDecisionPanel == null)
+        if (scenarioPanelUI == null || firstDecisionPanel == null || secondDecisionPanel == null)
         {
             return;
         }
@@ -185,14 +186,14 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
         _leftDecision = leftDecisionIsRight ? _currentScenario.CorrectDecision : _currentScenario.IncorrectDecision;
         _rightDecision = leftDecisionIsRight ? _currentScenario.IncorrectDecision : _currentScenario.CorrectDecision;
 
-        ScenarioPanelUI.transform.Find("Scenario Title").GetComponent<TMPro.TextMeshProUGUI>().text = _currentScenario.Title;
-        ScenarioPanelUI.transform.Find("Scenario Description").GetComponent<TMPro.TextMeshProUGUI>().text = _currentScenario.Description;
+        scenarioPanelUI.transform.Find("Scenario Title").GetComponent<TMPro.TextMeshProUGUI>().text = _currentScenario.Title;
+        scenarioPanelUI.transform.Find("Scenario Description").GetComponent<TMPro.TextMeshProUGUI>().text = _currentScenario.Description;
 
-        FirstDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = _leftDecision.Title;
-        FirstDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = _leftDecision.Description;
+        firstDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = _leftDecision.Title;
+        firstDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = _leftDecision.Description;
 
-        SecondDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = _rightDecision.Title;
-        SecondDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = _rightDecision.Description;
+        secondDecisionPanel.transform.Find("Decision Title").GetComponent<TMPro.TextMeshProUGUI>().text = _rightDecision.Title;
+        secondDecisionPanel.transform.Find("Decision Description").GetComponent<TMPro.TextMeshProUGUI>().text = _rightDecision.Description;
     }
 
 }

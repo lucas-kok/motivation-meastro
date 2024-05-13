@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6254199083388798693}
   - component: {fileID: 5536002062049205804}
   - component: {fileID: 2353158795609980032}
-  - component: {fileID: 9220655830165324374}
+  - component: {fileID: 8377169388641397756}
   m_Layer: 0
   m_Name: Teacher
   m_TagString: Player
@@ -125,10 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b690511028a8e4d85fb90c5dadc17b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 0}
-  PlayerMovement: {fileID: 417151523478491682}
-  PlayerHealth: {fileID: 5536002062049205804}
-  PlayerAnimationController: {fileID: 6254199083388798693}
+  gameManager: {fileID: 0}
+  playerMovement: {fileID: 417151523478491682}
+  playerHealth: {fileID: 5536002062049205804}
+  playerAnimationController: {fileID: 6254199083388798693}
 --- !u!114 &417151523478491682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e6ae6bd0f01d44dab0d8677a9e897c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerManager: {fileID: 0}
+  playerManager: {fileID: 3890366308571164505}
   secondsUntilAfk: 5
 --- !u!114 &5536002062049205804
 MonoBehaviour:
@@ -173,9 +173,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05698e11aa898ca47bb3864a1c3e3e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HearthFull: {fileID: -1146291707, guid: 9662401c2a161b54eaa5623dcca77ddd, type: 3}
-  HearthEmpty: {fileID: 1352975553, guid: 9662401c2a161b54eaa5623dcca77ddd, type: 3}
-  HealthSprites: []
+  hearthFull: {fileID: -1146291707, guid: 9662401c2a161b54eaa5623dcca77ddd, type: 3}
+  hearthEmpty: {fileID: 1352975553, guid: 9662401c2a161b54eaa5623dcca77ddd, type: 3}
+  healthSprites: []
 --- !u!50 &2353158795609980032
 Rigidbody2D:
   serializedVersion: 4
@@ -203,8 +203,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &9220655830165324374
-BoxCollider2D:
+--- !u!58 &8377169388641397756
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -235,19 +235,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0038348883, y: -0.6704819}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
-    newSize: {x: 0.48093933, y: 0.9599999}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: -0.68}
   serializedVersion: 2
-  m_Size: {x: 0.6088394, y: 0.65903616}
-  m_EdgeRadius: 0
+  m_Radius: 0.3
 --- !u!1 &5751234099050628791
 GameObject:
   m_ObjectHideFlags: 0
