@@ -47,6 +47,11 @@ public class InputManager : MonoBehaviour
         {
             if (playerMovement != null) playerMovement.Interact();
         }
+
+        if (Input.GetKeyDown(pauseOrResume))
+        {
+            Application.Quit();
+        }
     }
 
     void FixedUpdate()

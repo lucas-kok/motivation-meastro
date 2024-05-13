@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenuScene.unity
     guid: 452ee5936961ec949ae8ace2bc1bf4bf
   - enabled: 1
-    path: Assets/Scenes/DecisionRoomScene.unity
-    guid: 51121c694a1625646a0b58121e8cd266
-  - enabled: 1
     path: Assets/Scenes/ChallengeRoomScene.unity
     guid: 955fb582e467c19499e91698271e5bc8
+  - enabled: 1
+    path: Assets/Scenes/DecisionRoomScene.unity
+    guid: 51121c694a1625646a0b58121e8cd266
   m_configObjects: {}
