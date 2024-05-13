@@ -3,12 +3,11 @@ using UnityEngine.UI;
 
 public class MenuManager : GenericSingleton<MenuManager>
 {
+    // UI 
     public Canvas ui;
     public GameObject menu;
-
     public GameObject optionsPanel;
     public GameObject progressPanel;
-
     public Button startButton;
     public Button resumeButton;
 
@@ -18,10 +17,10 @@ public class MenuManager : GenericSingleton<MenuManager>
         DontDestroyOnLoad(ui);
     }
 
-    public void OpenMenu(bool isMainMenu)
+    public void OpenMenu(MenuType type)
     {
-        startButton.gameObject.SetActive(isMainMenu);
-        resumeButton.gameObject.SetActive(!isMainMenu);
+        startButton.gameObject.SetActive(type is MenuType.MAIN_MENU);
+        resumeButton.gameObject.SetActive(type is MenuType.IN_GAME_MENU);
 
         menu.SetActive(true);
     }

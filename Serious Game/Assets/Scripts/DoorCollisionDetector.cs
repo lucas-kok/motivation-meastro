@@ -21,15 +21,15 @@ public class DoorEntryTrigger : MonoBehaviour
             }
             else if (gameObject.CompareTag("Door1"))
             {
-                //DecisionManager?.ChooseLeftDecision();
+                decisionManager.ChooseLeftDecision();
                 gameManager.OnReachDecisionRoomExitDoor();
+
             }
             else if (gameObject.CompareTag("Door2"))
             {
-                //DecisionManager?.ChooseRightDecision();
+                decisionManager.ChooseRightDecision();
                 gameManager.OnReachDecisionRoomExitDoor();
             }
-
         }
     }
 }
