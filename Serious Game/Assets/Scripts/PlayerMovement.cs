@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetCanMove(bool canMove)
     {
-        if (!canMove)
+        if (!canMove && rb != null)
         {
             rb.velocity = Vector2.zero;
         }
