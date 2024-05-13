@@ -2,34 +2,34 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public GameManager GameManager;
-    public PlayerMovement PlayerMovement;
-    public PlayerHealth PlayerHealth;
-    public PlayerAnimationController PlayerAnimationController;
+    public GameManager gameManager;
+    public PlayerMovement playerMovement;
+    public PlayerHealth playerHealth;
+    public PlayerAnimationController playerAnimationController;
 
     public bool CanMove
     {
-        get => PlayerMovement.GetCanMove();
+        get => playerMovement.GetCanMove();
     }
 
     public void SetInteractableBehaviour(IInteractableBehaviour interactableBehaviour)
     {
-        if (PlayerMovement != null)
+        if (playerMovement != null)
         {
-            PlayerMovement.SetInteractableBehaviour(interactableBehaviour);
+            playerMovement.SetInteractableBehaviour(interactableBehaviour);
         }
     }
 
     public void TakeDamage()
     {
-        if (PlayerHealth != null)
+        if (playerHealth != null)
         {
-            PlayerHealth.TakeDamage();
-            PlayerAnimationController.PlayHurtAnimation();
+            playerHealth.TakeDamage();
+            playerAnimationController.PlayHurtAnimation();
             
-            if (!PlayerHealth.IsAlive())
+            if (!playerHealth.IsAlive())
             {
-                GameManager.RestartScene();
+                gameManager.RestartScene();
                 SetCanMove(false);
             }
         }
@@ -37,17 +37,17 @@ public class PlayerManager : MonoBehaviour
 
     public void Heal()
     {
-        if (PlayerHealth != null)
+        if (playerHealth != null)
         {
-            PlayerHealth.Heal();
+            playerHealth.Heal();
         }
     }
 
     public void SetCanMove(bool canMove)
     {
-        if (PlayerMovement != null)
+        if (playerMovement != null)
         {
-            PlayerMovement.SetCanMove(canMove);
+            playerMovement.SetCanMove(canMove);
         }
     }
 }

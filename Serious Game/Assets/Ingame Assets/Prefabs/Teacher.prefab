@@ -125,10 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b690511028a8e4d85fb90c5dadc17b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 0}
-  PlayerMovement: {fileID: 417151523478491682}
-  PlayerHealth: {fileID: 5536002062049205804}
-  PlayerAnimationController: {fileID: 6254199083388798693}
+  gameManager: {fileID: 0}
+  playerMovement: {fileID: 417151523478491682}
+  playerHealth: {fileID: 5536002062049205804}
+  playerAnimationController: {fileID: 6254199083388798693}
 --- !u!114 &417151523478491682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e6ae6bd0f01d44dab0d8677a9e897c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerManager: {fileID: 0}
+  playerManager: {fileID: 3890366308571164505}
   secondsUntilAfk: 5
 --- !u!114 &5536002062049205804
 MonoBehaviour:
@@ -173,9 +173,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05698e11aa898ca47bb3864a1c3e3e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HearthFull: {fileID: -1146291707, guid: 9662401c2a161b54eaa5623dcca77ddd, type: 3}
-  HearthEmpty: {fileID: 1352975553, guid: 9662401c2a161b54eaa5623dcca77ddd, type: 3}
-  HealthSprites: []
+  hearthFull: {fileID: -1146291707, guid: 9662401c2a161b54eaa5623dcca77ddd, type: 3}
+  hearthEmpty: {fileID: 1352975553, guid: 9662401c2a161b54eaa5623dcca77ddd, type: 3}
+  healthSprites: []
 --- !u!50 &2353158795609980032
 Rigidbody2D:
   serializedVersion: 4
