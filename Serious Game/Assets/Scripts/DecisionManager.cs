@@ -153,8 +153,9 @@ public class DecisionManager : GenericSingleton<DecisionManager>, IInteractableB
                 Description = values[1],
                 CorrectDecision = new Decision() { Title = values[2], Description = values[3] },
                 IncorrectDecision = new Decision() { Title = values[4], Description = values[5] },
-                IsCompleted = completedTitles.Contains(values[0])
-            };
+                IsCompleted = completedTitles.Contains(values[0]),
+                ReasonWhyPlayerChoseIncorrectly = values[6]
+        };
 
             scenariosBuffer.Add(scenario);
         }
