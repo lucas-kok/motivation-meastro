@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Objectspawner : MonoBehaviour
 {
-    public GameObject[] Objects;
-    public GameObject ObjectContainer;
-    public PlayerManager PlayerManager;
+    public GameObject[] objects;
+    public GameObject objectContainer;
+    public PlayerManager playerManager;
     
     public float SpawnInterval = 2.0f;
     public float LaunchForce = 10.0f;
@@ -18,7 +18,7 @@ public class Objectspawner : MonoBehaviour
 
     void Update()
     {
-        if (PlayerManager != null && !PlayerManager.CanMove)
+        if (playerManager != null && !playerManager.CanMove)
         {
             return;
         }
@@ -33,15 +33,15 @@ public class Objectspawner : MonoBehaviour
 
     void SpawnAndLaunchObject()
     {
-        if (Objects.Length == 0) return;
+        if (objects.Length == 0) return;
 
         var spawnPosition = Camera.main.ViewportToWorldPoint(new Vector3(Random.value, 1.1f, 0));
 
         spawnPosition.z = 0;
 
-        var selectedObject = Objects[Random.Range(0, Objects.Length)];
+        var selectedObject = objects[Random.Range(0, objects.Length)];
         var spawnedObject = Instantiate(selectedObject, spawnPosition, Quaternion.identity);
-        spawnedObject.transform.SetParent(ObjectContainer.transform);
+        spawnedObject.transform.SetParent(objectContainer.transform);
 
         var rb = spawnedObject.GetComponent<Rigidbody2D>();
         if (rb == null)

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class DoorEntryTrigger : MonoBehaviour
 {
-    public DecisionManager DecisionManager;
-    public GameManager GameManager;
+    public DecisionManager decisionManager;
+    public GameManager gameManager;
     private AppLogger _logger;
 
     private void Start()
@@ -13,20 +13,20 @@ public class DoorEntryTrigger : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Player" && DecisionManager != null)
+        if (col.gameObject.tag == "Player" && decisionManager != null)
         {
             if (gameObject.tag == "Door1")
             {
-                DecisionManager.ChooseLeftDecision();
+                decisionManager.ChooseLeftDecision();
             }
             else if (gameObject.tag == "Door2")
             {
-                DecisionManager.ChooseRightDecision();
+                decisionManager.ChooseRightDecision();
             }
 
-            if (GameManager != null)
+            if (gameManager != null)
             {
-                GameManager.StartNextScene();
+                gameManager.StartNextScene();
             }
         }
     }
