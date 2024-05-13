@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    // Define a delegate that represents the signature of the methods that can handle the input event
+    public delegate void KeyAction(KeyCode key);
+
+    // Define an event based on that delegate
+    public event KeyAction OnKeyPress;
+    
     // Action controllers, managers et cetera
     public PlayerMovement playerMovement;
     private GameManager gameManagerInstance;
@@ -30,6 +36,8 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        EmitKeyPresses();
+        
         if (CheckToggleMenuInput())
         {
             gameManagerInstance.ToggleMenu();
@@ -83,5 +91,20 @@ public class InputManager : MonoBehaviour
     private bool CheckInteractInput()
     {
         return Input.GetKeyDown(interact);
+    }
+
+    // Emits pressed key
+    private void EmitKeyPresses()
+    {
+        if (Input.anyKeyDown)
+        {
+            foreach (KeyCode kcode in System.Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(kcode))
+                {
+                    OnKeyPress?.Invoke(kcode);
+                }
+            }
+        }
     }
 }
