@@ -77,9 +77,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ff0b8bdc0d833459ed0a0742c21521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Objects:
+  objects:
   - {fileID: 1004594582073447696, guid: ded56c26a506ccf43a278c1a632595d1, type: 3}
-  ObjectContainer: {fileID: 4686280567016752478}
+  objectContainer: {fileID: 0}
+  playerManager: {fileID: 0}
   SpawnInterval: 2
   LaunchForce: 10
 --- !u!1 &7401385912368274360

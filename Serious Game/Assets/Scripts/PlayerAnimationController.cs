@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    public PlayerManager PlayerManager;
+    public PlayerManager playerManager;
     private AppLogger _logger;
     private Animator _animator;
 
@@ -22,7 +22,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     void Update()
     {
-        if (PlayerManager != null && !PlayerManager.CanMove)
+        if (playerManager != null && !playerManager.CanMove)
         {
             _animator.SetBool("IsIdle", true);
             return;

@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5eb28ab69dd6544c825e29b5a03b352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Animator: {fileID: 5877342053510884844}
+  animator: {fileID: 5877342053510884844}
 --- !u!61 &813840695811780129
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -216,6 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dcdd986843e247468fc7fd5e7578410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  decisionManager: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!1 &5332720848588173230
 GameObject:
   m_ObjectHideFlags: 0
