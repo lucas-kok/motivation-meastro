@@ -15,13 +15,16 @@ public class DoorEntryTrigger : MonoBehaviour
     {
         if (col.gameObject.tag == "Player" && decisionManager != null)
         {
-            if (gameObject.tag == "Door1")
+            if (decisionManager != null)
             {
-                decisionManager.ChooseLeftDecision();
-            }
-            else if (gameObject.tag == "Door2")
-            {
-                decisionManager.ChooseRightDecision();
+                if (gameObject.tag == "Door1")
+                {
+                    decisionManager.ChooseLeftDecision();
+                }
+                else if (gameObject.tag == "Door2")
+                {
+                    decisionManager.ChooseRightDecision();
+                }
             }
 
             if (gameManager != null)
