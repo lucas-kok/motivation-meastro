@@ -716,8 +716,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2865100858995457263, guid: ca9bb0f8ace90204d8a413394daab6c2, type: 3}
       propertyPath: m_TagString
-      value: Door1
+      value: ExitChallengeRoomDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 3160066448305984270, guid: ca9bb0f8ace90204d8a413394daab6c2, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 101029093}
     - target: {fileID: 3338205307451135948, guid: ca9bb0f8ace90204d8a413394daab6c2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.5
@@ -3613,6 +3617,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3890455564548060593, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.7317315
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890455564548060593, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.105732
+      objectReference: {fileID: 0}
     - target: {fileID: 6765853854378940005, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_ChildCameras.Array.size
       value: 2
@@ -3627,7 +3639,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8713361544910885905, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: orthographic size
-      value: 4
+      value: 5.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

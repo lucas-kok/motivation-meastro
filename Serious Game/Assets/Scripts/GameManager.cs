@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     {
         // From menu to active
         _gameIsActive = true;
-        MenuManager.CloseMenu();
+        menuManager.CloseMenu();
 
         InitializePlayerDecisions();
 
@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         if (levelLoadingAnimationController != null && playerManager != null && _coroutineUtility != null)
         {
             playerManager.SetCanMove(false);
-            await _coroutineUtility.RunCoroutineAndWait(LevelLoadingAnimationController, "PlayExitLevelAnimation");
+            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
             SceneManager.LoadScene(sceneName);
         }
     }
