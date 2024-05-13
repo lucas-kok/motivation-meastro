@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6254199083388798693}
   - component: {fileID: 5536002062049205804}
   - component: {fileID: 2353158795609980032}
-  - component: {fileID: 9220655830165324374}
+  - component: {fileID: 8377169388641397756}
   m_Layer: 0
   m_Name: Teacher
   m_TagString: Player
@@ -203,8 +203,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &9220655830165324374
-BoxCollider2D:
+--- !u!58 &8377169388641397756
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -235,19 +235,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0038348883, y: -0.6704819}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
-    newSize: {x: 0.48093933, y: 0.9599999}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: -0.68}
   serializedVersion: 2
-  m_Size: {x: 0.6088394, y: 0.65903616}
-  m_EdgeRadius: 0
+  m_Radius: 0.3
 --- !u!1 &5751234099050628791
 GameObject:
   m_ObjectHideFlags: 0
