@@ -19,6 +19,10 @@ public class DoorEntryTrigger : MonoBehaviour
             {
                 gameManager.OnReachChallengeRoomExitDoor();
             }
+            else if (gameObject.CompareTag("ExitTutorialRoomDoor"))
+            {
+                gameManager.OnReachTutorialRoomExitDoor();
+            }
             else if (gameObject.CompareTag("Door1"))
             {
                 decisionManager.ChooseLeftDecision();

@@ -8,7 +8,6 @@ public class MenuManager : MonoBehaviour
     
     // UI - panels
     public GameObject optionsPanel;
-    public GameObject progressPanel;
 
     // UI - buttons
     public Button startButton;
@@ -25,11 +24,7 @@ public class MenuManager : MonoBehaviour
     // Methods for showing and hiding the menu (items)
     public void CloseMenu() => menu.SetActive(false);
 
-    public void CloseAllPanels()
-    {
-        optionsPanel.SetActive(false);
-        progressPanel.SetActive(false);
-    }
+    public void CloseAllPanels() => optionsPanel.SetActive(false);
 
     public void OpenOptions()
     {
@@ -38,11 +33,4 @@ public class MenuManager : MonoBehaviour
     }
 
     public void CloseOptions() => optionsPanel.SetActive(false);
-
-    public void OpenProgress()
-    {
-        CloseAllPanels();
-        progressPanel.SetActive(true);
-    }
-    public void CloseProgress() => progressPanel.SetActive(false);
 }
