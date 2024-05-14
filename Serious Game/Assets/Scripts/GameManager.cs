@@ -105,6 +105,12 @@ public class GameManager : MonoBehaviour
     // When the player made a decision
     public void OnReachDecisionRoomExitDoor()
     {
+        GoToNextRoom(SceneType.STATUS_SCENE);
+    }
+
+    // When the status scene gets exited
+    public void OnExitStatusScene()
+    {
         _gameState.IncrementPlayedDecisionRoomCount();
 
         if (_gameState.NextRoomShouldBeChallengeRoom())
@@ -130,10 +136,7 @@ public class GameManager : MonoBehaviour
         {
             playerManager?.SetCanMove(false);
 
-            if (sceneType is not SceneType.MAIN_MENU_SCENE)
-            {
-                await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
-            }
+            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
 
             SceneManager.LoadScene(sceneType.GetSceneName());
         }
@@ -152,14 +155,17 @@ public class GameManager : MonoBehaviour
 
     public async void PlayLevelLoadingAnimation()
     {
-        if (levelLoadingAnimationController == null)
+        if (levelLoadingAnimationController == null )
         {
             return;
         }
 
-        levelLoadingAnimationController.Initialize();
-        if (playerManager != null) playerManager.SetCanMove(false);
-        await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayLoadLevelAnimation");
-        if (playerManager != null) playerManager.SetCanMove(true);
+        if (!SceneManager.GetActiveScene().name.Equals(SceneType.MAIN_MENU_SCENE.GetSceneName()) && !SceneManager.GetActiveScene().name.Equals(SceneType.STATUS_SCENE.GetSceneName()))
+        {
+            levelLoadingAnimationController.Initialize();
+            if (playerManager != null) playerManager.SetCanMove(false);
+            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayLoadLevelAnimation");
+            if (playerManager != null) playerManager.SetCanMove(true);
+        }
     }
 }
