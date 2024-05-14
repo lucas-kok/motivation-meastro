@@ -90,6 +90,9 @@ public class GameManager : MonoBehaviour
         GoToNextRoom(_gameState.NextRoomShouldBeFinalRoom() ? SceneType.FINAL_ROOM_SCENE : SceneType.DECISION_ROOM_SCENE);
     }
 
+    // When the player reaches the tutorial room exit door
+    public void OnReachTutorialRoomExitDoor() => GoToNextRoom(SceneType.MAIN_MENU_SCENE);
+
     // When the player made a decision
     public void OnReachDecisionRoomExitDoor()
     {
@@ -114,12 +117,18 @@ public class GameManager : MonoBehaviour
 
     public async void StartNextScene(string sceneName)
     {
-        if (levelLoadingAnimationController != null && playerManager != null && _coroutineUtility != null)
+        if (levelLoadingAnimationController != null && _coroutineUtility != null)
         {
-            playerManager.SetCanMove(false);
+            playerManager?.SetCanMove(false);
             await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
             SceneManager.LoadScene(sceneName);
         }
+    }
+
+    public void StartTutorial()
+    {
+        menuManager.CloseMenu();
+        StartNextScene(SceneType.TUTORIAL_SCENE.GetSceneName());
     }
 
     public async void RestartScene()

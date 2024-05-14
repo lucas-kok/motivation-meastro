@@ -6226,7 +6226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2865100858995457263, guid: ca9bb0f8ace90204d8a413394daab6c2, type: 3}
       propertyPath: m_TagString
-      value: Door1
+      value: ExitTutorialRoomDoor
       objectReference: {fileID: 0}
     - target: {fileID: 3160066448305984270, guid: ca9bb0f8ace90204d8a413394daab6c2, type: 3}
       propertyPath: GameManager
