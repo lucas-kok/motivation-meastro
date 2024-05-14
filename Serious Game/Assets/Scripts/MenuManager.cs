@@ -1,35 +1,29 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuManager : GenericSingleton<MenuManager>
+public class MenuManager : MonoBehaviour
 {
-    public Canvas ui;
+    // UI 
     public GameObject menu;
-
+    
+    // UI - panels
     public GameObject optionsPanel;
     public GameObject progressPanel;
 
+    // UI - buttons
     public Button startButton;
     public Button resumeButton;
 
-    public override void Awake()
+    public void OpenMenu(MenuType type)
     {
-        base.Awake();
-        DontDestroyOnLoad(ui);
-    }
-
-    public void OpenMenu(bool isMainMenu)
-    {
-        startButton.gameObject.SetActive(isMainMenu);
-        resumeButton.gameObject.SetActive(!isMainMenu);
+        startButton.gameObject.SetActive(type is MenuType.MAIN_MENU);
+        resumeButton.gameObject.SetActive(type is MenuType.IN_GAME_MENU);
 
         menu.SetActive(true);
     }
-
-    public void CloseMenu()
-    {
-        menu.SetActive(false);
-    }
+    
+    // Methods for showing and hiding the menu (items)
+    public void CloseMenu() => menu.SetActive(false);
 
     public void CloseAllPanels()
     {
@@ -50,6 +44,5 @@ public class MenuManager : GenericSingleton<MenuManager>
         CloseAllPanels();
         progressPanel.SetActive(true);
     }
-
     public void CloseProgress() => progressPanel.SetActive(false);
 }

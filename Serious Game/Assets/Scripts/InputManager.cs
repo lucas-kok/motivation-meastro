@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class InputManager : MonoBehaviour
     
     // Action controllers, managers et cetera
     public PlayerMovement playerMovement;
-    private GameManager gameManagerInstance;
+
+    // Events
+    public UnityEvent OnToggleMenuKeyPressed; 
 
     // Input types
     public enum InputType { Keyboard, Controller }
@@ -27,20 +30,13 @@ public class InputManager : MonoBehaviour
     public KeyCode pauseOrResume = KeyCode.Escape;
     public KeyCode interact = KeyCode.Return;
 
-    private void Start()
-    {
-        // TODO: bug: singleton doesn't work, new instances are made if gamemanager prefab is dragged into a scene
-        var gameManagers = FindObjectsOfType<GameManager>();
-        gameManagerInstance = gameManagers[gameManagers.Length - 1];
-    }
-
     private void Update()
     {
         EmitKeyPresses();
         
         if (CheckToggleMenuInput())
         {
-            gameManagerInstance.ToggleMenu();
+            OnToggleMenuKeyPressed.Invoke();
         }
 
         if (CheckInteractInput())

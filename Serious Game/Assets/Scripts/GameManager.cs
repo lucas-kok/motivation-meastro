@@ -1,58 +1,124 @@
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// The gamemanager is the central brain that receives actions and changes in the game, and offloads this to other managers, controllers and state classes.
+/// </summary>
 public class GameManager : MonoBehaviour
 {
+    // Managers 
     public MenuManager menuManager;
-    public LevelLoadingAnimationController levelLoadingAnimationController; // Link this object in the scene to get level animations
     public PlayerManager playerManager;
 
-    // States
-    private bool _gameIsActive;
+    // Controllers
+    public LevelLoadingAnimationController levelLoadingAnimationController; // Link this object in the scene to get level animations
+
+    // Singletons 
+    private GameState _gameState;
     private CoroutineUtility _coroutineUtility;
     private AppLogger _logger;
 
     private void Start()
     {
-        if (CheckIsMainMenuScene() is true)
-        {
-            _gameIsActive = false;
-            menuManager.OpenMenu(true);  
-        } else
-        {
-            _gameIsActive = true;
-        }
-
+        // Assign singletons
         _logger = AppLogger.Instance;
         _coroutineUtility = CoroutineUtility.Instance;
+        _gameState = GameState.Instance;
 
+        // If we are in the main menu scene, we should not start the game yet, instead open the main menu
+        if (SceneManager.GetActiveScene().name.Equals(SceneType.MAIN_MENU_SCENE))
+        {
+            _gameState.GameIsActive = false;
+            menuManager.OpenMenu(MenuType.MAIN_MENU);
+        }
+        else
+        { 
+            _gameState.GameIsActive = true;
+        }
+
+        // For every scene, always execute starting animation
         PlayLevelLoadingAnimation();
+
+        // Dev warning 
+        Debug.LogWarning("IF YOU DIDNT START FROM MAINMENUSCENE: don't count on the gameloop to be working: 'Start game' has to be used from the main menu to start fresh!");
     }
 
-    public void GoToMainMenuScene()
-    {
-        SceneManager.LoadScene("MainMenuScene");
-        _gameIsActive = false;
-    }
-
+    // Start game from main menu means a fresh start of the game 
     public void StartGame()
     {
-        InitializePlayerDecisions();
-        
-        SceneManager.LoadScene("DecisionRoomScene");
-        _gameIsActive = true;
+        menuManager.CloseMenu();
 
+        // We start the game with a decision room and initialize a clean gamestate  
+        _gameState.Initialize();
+        SceneManager.LoadScene(SceneType.DECISION_ROOM_SCENE.GetSceneName());
+    }
+
+    public void PauseGame()
+    {
+        _gameState.Pause();
+        menuManager.OpenMenu(MenuType.IN_GAME_MENU);
+    }
+
+    public void ResumeGame()
+    {
+        _gameState.Resume();
         menuManager.CloseMenu();
     }
-    
-    public async void StartNextScene()
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void TogglePauseResume()
+    {
+        if (_gameState.GameIsActive)
+        {
+            PauseGame();
+        }
+        else
+        {
+            ResumeGame();
+        }
+    }
+
+    // When the players survives a challenge room
+    public void OnReachChallengeRoomExitDoor()
+    {
+        _gameState.IncrementPlayedChallengeRoomCount();
+
+        GoToNextRoom(_gameState.NextRoomShouldBeFinalRoom() ? SceneType.FINAL_ROOM_SCENE : SceneType.DECISION_ROOM_SCENE);
+    }
+
+    // When the player made a decision
+    public void OnReachDecisionRoomExitDoor()
+    {
+        _gameState.IncrementPlayedDecisionRoomCount();
+
+        if (_gameState.NextRoomShouldBeChallengeRoom())
+        {
+            GoToNextRoom(SceneType.CHALLENGE_ROOM_SCENE);
+        }
+        else
+        {
+            GoToNextRoom(SceneType.DECISION_ROOM_SCENE);
+        }
+    }
+
+    private void GoToNextRoom(SceneType roomType)
+    {
+        if (!_gameState.GameIsActive) return;
+
+        StartNextScene(roomType.GetSceneName());
+    }
+
+    public async void StartNextScene(string sceneName)
     {
         if (levelLoadingAnimationController != null && playerManager != null && _coroutineUtility != null)
         {
             playerManager.SetCanMove(false);
             await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
+            SceneManager.LoadScene(sceneName);
         }
     }
 
@@ -79,52 +145,4 @@ public class GameManager : MonoBehaviour
         await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayLoadLevelAnimation");
         if (playerManager != null) playerManager.SetCanMove(true);
     }
-
-    public void InitializePlayerDecisions()
-    {
-        var filePath = "Assets/Data/PlayerScenarios.json";
-        var emptyJsonData = JsonUtility.ToJson(new List<ScenarioRecord>());
-        File.WriteAllText(filePath, emptyJsonData);
-    }
-
-    public void PauseGame()
-    {
-        if (!_gameIsActive) return;
-        _gameIsActive = false;
-
-        menuManager.OpenMenu(CheckIsMainMenuScene());
-    }
-
-    public void ResumeGame()
-    {
-        if (_gameIsActive) return;
-        _gameIsActive = true;
-
-        menuManager.CloseMenu();
-    }
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
-    public void ToggleMenu()
-    {
-        if (menuManager == null)
-        { 
-            Debug.Log("You didn't start the game from the MainMenuScene.");
-            Debug.LogError("Start from the MainMenuScene if you want to have a menu later on...");
-            return; 
-        }
-
-        if (_gameIsActive)
-        {
-            PauseGame();
-        }
-        else
-        {
-            ResumeGame();
-        }
-    }
-
-    private bool CheckIsMainMenuScene() => _gameIsActive = SceneManager.GetActiveScene().name == "MainMenuScene";
 }
