@@ -9,7 +9,7 @@ public class Scenario
     public string ReasonWhyPlayerChoseCorrectly;
     public string ReasonWhyPlayerChoseIncorrectly;
 
-    public bool ChoseCorrectly { get; private set; }
+    public bool ChoseCorrectly;
     public bool IsCompleted = false; 
 
     // Retrieve the decision the player made, determine wether it was correct or not 

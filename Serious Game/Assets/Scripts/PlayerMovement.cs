@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _canMove = true;
 
+    public Slider dashCooldownSlider;
+    private Color _dashDisabledColor = new Color(1f, 0.2770096f, 0.2122642f, 1f);
+    private Color _dashEnabledColor = new Color(0.2667724f, 1f, 0.2117647f, 1f);
+
     [SerializeField] public float speed;
     [SerializeField] public InputManager inputManager;
     [SerializeField] public ParticleSystem dustParticle;
@@ -23,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _logger = AppLogger.Instance;
+
+        if (dashCooldownSlider != null) {
+            dashCooldownSlider.value = 1;
+            SetDashCooldownSliderColor(_dashEnabledColor);
+        }
 
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
@@ -52,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
             yield break;
         }
 
+        StopCoroutine("PlayDashCooldownAnimation");
+
         canDash = false;
         isDashing = true;
 
@@ -64,12 +76,46 @@ public class PlayerMovement : MonoBehaviour
         }
 
         dustParticle.Play();
+        SetDashCooldownSliderColor(_dashDisabledColor);
+        dashCooldownSlider.value = 0;
 
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
 
+        StartCoroutine("PlayDashCooldownAnimation");
+
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+
+    public IEnumerator PlayDashCooldownAnimation()
+    {
+        StopCoroutine("PlayExitLevelAnimation");
+        if (dashCooldownSlider == null) yield break;
+
+        while (dashCooldownSlider.value < 1f)
+        {
+            dashCooldownSlider.value += Time.deltaTime / dashingCooldown;
+            yield return null;
+        }
+
+        SetDashCooldownSliderColor(_dashEnabledColor);
+    }
+
+    private void SetDashCooldownSliderColor(Color color)
+    {
+        if (dashCooldownSlider == null)
+        {
+            return;
+        }
+
+        var imageComponent = dashCooldownSlider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>();
+        if (imageComponent == null)
+        {
+            return;
+        }
+
+        imageComponent.color = color;
     }
 
     public void SetInteractableBehaviour(IInteractableBehaviour interactableBehaviour)
