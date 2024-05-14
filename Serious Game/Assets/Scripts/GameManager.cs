@@ -38,9 +38,6 @@ public class GameManager : MonoBehaviour
             // For every scene, always execute starting animation
             PlayLevelLoadingAnimation();
         }
-
-        // Dev warning 
-        Debug.LogWarning("IF YOU DIDNT START FROM MAINMENUSCENE: don't count on the gameloop to be working: 'Start game' has to be used from the main menu to start fresh!");
     }
 
     // Start game from main menu means a fresh start of the game 
