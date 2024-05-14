@@ -32,9 +32,9 @@ public class GameManager : MonoBehaviour
             menuManager.OpenMenu(MenuType.MAIN_MENU);
         }
         else
-        { 
+        {
             _gameState.GameIsActive = true;
-            
+
             // For every scene, always execute starting animation
             PlayLevelLoadingAnimation();
         }
@@ -130,10 +130,7 @@ public class GameManager : MonoBehaviour
         {
             playerManager?.SetCanMove(false);
 
-            if (sceneType is not SceneType.MAIN_MENU_SCENE)
-            {
-                await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
-            }
+            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
 
             SceneManager.LoadScene(sceneType.GetSceneName());
         }
