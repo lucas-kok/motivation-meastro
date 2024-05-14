@@ -50,7 +50,13 @@ public class GameManager : MonoBehaviour
 
         // We start the game with a decision room and initialize a clean gamestate  
         _gameState.Initialize();
-        SceneManager.LoadScene(SceneType.DECISION_ROOM_SCENE.GetSceneName());
+        StartNextScene(SceneType.DECISION_ROOM_SCENE);
+    }
+
+    public void StartTutorial()
+    {
+        menuManager.CloseMenu();
+        StartNextScene(SceneType.TUTORIAL_SCENE);
     }
 
     public void PauseGame()
@@ -68,6 +74,12 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void CloseGame()
+    {
+        _gameState.GameIsActive = false;
+        StartNextScene(SceneType.MAIN_MENU_SCENE);
     }
 
     public void TogglePauseResume()
@@ -108,27 +120,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void GoToNextRoom(SceneType roomType)
+    private void GoToNextRoom(SceneType sceneType)
     {
         if (!_gameState.GameIsActive) return;
 
-        StartNextScene(roomType.GetSceneName());
+        StartNextScene(sceneType);
     }
 
-    public async void StartNextScene(string sceneName)
+    public async void StartNextScene(SceneType sceneType)
     {
         if (levelLoadingAnimationController != null && _coroutineUtility != null)
         {
             playerManager?.SetCanMove(false);
-            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
-            SceneManager.LoadScene(sceneName);
-        }
-    }
 
-    public void StartTutorial()
-    {
-        menuManager.CloseMenu();
-        StartNextScene(SceneType.TUTORIAL_SCENE.GetSceneName());
+            if (sceneType is not SceneType.MAIN_MENU_SCENE)
+            {
+                await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
+            }
+
+            SceneManager.LoadScene(sceneType.GetSceneName());
+        }
     }
 
     public async void RestartScene()
