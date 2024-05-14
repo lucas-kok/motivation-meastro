@@ -22,6 +22,12 @@ public class GameState : GenericSingleton<GameState>
     // Data 
     public List<Scenario> Scenarios { get; private set; } = new List<Scenario>();
 
+    /// <summary>
+    /// This method accounts for the situation where the game loop is executed multiple times in a session (e.g. by going back to main menu and starting the game again)
+    /// This means that:
+    /// -Score is reset
+    /// -All scenarios are marked as not completed
+    /// </summary>
     public void Initialize()
     {
         GameIsActive = true;
@@ -29,9 +35,26 @@ public class GameState : GenericSingleton<GameState>
         PlayedDecisionRoomsCount = 0;
         PlayedChallengeRoomsCount = 0;
 
-        Scenarios = ScenarioIOUtility.LoadScenarios();
+        foreach (var scenario in Scenarios)
+        {
+            scenario.IsCompleted = false;
+        }
     }
 
+    // When the singleton is created, we're gonna read the scenarios from the filesystem once
+    public override void Awake()
+    {
+        base.Awake();
+        LoadScenarios();
+    }
+
+    private void LoadScenarios()
+    {
+        StartCoroutine(ScenarioIOUtility.LoadScenarios(scenarios =>
+        {
+            Scenarios = scenarios;
+        }));
+    }
 
     public void IncrementPlayedDecisionRoomCount() => PlayedDecisionRoomsCount++;
     public void IncrementPlayedChallengeRoomCount() => PlayedChallengeRoomsCount++;
@@ -56,7 +79,8 @@ public class GameState : GenericSingleton<GameState>
     {
         var availableScenarios = Scenarios.Where(s => !s.IsCompleted).ToList();
         int randomIndex = Random.Range(0, availableScenarios.Count);
-
+        Debug.Log($"Random index: {randomIndex}");
+        Debug.Log($"Available scenarios count: {availableScenarios.Count}");
         return availableScenarios[randomIndex];
     }
 
