@@ -1356,6 +1356,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05698e11aa898ca47bb3864a1c3e3e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &537333069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6331197905189413608, guid: 5dec2d13413c33c44a0eb2fd263eab12, type: 3}
+  m_PrefabInstance: {fileID: 537333064}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &610917394
 GameObject:
   m_ObjectHideFlags: 0
@@ -5963,15 +5968,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3890455564548060593, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.7317315
+      value: 6.8682685
       objectReference: {fileID: 0}
     - target: {fileID: 3890455564548060593, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.105732
+      value: -4.524268
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.698651
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.9146595
       objectReference: {fileID: 0}
     - target: {fileID: 6765853854378940005, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 537333069}
+    - target: {fileID: 6765853854378940005, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398323129041758462, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.0355415
+      objectReference: {fileID: 0}
+    - target: {fileID: 7398323129041758462, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.102659
       objectReference: {fileID: 0}
     - target: {fileID: 7582368841408607905, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_Name

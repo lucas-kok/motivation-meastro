@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameState : GenericSingleton<GameState>
 {
     // Game rules
-    private static readonly int REQUIRED_DECISIONS = 3;
-    private static readonly int REQUIRED_DECISIONS_FOR_FINAL_LEVEL = 9;
-    private static readonly int REQUIRED_CHALLENGES_FOR_FINAL_LEVEL = 3;
+    private static readonly int REQUIRED_DECISIONS_FOR_CHALLENGE_ROOM = 3;
+    private static readonly int REQUIRED_DECISIONS_FOR_FINAL_ROOM = 3;
+    private static readonly int REQUIRED_CHALLENGES_FOR_FINAL_ROOM = 1;
 
     // General Game state
     public bool GameIsActive { get; set; } = false;
@@ -19,7 +20,7 @@ public class GameState : GenericSingleton<GameState>
     public int PlayedChallengeRoomsCount { get; private set; }
 
     // Data 
-    public List<Scenario> Scenarios { get; private set; }
+    public List<Scenario> Scenarios { get; private set; } = new List<Scenario>();
 
     public void Initialize()
     {
@@ -31,6 +32,7 @@ public class GameState : GenericSingleton<GameState>
         Scenarios = ScenarioIOUtility.LoadScenarios();
     }
 
+
     public void IncrementPlayedDecisionRoomCount() => PlayedDecisionRoomsCount++;
     public void IncrementPlayedChallengeRoomCount() => PlayedChallengeRoomsCount++;
 
@@ -38,12 +40,12 @@ public class GameState : GenericSingleton<GameState>
     /// <summary>
     /// Apply Game rule: After a certain number of played decision rooms in a row (see "// Game rules"), a challenge room should be played 
     /// </summary>
-    public bool NextRoomShouldBeChallengeRoom() => PlayedDecisionRoomsCount % REQUIRED_DECISIONS == 0;
+    public bool NextRoomShouldBeChallengeRoom() => PlayedDecisionRoomsCount % REQUIRED_DECISIONS_FOR_CHALLENGE_ROOM == 0;
 
     /// <summary>
     /// APPLY Game rule: a final room should be played after a certain number of played challenge and decisions rooms in total (see "// Game rules")
     /// </summary>
-    public bool NextRoomShouldBeFinalRoom() => PlayedChallengeRoomsCount == REQUIRED_CHALLENGES_FOR_FINAL_LEVEL && PlayedDecisionRoomsCount == REQUIRED_DECISIONS_FOR_FINAL_LEVEL;
+    public bool NextRoomShouldBeFinalRoom() => PlayedChallengeRoomsCount == REQUIRED_CHALLENGES_FOR_FINAL_ROOM && PlayedDecisionRoomsCount == REQUIRED_DECISIONS_FOR_FINAL_ROOM;
 
     public void Pause() => GameIsActive = false;
 

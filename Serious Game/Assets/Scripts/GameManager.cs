@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
     {
         if (!_gameState.GameIsActive) return;
 
-        SceneManager.LoadScene(roomType.GetSceneName());
+        StartNextScene(roomType.GetSceneName());
     }
 
     public async void StartNextScene(string sceneName)
