@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         _gameState = GameState.Instance;
 
         // If we are in the main menu scene, we should not start the game yet, instead open the main menu
-        if (SceneManager.GetActiveScene().name.Equals(SceneType.MAIN_MENU_SCENE))
+        if (SceneManager.GetActiveScene().name.Equals(SceneType.MAIN_MENU_SCENE.GetSceneName()))
         {
             _gameState.GameIsActive = false;
             menuManager.OpenMenu(MenuType.MAIN_MENU);
@@ -34,10 +34,10 @@ public class GameManager : MonoBehaviour
         else
         { 
             _gameState.GameIsActive = true;
+            
+            // For every scene, always execute starting animation
+            PlayLevelLoadingAnimation();
         }
-
-        // For every scene, always execute starting animation
-        PlayLevelLoadingAnimation();
 
         // Dev warning 
         Debug.LogWarning("IF YOU DIDNT START FROM MAINMENUSCENE: don't count on the gameloop to be working: 'Start game' has to be used from the main menu to start fresh!");
