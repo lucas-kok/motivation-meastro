@@ -44,7 +44,6 @@ public static class ScenarioIOUtility
             // log line
             Debug.Log(lines[i]);
             string[] values = lines[i].Split(';');
-            Debug.Log($"KIJK HIER: {values[7]} {values[8]} {values[9]}"); 
             Scenario scenario = new Scenario()
             {
                 Title = values[0],

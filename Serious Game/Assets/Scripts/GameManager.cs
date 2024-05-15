@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -167,7 +168,9 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (!SceneManager.GetActiveScene().name.Equals(SceneType.MAIN_MENU_SCENE.GetSceneName()) && !SceneManager.GetActiveScene().name.Equals(SceneType.STATUS_SCENE.GetSceneName()) && !SceneManager.GetActiveScene().name.Equals(SceneType.BACKSTORY_SCENE.GetSceneName()))
+        List<string> toBeExcludedScenes = new List<string> { SceneType.MAIN_MENU_SCENE.GetSceneName(), SceneType.STATUS_SCENE.GetSceneName(), SceneType.BACKSTORY_SCENE.GetSceneName(), SceneType.FINAL_ROOM_SCENE.GetSceneName() };
+
+        if (!toBeExcludedScenes.Contains(SceneManager.GetActiveScene().name))
         {
             levelLoadingAnimationController.Initialize();
             if (playerManager != null) playerManager.SetCanMove(false);
