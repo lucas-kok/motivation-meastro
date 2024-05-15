@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
 
         if (_gameState.NextRoomShouldBeChallengeRoom())
         {
+            _gameState.UpdateGameDifficulty();
             GoToNextRoom(SceneType.CHALLENGE_ROOM_SCENE);
         }
         else

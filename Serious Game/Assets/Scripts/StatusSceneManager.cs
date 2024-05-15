@@ -21,7 +21,7 @@ public class StatusSceneManager : MonoBehaviour
     void Start()
     {
         _gameState = GameState.Instance;
-        _scenario = _gameState.GetCurrentScenario();
+        _scenario = _gameState.CurrentScenario;
 
         SetAutonomy();
         SetCompetence();

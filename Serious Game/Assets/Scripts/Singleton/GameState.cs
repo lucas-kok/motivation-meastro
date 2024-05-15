@@ -12,6 +12,7 @@ public class GameState : GenericSingleton<GameState>
 
     // General Game state
     public bool GameIsActive { get; set; } = false;
+    public GameDifficulty CurrentGameDifficulty { get; set; } = GameDifficulty.MEDIUM;
 
     // Progression state
     public int PlayedDecisionRoomsCount { get; private set; }
@@ -19,7 +20,7 @@ public class GameState : GenericSingleton<GameState>
 
     // Data 
     public List<Scenario> Scenarios { get; private set; } = new List<Scenario>();
-    private int currentScenarioIndex;
+    public Scenario CurrentScenario { get; private set; }
 
     /// <summary>
     /// This method accounts for the situation where the game loop is executed multiple times in a session (e.g. by going back to main menu and starting the game again)
@@ -56,6 +57,23 @@ public class GameState : GenericSingleton<GameState>
         }));
     }
 
+    public void UpdateGameDifficulty()
+    {
+        var stats = CalculateGameStats();
+
+        double maxScore = stats.MaxCompetencyScore + stats.MaxConnectednessScore + stats.MaxAutonomyScore;
+        double achievedScore = stats.AchievedCompetencyScore + stats.AchievedConnectednessScore + stats.AchievedAutonomyScore;
+
+        double scorePercentage = achievedScore / maxScore * 100;
+
+        CurrentGameDifficulty = scorePercentage switch
+        {
+            >= 66 => GameDifficulty.EASY,
+            >= 33 => GameDifficulty.MEDIUM,
+            _ => GameDifficulty.HARD
+        };
+    }
+
     public void IncrementPlayedDecisionRoomCount() => PlayedDecisionRoomsCount++;
     public void IncrementPlayedChallengeRoomCount() => PlayedChallengeRoomsCount++;
 
@@ -79,14 +97,11 @@ public class GameState : GenericSingleton<GameState>
     {
         var availableScenarios = Scenarios.Where(s => !s.IsCompleted).ToList();
         int randomIndex = Random.Range(0, availableScenarios.Count);
-        currentScenarioIndex = randomIndex;
 
-        return availableScenarios[randomIndex];
-    }
+        var scenario = availableScenarios[randomIndex];
+        CurrentScenario = scenario;
 
-    public Scenario GetCurrentScenario()
-    {
-        return Scenarios[currentScenarioIndex];
+        return scenario;
     }
 
     public Statistics CalculateGameStats() => new()

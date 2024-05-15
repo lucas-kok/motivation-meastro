@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Objectspawner : MonoBehaviour
 {
+    private GameState _gameState;
+    
     public GameObject[] objects;
     public GameObject objectContainer;
     public PlayerManager playerManager;
@@ -13,7 +15,10 @@ public class Objectspawner : MonoBehaviour
 
     void Start()
     {
+        _gameState = GameState.Instance;
         _timer = SpawnInterval;
+
+        SetSpawnerProperties();
     }
 
     void Update()
@@ -28,6 +33,28 @@ public class Objectspawner : MonoBehaviour
         {
             SpawnAndLaunchObject();
             _timer = SpawnInterval;
+        }
+    }
+
+    private void SetSpawnerProperties()
+    {
+        if (_gameState.CurrentGameDifficulty is GameDifficulty.EASY)
+        {
+            // Set easy properties
+            SpawnInterval = 3.0f;
+            LaunchForce = 5.0f;
+        }
+        else if (_gameState.CurrentGameDifficulty is GameDifficulty.MEDIUM)
+        {
+            // Set medium properties
+            SpawnInterval = 2.0f;
+            LaunchForce = 10.0f;
+        }
+        else if (_gameState.CurrentGameDifficulty is GameDifficulty.HARD)
+        {
+            // Set hard properties
+            SpawnInterval = 1.0f;
+            LaunchForce = 15.0f;
         }
     }
 
