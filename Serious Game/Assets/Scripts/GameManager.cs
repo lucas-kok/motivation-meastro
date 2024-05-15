@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
         // We start the game with a decision room and initialize a clean gamestate  
         _gameState.Initialize();
-        StartNextScene(SceneType.DECISION_ROOM_SCENE);
+        StartNextScene(SceneType.BACKSTORY_SCENE);
     }
 
     public void StartTutorial()
@@ -89,6 +89,12 @@ public class GameManager : MonoBehaviour
         {
             ResumeGame();
         }
+    }
+
+    // When player exits backstory scene
+    public void OnExitBackstory()
+    {
+        GoToNextRoom(SceneType.DECISION_ROOM_SCENE);
     }
 
     // When the players survives a challenge room
@@ -161,7 +167,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (!SceneManager.GetActiveScene().name.Equals(SceneType.MAIN_MENU_SCENE.GetSceneName()) && !SceneManager.GetActiveScene().name.Equals(SceneType.STATUS_SCENE.GetSceneName()))
+        if (!SceneManager.GetActiveScene().name.Equals(SceneType.MAIN_MENU_SCENE.GetSceneName()) && !SceneManager.GetActiveScene().name.Equals(SceneType.STATUS_SCENE.GetSceneName()) && !SceneManager.GetActiveScene().name.Equals(SceneType.BACKSTORY_SCENE.GetSceneName()))
         {
             levelLoadingAnimationController.Initialize();
             if (playerManager != null) playerManager.SetCanMove(false);

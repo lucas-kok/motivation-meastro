@@ -3,6 +3,7 @@ using System;
 public enum SceneType
 {
     MAIN_MENU_SCENE,
+    BACKSTORY_SCENE,
     TUTORIAL_SCENE,
     DECISION_ROOM_SCENE,
     STATUS_SCENE,
@@ -28,6 +29,8 @@ public static class RoomTypeExtensions
                 return "MainMenuScene";
             case SceneType.TUTORIAL_SCENE:
                 return "TutorialScene";
+            case SceneType.BACKSTORY_SCENE:
+                return "BackstoryScene";
             default:
                 throw new ArgumentOutOfRangeException(nameof(roomType), roomType, "Unknown RoomType");
         }
