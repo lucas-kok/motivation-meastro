@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class TempFinalSceneManager : MonoBehaviour
 {
     public TextMeshProUGUI wrongDecisionExplaination;
+    public TextMeshProUGUI scoreDisplay;
 
     public GameObject content;
     public GameObject template;
@@ -21,6 +22,8 @@ public class TempFinalSceneManager : MonoBehaviour
     {
         template.SetActive(false);
         wrongDecisionExplaination.text = "";
+        scoreDisplay.text = "";
+
 
         _gameState = GameState.Instance;
       
@@ -65,10 +68,21 @@ public class TempFinalSceneManager : MonoBehaviour
 
             scenarioYAxisPosition -= scenarioYAxisGap;
         }
+
+        ShowScore();
     }
 
     private void ShowInfo(Scenario scenario)
     {
         wrongDecisionExplaination.text = scenario.Explanation;
+    }
+
+    private void ShowScore()
+    {
+        Statistics stats = _gameState.CalculateGameStats();
+        scoreDisplay.text = $"Uw score is: {stats.AchievedAutonomyScore} / {stats.MaxAutonomyScore} op autonomie. \n" +
+            $"Uw score is: {stats.AchievedCompetencyScore} / {stats.MaxCompetencyScore} op competentie. \n" +
+            $"Uw score is: {stats.AchievedConnectednessScore} / {stats.MaxConnectednessScore} op verbondenheid.";
+
     }
 }
