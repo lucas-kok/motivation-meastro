@@ -6,8 +6,7 @@ public class Scenario
     public Decision CorrectDecision;
     public Decision IncorrectDecision;
 
-    public string ReasonWhyPlayerChoseCorrectly;
-    public string ReasonWhyPlayerChoseIncorrectly;
+    public string Explanation;
 
     public bool ChoseCorrectly;
     public bool IsCompleted = false; 
