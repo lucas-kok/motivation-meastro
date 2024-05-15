@@ -50,9 +50,11 @@ public static class ScenarioIOUtility
                 CorrectDecision = new Decision() { Title = values[2], Description = values[3] },
                 IncorrectDecision = new Decision() { Title = values[4], Description = values[5] },
                 IsCompleted = false,
-                Explanation = values[6]
+                Explanation = values[6],
+                AutonomyScore = double.Parse(values[7]) / 10,
+                CompetencyScore = double.Parse(values[8]) / 10,
+                ConnectednessScore = double.Parse(values[9]) / 10
             };
-
             scenariosBuffer.Add(scenario);
         }
 

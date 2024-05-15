@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GameState : GenericSingleton<GameState>
 {
@@ -39,6 +37,7 @@ public class GameState : GenericSingleton<GameState>
         {
             scenario.IsCompleted = false;
         }
+
     }
 
     // When the singleton is created, we're gonna read the scenarios from the filesystem once
@@ -82,6 +81,19 @@ public class GameState : GenericSingleton<GameState>
 
         return availableScenarios[randomIndex];
     }
+
+    public Statistics CalculateGameStats() => new()
+    {
+        // Determine max scores by summing up the scores of all scenarios that have been completed, but necessarily answered right
+        MaxCompetencyScore = Scenarios.Where(s => s.IsCompleted).Sum(s => s.CompetencyScore),
+        MaxConnectednessScore = Scenarios.Where(s => s.IsCompleted).Sum(s => s.ConnectednessScore),
+        MaxAutonomyScore = Scenarios.Where(s => s.IsCompleted).Sum(s => s.AutonomyScore),
+
+        // Determine achieved scores by summing up the scores of the completed scenarios only where the player chose correctly
+        AchievedCompetencyScore = Scenarios.Where(s => s.IsCompleted && s.ChoseCorrectly).Sum(s => s.CompetencyScore),
+        AchievedConnectednessScore = Scenarios.Where(s => s.IsCompleted && s.ChoseCorrectly).Sum(s => s.ConnectednessScore),
+        AchievedAutonomyScore = Scenarios.Where(s => s.IsCompleted && s.ChoseCorrectly).Sum(s => s.AutonomyScore)
+    };
 
     // TEMPORARY tostring for fun in the TEMPORARY "mock" final room scene
     public override string ToString()
