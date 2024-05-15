@@ -10,7 +10,6 @@ using UnityEngine.Networking;
 public static class ScenarioIOUtility
 {
 
-    // FOR WEBGL BUILDS!
     public static IEnumerator LoadScenarios(System.Action<List<Scenario>> callback)
     {
         string filePath = Path.Combine(Application.streamingAssetsPath, "ScenariosDecisions.csv");
@@ -30,19 +29,22 @@ public static class ScenarioIOUtility
                 yield break;
             }
 
-            lines = www.downloadHandler.text.Split('\n');
+            lines = www.downloadHandler.text.Split(new string[] { "\r\n", "\n" }, System.StringSplitOptions.None);
         }
         else
         {
             Debug.Log("Reading scenarios from file: " + filePath);
             lines = File.ReadAllLines(filePath);
+         
         }
-
 
         List<Scenario> scenariosBuffer = new List<Scenario>();
         for (int i = 1; i < lines.Length; i++) // Start from index 1 to skip the header line
         {
+            // log line
+            Debug.Log(lines[i]);
             string[] values = lines[i].Split(';');
+            Debug.Log($"KIJK HIER: {values[7]} {values[8]} {values[9]}"); 
             Scenario scenario = new Scenario()
             {
                 Title = values[0],
