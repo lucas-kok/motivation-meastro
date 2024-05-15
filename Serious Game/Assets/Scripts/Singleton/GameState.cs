@@ -79,8 +79,7 @@ public class GameState : GenericSingleton<GameState>
     {
         var availableScenarios = Scenarios.Where(s => !s.IsCompleted).ToList();
         int randomIndex = Random.Range(0, availableScenarios.Count);
-        Debug.Log($"Random index: {randomIndex}");
-        Debug.Log($"Available scenarios count: {availableScenarios.Count}");
+
         return availableScenarios[randomIndex];
     }
 

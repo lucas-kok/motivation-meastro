@@ -5,6 +5,7 @@ public enum SceneType
     MAIN_MENU_SCENE,
     TUTORIAL_SCENE,
     DECISION_ROOM_SCENE,
+    STATUS_SCENE,
     CHALLENGE_ROOM_SCENE,
     FINAL_ROOM_SCENE
 }
@@ -19,6 +20,8 @@ public static class RoomTypeExtensions
                 return "DecisionRoomScene";
             case SceneType.CHALLENGE_ROOM_SCENE:
                 return "ChallengeRoomScene";
+            case SceneType.STATUS_SCENE:
+                return "StatusScene";
             case SceneType.FINAL_ROOM_SCENE:
                 return "FinalRoomScene";
             case SceneType.MAIN_MENU_SCENE:

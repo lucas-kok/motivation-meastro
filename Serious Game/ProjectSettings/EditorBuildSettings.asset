@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FinalRoomScene.unity
     guid: 73bc93bee0d91e44cb3c143c3ba79e72
+  - enabled: 1
+    path: Assets/Scenes/StatusScene.unity
+    guid: c7eed7ecf88a187498b5eeae5e754439
   m_configObjects: {}
