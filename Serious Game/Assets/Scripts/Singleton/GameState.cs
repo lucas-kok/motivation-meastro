@@ -19,6 +19,7 @@ public class GameState : GenericSingleton<GameState>
 
     // Data 
     public List<Scenario> Scenarios { get; private set; } = new List<Scenario>();
+    private int currentScenarioIndex;
 
     /// <summary>
     /// This method accounts for the situation where the game loop is executed multiple times in a session (e.g. by going back to main menu and starting the game again)
@@ -78,8 +79,14 @@ public class GameState : GenericSingleton<GameState>
     {
         var availableScenarios = Scenarios.Where(s => !s.IsCompleted).ToList();
         int randomIndex = Random.Range(0, availableScenarios.Count);
+        currentScenarioIndex = randomIndex;
 
         return availableScenarios[randomIndex];
+    }
+
+    public Scenario GetCurrentScenario()
+    {
+        return Scenarios[currentScenarioIndex];
     }
 
     public Statistics CalculateGameStats() => new()
