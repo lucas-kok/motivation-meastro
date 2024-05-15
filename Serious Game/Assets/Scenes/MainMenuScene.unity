@@ -1905,7 +1905,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Resume
+  m_text: Ga door
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5c671ca7465192440a9bcb9afd2f328b, type: 2}
   m_sharedMaterial: {fileID: 8746048749853516746, guid: 5c671ca7465192440a9bcb9afd2f328b, type: 2}

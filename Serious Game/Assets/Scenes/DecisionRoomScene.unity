@@ -193,7 +193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5935309
+      value: 0.59865236
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2030,7 +2030,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 160.8, y: -18.961}
+  m_AnchoredPosition: {x: 175, y: -18.961}
   m_SizeDelta: {x: 398.45, y: 80.341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &631480297
@@ -2053,7 +2053,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Resume
+  m_text: Ga door
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5c671ca7465192440a9bcb9afd2f328b, type: 2}
   m_sharedMaterial: {fileID: 8746048749853516746, guid: 5c671ca7465192440a9bcb9afd2f328b, type: 2}
