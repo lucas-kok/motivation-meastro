@@ -47,6 +47,8 @@ public class InputManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (playerMovement == null) return;
+
         // Current movements 
         Vector2 movementInputs = GetMovementInputs();
 

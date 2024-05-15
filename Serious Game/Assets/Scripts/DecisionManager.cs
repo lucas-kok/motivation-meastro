@@ -53,9 +53,9 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
             return;
         }
 
-        bool leftDecisionIsRight = Random.Range(0, 2) == 0;
-        _leftDecision = leftDecisionIsRight ? _scenario.CorrectDecision : _scenario.IncorrectDecision;
-        _rightDecision = leftDecisionIsRight ? _scenario.IncorrectDecision : _scenario.CorrectDecision;
+        bool leftDecisionShouldBeCorrect = Random.Range(0, 2) == 0;
+        _leftDecision = leftDecisionShouldBeCorrect ? _scenario.CorrectDecision : _scenario.IncorrectDecision;
+        _rightDecision = leftDecisionShouldBeCorrect ? _scenario.IncorrectDecision : _scenario.CorrectDecision;
 
         scenarioPanelUI.transform.Find("Scenario Title").GetComponent<TMPro.TextMeshProUGUI>().text = _scenario.Title;
         scenarioPanelUI.transform.Find("Scenario Description").GetComponent<TMPro.TextMeshProUGUI>().text = _scenario.Description;
