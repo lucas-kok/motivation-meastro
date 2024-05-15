@@ -50,7 +50,7 @@ public static class ScenarioIOUtility
                 CorrectDecision = new Decision() { Title = values[2], Description = values[3] },
                 IncorrectDecision = new Decision() { Title = values[4], Description = values[5] },
                 IsCompleted = false,
-                ReasonWhyPlayerChoseIncorrectly = values[6]
+                Explanation = values[6]
             };
 
             scenariosBuffer.Add(scenario);
