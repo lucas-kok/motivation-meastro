@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
 
     // Controllers
     public LevelLoadingAnimationController levelLoadingAnimationController; // Link this object in the scene to get level animations
+    private List<string> scenesToExcludeLoadingAnimation = new List<string> {
+        SceneType.MAIN_MENU_SCENE.GetSceneName(), SceneType.STATUS_SCENE.GetSceneName(),
+        SceneType.BACKSTORY_SCENE.GetSceneName(), SceneType.FINAL_ROOM_SCENE.GetSceneName()
+    };
 
     // Singletons 
     private GameState _gameState;
@@ -140,14 +144,14 @@ public class GameManager : MonoBehaviour
 
     public async void StartNextScene(SceneType sceneType)
     {
-        if (levelLoadingAnimationController != null && _coroutineUtility != null)
+        if (levelLoadingAnimationController != null && _coroutineUtility != null && !scenesToExcludeLoadingAnimation.Contains(SceneManager.GetActiveScene().name))
         {
             playerManager?.SetCanMove(false);
 
             await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayExitLevelAnimation());
-
-            SceneManager.LoadScene(sceneType.GetSceneName());
         }
+
+        SceneManager.LoadScene(sceneType.GetSceneName());
     }
 
     public async void RestartScene()
@@ -163,19 +167,14 @@ public class GameManager : MonoBehaviour
 
     public async void PlayLevelLoadingAnimation()
     {
-        if (levelLoadingAnimationController == null )
+        if (levelLoadingAnimationController == null || scenesToExcludeLoadingAnimation.Contains(SceneManager.GetActiveScene().name))
         {
             return;
         }
 
-        List<string> toBeExcludedScenes = new List<string> { SceneType.MAIN_MENU_SCENE.GetSceneName(), SceneType.STATUS_SCENE.GetSceneName(), SceneType.BACKSTORY_SCENE.GetSceneName(), SceneType.FINAL_ROOM_SCENE.GetSceneName() };
-
-        if (!toBeExcludedScenes.Contains(SceneManager.GetActiveScene().name))
-        {
-            levelLoadingAnimationController.Initialize();
-            if (playerManager != null) playerManager.SetCanMove(false);
-            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayLoadLevelAnimation());
-            if (playerManager != null) playerManager.SetCanMove(true);
-        }
+        levelLoadingAnimationController.Initialize();
+        if (playerManager != null) playerManager.SetCanMove(false);
+        await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayLoadLevelAnimation());
+        if (playerManager != null) playerManager.SetCanMove(true);
     }
 }
