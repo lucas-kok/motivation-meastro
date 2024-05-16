@@ -87,11 +87,10 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
         _canMakeDecision = false;
     }
 
-    public void ShowScenarioAndDecisions()
+    public void ToggleScenarioAndDecisions()
     {
-        decisionsPanelsUI.SetActive(true);
-        _isReadingDecisions = true;
-        HidePressEnterButtonUI();
+        decisionsPanelsUI.SetActive(!decisionsPanelsUI.activeSelf);
+        _isReadingDecisions = !_isReadingDecisions;
     }
 
     public void HideScenarioAndDecisions()
@@ -108,7 +107,7 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
             return;
         }
 
-        ShowScenarioAndDecisions();
+        ToggleScenarioAndDecisions();
     }
 
     // Methods when a door is chosen
