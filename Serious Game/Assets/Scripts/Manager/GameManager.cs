@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     private CoroutineUtility _coroutineUtility;
     private AppLogger _logger;
 
+    public GameObject[] doors;
+
     private void Start()
     {
         // Assign singletons
@@ -178,5 +180,21 @@ public class GameManager : MonoBehaviour
         if (playerManager != null) playerManager.SetCanMove(false);
         await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayLoadLevelAnimation());
         if (playerManager != null) playerManager.SetCanMove(true);
+    }
+
+    public void LockAllDoors()
+    {
+        foreach (GameObject door in doors)
+        {
+            door.GetComponent<DoorBehaviour>().Lock();
+        }
+    }
+
+    public void UnlockAllDoors()
+    {
+        foreach (GameObject door in doors)
+        {
+            door.GetComponent<DoorBehaviour>().Unlock();
+        }
     }
 }
