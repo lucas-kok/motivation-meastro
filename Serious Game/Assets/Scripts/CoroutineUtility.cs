@@ -1,19 +1,20 @@
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class CoroutineUtility : GenericSingleton<CoroutineUtility>
 {
-    public Task RunCoroutineAndWait(MonoBehaviour target, string coroutineName)
+    public Task RunCoroutineAndWait(MonoBehaviour target, Func<IEnumerator> coroutineFunc)
     {
         var tcs = new TaskCompletionSource<bool>();
-        target.StartCoroutine(WaitForCoroutine(target, coroutineName, tcs));
+        target.StartCoroutine(WaitForCoroutine(coroutineFunc, tcs));
         return tcs.Task;
     }
 
-    private IEnumerator WaitForCoroutine(MonoBehaviour target, string coroutineName, TaskCompletionSource<bool> tcs)
+    private IEnumerator WaitForCoroutine(Func<IEnumerator> coroutineFunc, TaskCompletionSource<bool> tcs)
     {
-        yield return target.StartCoroutine(coroutineName);
+        yield return coroutineFunc();
         tcs.SetResult(true);
     }
 }

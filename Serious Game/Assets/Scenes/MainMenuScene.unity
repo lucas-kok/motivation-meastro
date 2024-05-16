@@ -3128,7 +3128,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -3566,9 +3566,9 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1937939394}
   - {fileID: 1868119751}
   - {fileID: 948521707}
-  - {fileID: 5896101060188219617}
-  - {fileID: 6657972286546366851}
   - {fileID: 1021313822}
-  - {fileID: 1937939394}
+  - {fileID: 6657972286546366851}
+  - {fileID: 5896101060188219617}

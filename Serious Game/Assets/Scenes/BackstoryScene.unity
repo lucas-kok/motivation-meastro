@@ -441,10 +441,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -464,7 +464,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -530,7 +530,7 @@ MonoBehaviour:
   loreText: {fileID: 1656363885}
   nextButton: {fileID: 1688093366}
   exitButton: {fileID: 521507372}
-  typingSpeed: 0.02
+  timeBetweenTypingChars: 3
 --- !u!4 &879879949
 Transform:
   m_ObjectHideFlags: 0
@@ -563,7 +563,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1083998567
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1248,7 +1248,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 879879948}
         m_TargetAssemblyTypeName: BackstorySceneManager, Assembly-CSharp
-        m_MethodName: NextTextEntry
+        m_MethodName: PlayNextTextEntry
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1368,9 +1368,9 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1536166618}
   - {fileID: 749502919}
+  - {fileID: 1110208533}
+  - {fileID: 879879949}
   - {fileID: 836893661}
   - {fileID: 1761131023}
-  - {fileID: 1110208533}
-  - {fileID: 1536166618}
-  - {fileID: 879879949}

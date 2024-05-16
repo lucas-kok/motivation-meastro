@@ -703,7 +703,7 @@ GameObject:
   - component: {fileID: 307689492}
   - component: {fileID: 307689491}
   m_Layer: 0
-  m_Name: Door_Overlay
+  m_Name: DoorOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5668,7 +5668,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -6010,7 +6010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.698651
+      value: 8.698182
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10921,14 +10921,14 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2587093075124215855}
   - {fileID: 1578259010}
   - {fileID: 2018853648}
-  - {fileID: 2587093075124215855}
+  - {fileID: 406452329}
   - {fileID: 786526836}
   - {fileID: 537333064}
   - {fileID: 6101463531335428512}
   - {fileID: 2064651891}
-  - {fileID: 1376852690}
   - {fileID: 1437650936}
-  - {fileID: 406452329}
+  - {fileID: 1376852690}
   - {fileID: 1713032086}

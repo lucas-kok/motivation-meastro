@@ -5,7 +5,6 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
 
-
 // Responsible for IO operations related to scenarios (and with that, decisions) 
 public static class ScenarioIOUtility
 {
@@ -41,8 +40,6 @@ public static class ScenarioIOUtility
         List<Scenario> scenariosBuffer = new List<Scenario>();
         for (int i = 1; i < lines.Length; i++) // Start from index 1 to skip the header line
         {
-            // log line
-            Debug.Log(lines[i]);
             string[] values = lines[i].Split(';');
             Scenario scenario = new Scenario()
             {

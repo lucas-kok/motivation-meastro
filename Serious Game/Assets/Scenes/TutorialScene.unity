@@ -1573,7 +1573,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -3194,7 +3194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3890455564548060593, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.3699417
+      value: -3.3716636
       objectReference: {fileID: 0}
     - target: {fileID: 3890455564548060593, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3214,7 +3214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.901349
+      value: -8.901817
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10396,10 +10396,10 @@ SceneRoots:
   - {fileID: 1573090564}
   - {fileID: 1107694591}
   - {fileID: 1199472744}
-  - {fileID: 495812817}
-  - {fileID: 1665007156}
-  - {fileID: 1149683821}
-  - {fileID: 732854931}
-  - {fileID: 368085631}
   - {fileID: 540306070}
+  - {fileID: 495812817}
+  - {fileID: 1149683821}
+  - {fileID: 368085631}
+  - {fileID: 732854931}
+  - {fileID: 1665007156}
   - {fileID: 1192387283}

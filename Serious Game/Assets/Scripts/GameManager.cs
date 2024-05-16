@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
         {
             playerManager?.SetCanMove(false);
 
-            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
+            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayExitLevelAnimation());
 
             SceneManager.LoadScene(sceneType.GetSceneName());
         }
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
     {
         if (levelLoadingAnimationController != null && _coroutineUtility != null)
         {
-            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
+            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayExitLevelAnimation());
         }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
         {
             levelLoadingAnimationController.Initialize();
             if (playerManager != null) playerManager.SetCanMove(false);
-            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayLoadLevelAnimation");
+            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayLoadLevelAnimation());
             if (playerManager != null) playerManager.SetCanMove(true);
         }
     }
