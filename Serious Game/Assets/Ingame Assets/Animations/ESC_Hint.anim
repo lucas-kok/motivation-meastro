@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ESC_Hint
+  m_Name: Esc_Hint
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -22,9 +22,9 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: -225800602, guid: a30bb325ec1bbd4409c8bcaf454ecb42, type: 3}
-    - time: 0.28333333
+    - time: 0.3
       value: {fileID: -131460251, guid: a30bb325ec1bbd4409c8bcaf454ecb42, type: 3}
-    - time: 0.56666666
+    - time: 0.5833333
       value: {fileID: -542492535, guid: a30bb325ec1bbd4409c8bcaf454ecb42, type: 3}
     attribute: m_Sprite
     path: 
@@ -56,7 +56,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.5833333
+    m_StopTime: 0.59999996
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
