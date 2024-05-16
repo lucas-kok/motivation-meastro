@@ -14,8 +14,10 @@ public class GameManager : MonoBehaviour
     // Controllers
     public LevelLoadingAnimationController levelLoadingAnimationController; // Link this object in the scene to get level animations
     private List<string> scenesToExcludeLoadingAnimation = new List<string> {
-        SceneType.MAIN_MENU_SCENE.GetSceneName(), SceneType.STATUS_SCENE.GetSceneName(),
-        SceneType.BACKSTORY_SCENE.GetSceneName(), SceneType.FINAL_ROOM_SCENE.GetSceneName()
+        SceneType.MAIN_MENU_SCENE.GetSceneName(), 
+        SceneType.STATUS_SCENE.GetSceneName(),
+        SceneType.BACKSTORY_SCENE.GetSceneName(), 
+        SceneType.FINAL_ROOM_SCENE.GetSceneName()
     };
 
     // Singletons 
@@ -144,7 +146,7 @@ public class GameManager : MonoBehaviour
 
     public async void StartNextScene(SceneType sceneType)
     {
-        if (levelLoadingAnimationController != null && _coroutineUtility != null && !scenesToExcludeLoadingAnimation.Contains(SceneManager.GetActiveScene().name))
+        if (levelLoadingAnimationController != null && _coroutineUtility != null && !scenesToExcludeLoadingAnimation.Contains(sceneType.GetSceneName()))
         {
             playerManager?.SetCanMove(false);
 
