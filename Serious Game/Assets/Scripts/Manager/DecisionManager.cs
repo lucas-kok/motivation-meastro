@@ -1,12 +1,10 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEngine;
 
 public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 {
     // Managers
     public PlayerManager playerManager;
+    public GameManager gameManager;
 
     // Singletons
     private AppLogger _logger;
@@ -14,6 +12,7 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 
     // Data 
     private Scenario _scenario;
+    private bool _hasViewedScenarios = false;
 
     // UI View data 
     private Decision _leftDecision;
@@ -42,6 +41,7 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
         _scenario = _gameState.GetRandomAvailableScenario();
 
         // Populate UI 
+        gameManager.LockAllDoors();
         PopulateDecisionsUI(); 
     }
 
@@ -89,6 +89,12 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 
     public void ToggleScenarioAndDecisions()
     {
+        if (!_hasViewedScenarios)
+        {
+            _hasViewedScenarios = true;
+            gameManager.UnlockAllDoors();
+        }
+        
         decisionsPanelsUI.SetActive(!decisionsPanelsUI.activeSelf);
         _isReadingDecisions = !_isReadingDecisions;
     }
