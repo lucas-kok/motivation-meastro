@@ -47,7 +47,7 @@ public class TutorialManager : MonoBehaviour
 
     private void HandleKeyPress(KeyCode key)
     {
-        if (!playerManager.CanMove)
+        if (!playerManager.canMove)
         {
             return;
         }

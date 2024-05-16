@@ -22,7 +22,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     void Update()
     {
-        if (playerManager != null && !playerManager.CanMove)
+        if (playerManager != null && !playerManager.canMove)
         {
             _animator.SetBool("IsIdle", true);
             return;

@@ -7,7 +7,7 @@ public class ObjectCollisionDetector : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             var playerManager = other.gameObject.GetComponent<PlayerManager>();
-            if (playerManager != null)
+            if (playerManager != null && playerManager.canMove)
             {
                 playerManager.TakeDamage();
             }

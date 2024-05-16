@@ -23,7 +23,7 @@ public class Objectspawner : MonoBehaviour
 
     void Update()
     {
-        if (playerManager != null && !playerManager.CanMove)
+        if (playerManager != null && !playerManager.canMove)
         {
             return;
         }

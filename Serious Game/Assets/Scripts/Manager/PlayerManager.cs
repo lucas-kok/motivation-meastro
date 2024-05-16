@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerHealth playerHealth;
     public PlayerAnimationController playerAnimationController;
 
-    public bool CanMove
+    public bool canMove
     {
         get => playerMovement.GetCanMove();
     }
