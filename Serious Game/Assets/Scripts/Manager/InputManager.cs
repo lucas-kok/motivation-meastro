@@ -30,6 +30,13 @@ public class InputManager : MonoBehaviour
     public KeyCode pauseOrResume = KeyCode.Escape;
     public KeyCode interact = KeyCode.Return;
 
+    private Vector2 _latestPlayerMovement;
+
+    private void Start()
+    {
+        _latestPlayerMovement = new Vector2(0f, -500f);
+    }
+
     private void Update()
     {
         EmitKeyPresses();
@@ -58,8 +65,14 @@ public class InputManager : MonoBehaviour
         // Delegate Dashing
         if (CheckDashInput())
         {
-            StartCoroutine(playerMovement.Dash(movementInputs));
+            StartCoroutine(
+                playerMovement.Dash(
+                    (movementInputs.y == 0  && movementInputs.x == 0) ? _latestPlayerMovement : movementInputs
+                )
+            );
         }
+
+        if (movementInputs.y != 0 || movementInputs.x != 0) _latestPlayerMovement = movementInputs;
     }
 
     private Vector2 GetMovementInputs()
