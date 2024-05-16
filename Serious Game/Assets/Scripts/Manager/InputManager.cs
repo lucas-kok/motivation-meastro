@@ -21,10 +21,10 @@ public class InputManager : MonoBehaviour
 
     // Input keys
     [Header("Keyboard Controls")]
-    public KeyCode left = KeyCode.A;
-    public KeyCode right = KeyCode.D;
-    public KeyCode up = KeyCode.W;
-    public KeyCode down = KeyCode.S;
+    public KeyCode[] left = { KeyCode.A, KeyCode.LeftArrow };
+    public KeyCode[] right = { KeyCode.D , KeyCode.RightArrow };
+    public KeyCode[] up = { KeyCode.W, KeyCode.UpArrow };
+    public KeyCode[] down = { KeyCode.S, KeyCode.DownArrow };
 
     public KeyCode dash = KeyCode.LeftShift;
     public KeyCode pauseOrResume = KeyCode.Escape;
@@ -68,10 +68,10 @@ public class InputManager : MonoBehaviour
         float x = 0f;
         float y = 0f;
 
-        if (Input.GetKey(left)) x = -500f;
-        if (Input.GetKey(right)) x = 500f;
-        if (Input.GetKey(up)) y = 500f;
-        if (Input.GetKey(down)) y = -500f;
+        if (Input.GetKey(left[0]) || Input.GetKey(left[1])) x = -500f;
+        if (Input.GetKey(right[0]) || Input.GetKey(right[1])) x = 500f;
+        if (Input.GetKey(up[0]) || Input.GetKey(up[1])) y = 500f;
+        if (Input.GetKey(down[0]) || Input.GetKey(down[1])) y = -500f;
 
         return new Vector2(x, y);
     }
