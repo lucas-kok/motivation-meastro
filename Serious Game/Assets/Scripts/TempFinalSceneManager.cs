@@ -72,8 +72,6 @@ public class TempFinalSceneManager : MonoBehaviour
             duplicatedObject.SetActive(true);
 
             scenarioYAxisPosition -= scenarioYAxisGap;
-
-            
         }
 
         ShowScore();
@@ -86,8 +84,121 @@ public class TempFinalSceneManager : MonoBehaviour
     private void ShowScore()
     {
         Statistics stats = _gameState.CalculateGameStats();
-        scoreDisplay.text = $"Uw score is: {stats.AchievedAutonomyScore} / {stats.MaxAutonomyScore} op autonomie. \n" +
-            $"Uw score is: {stats.AchievedCompetencyScore} / {stats.MaxCompetencyScore} op competentie. \n" +
-            $"Uw score is: {stats.AchievedConnectednessScore} / {stats.MaxConnectednessScore} op verbondenheid.";
+        double autonomyPercentage = -1;
+        double competencyPercentage = -1;
+        double connectednessPercentage = -1;
+
+        if (stats.AchievedAutonomyScore != 0 && stats.MaxAutonomyScore != 0)
+        {
+            autonomyPercentage = (double)stats.AchievedAutonomyScore / stats.MaxAutonomyScore * 100;
+        }
+
+        if (stats.AchievedCompetencyScore != 0 && stats.MaxCompetencyScore != 0)
+        {
+            competencyPercentage = (double)stats.AchievedCompetencyScore / stats.MaxCompetencyScore * 100;
+        }
+
+        if (stats.AchievedConnectednessScore != 0 && stats.MaxConnectednessScore != 0)
+        {
+            connectednessPercentage = (double)stats.AchievedConnectednessScore / stats.MaxConnectednessScore * 100;
+        }
+
+        SetAutomyScore(autonomyPercentage);
+        SetCompetencyScore(competencyPercentage);
+        SetConnectednessScore(connectednessPercentage);
+    }
+
+    private void SetAutomyScore(double score)
+    {
+        var autonomy = GameObject.Find("Autonomy");
+        var autonomyHappy = autonomy.transform.GetChild(0).gameObject;
+        var autonomyNeutral = autonomy.transform.GetChild(1).gameObject;
+        var autonomyAngry = autonomy.transform.GetChild(2).gameObject;
+        var scoreDisplay = GameObject.Find("AutonomyText (TMP)").GetComponent<TextMeshProUGUI>();
+
+
+        if (score == -1)
+        {
+            autonomyNeutral.gameObject.SetActive(true);
+            scoreDisplay.text += "\n\t nvt";
+            return;
+        } 
+        else if(score < 50)
+        {
+            autonomyAngry.gameObject.SetActive(true);
+        } 
+        else if(score >= 50 && score < 70)
+        {
+            autonomyNeutral.gameObject.SetActive(true);
+        } 
+        else
+        {
+            autonomyHappy.gameObject.SetActive(true);
+        }
+
+        scoreDisplay.text += "\n\t" + score.ToString("0.0") + "%";
+    }
+
+    private void SetCompetencyScore(double score)
+    {
+        var competency = GameObject.Find("Competence");
+        var competencyHappy = competency.transform.GetChild(0).gameObject;
+        var competencyNeutral = competency.transform.GetChild(1).gameObject;
+        var competencyAngry = competency.transform.GetChild(2).gameObject;
+        var scoreDisplay = GameObject.Find("CompetenceText (TMP)").GetComponent<TextMeshProUGUI>();
+
+        if (score == -1)
+        {
+            competencyNeutral.gameObject.SetActive(true);
+            scoreDisplay.text += "\n\t nvt";
+            return;
+        }
+        else if (score < 50)
+        {
+            competencyAngry.gameObject.SetActive(true);
+        }
+        else if (score >= 50 && score < 70)
+        {
+            competencyNeutral.gameObject.SetActive(true);
+        }
+        else
+        {
+            competencyHappy.gameObject.SetActive(true);
+        }
+
+        scoreDisplay.text += "\n\t" + score.ToString("0.0") + "%";
+    }
+
+    private void SetConnectednessScore(double score)
+    {
+        var connectedness = GameObject.Find("Connectedness");
+        var connectednessHappy = connectedness.transform.GetChild(0).gameObject;
+        var connectednessNeutral = connectedness.transform.GetChild(1).gameObject;
+        var connectednessAngry = connectedness.transform.GetChild(2).gameObject;
+        var scoreDisplay = GameObject.Find("ConnectednessText (TMP)").GetComponent<TextMeshProUGUI>();
+
+        
+
+        if (score == -1)
+        {
+            connectednessNeutral.gameObject.SetActive(true);
+            scoreDisplay.text += "\n\t nvt";
+            return;
+        }
+        else if (score < 50)
+        {
+            connectednessAngry.gameObject.SetActive(true);
+        }
+        else if (score >= 50 && score < 70)
+        {
+            connectednessNeutral.gameObject.SetActive(true);
+        }
+        else
+        {
+            connectednessHappy.gameObject.SetActive(true);
+        }
+
+        scoreDisplay.text += "\n\t" + score.ToString("0.0") + "%";
+
     }
 }
