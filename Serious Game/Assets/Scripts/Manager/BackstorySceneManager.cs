@@ -13,6 +13,8 @@ public class BackstorySceneManager : MonoBehaviour
     public GameManager gameManager;
     public float timeBetweenTypingChars = 3f;
 
+    public InputManager inputManager;
+
     public string[] loreTextEntries = {
         "Je bent een docent in een verlaten school, nadat deze door een aantal ongemotiveerde studenten overgenomen is...\n \nen het is jouw taak om de studenten te bereiken, en onderweg te motiveren!",
         "Het drietal studenten representeren ieder een van de motivatie basisbehoeften die zij missen, namelijk: \n \n \t Autonomie, Competentie en Verbondenheid.",
@@ -36,7 +38,31 @@ public class BackstorySceneManager : MonoBehaviour
 
         PlayNextTextEntry();
     }
-    
+
+    private void OnEnable()
+    {
+        inputManager.OnKeyPress += HandleKeyPress;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.OnKeyPress -= HandleKeyPress;
+    }
+
+    private void HandleKeyPress(KeyCode key)
+    {        
+        if (key.ToString() == KeyCode.Return.ToString())
+        {
+            if (!nextButton.activeSelf && exitButton.activeSelf) 
+            {
+                gameManager.OnExitBackstory();    
+            } else if (nextButton.activeSelf)
+            {
+                PlayNextTextEntry();
+            }
+        }
+    }
+
     public async void PlayNextTextEntry()
     {
         if (_currentIndex < loreTextEntries.Length)

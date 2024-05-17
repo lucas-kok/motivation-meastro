@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] public float speed;
     [SerializeField] public InputManager inputManager;
+    [SerializeField] public PlayerAnimationController playerAnimationController;
     [SerializeField] public ParticleSystem dustParticle;
     [SerializeField] public float dashingPower = 0.075f;
     [SerializeField] public float dashingTime = 0.2f;
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb = GetComponent<Rigidbody2D>();
+        playerAnimationController = GetComponent<PlayerAnimationController>();
         rb.gravityScale = 0f;
     }
 
@@ -56,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator Dash(Vector2 movementInput)
     {
-        Debug.Log("X: " + movementInput.x + ", Y: " + movementInput.y);
         // Check on dashing state
         if (!_canMove || isDashing || !canDash)
         {
@@ -67,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
 
         canDash = false;
         isDashing = true;
+
+        playerAnimationController.SetDashing(true);
 
         if (movementInput.x != 0 && movementInput.y != 0)
         {
@@ -82,6 +85,8 @@ public class PlayerMovement : MonoBehaviour
 
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
+
+        playerAnimationController.SetDashing(false);
 
         StartCoroutine("PlayDashCooldownAnimation");
 

@@ -2970,7 +2970,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3890455564548060593, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.3555632
+      value: -3.3667426
       objectReference: {fileID: 0}
     - target: {fileID: 3890455564548060593, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2990,7 +2990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.897432
+      value: -8.900477
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8216,6 +8216,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1199472745}
+    - target: {fileID: 3890366308571164505, guid: 5dec2d13413c33c44a0eb2fd263eab12, type: 3}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 495812818}
     - target: {fileID: 6331197905189413608, guid: 5dec2d13413c33c44a0eb2fd263eab12, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.02
