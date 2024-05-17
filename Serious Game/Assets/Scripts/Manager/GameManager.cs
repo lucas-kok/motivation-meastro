@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public LevelLoadingAnimationController levelLoadingAnimationController; // Link this object in the scene to get level animations
     private List<string> scenesToExcludeLoadingAnimation = new List<string> {
         SceneType.MAIN_MENU_SCENE.GetSceneName(), 
-        SceneType.STATUS_SCENE.GetSceneName(),
+        SceneType.IMPACT_SCENE.GetSceneName(),
         SceneType.BACKSTORY_SCENE.GetSceneName(), 
         SceneType.FINAL_ROOM_SCENE.GetSceneName()
     };
@@ -120,11 +120,11 @@ public class GameManager : MonoBehaviour
     // When the player made a decision
     public void OnReachDecisionRoomExitDoor()
     {
-        GoToNextRoom(SceneType.STATUS_SCENE);
+        GoToNextRoom(SceneType.IMPACT_SCENE);
     }
 
     // When the status scene gets exited
-    public void OnExitStatusScene()
+    public void OnExitImpactScene()
     {
         _gameState.IncrementPlayedDecisionRoomCount();
 
