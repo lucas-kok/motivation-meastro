@@ -15,8 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _canMove = true;
 
     public Slider dashCooldownSlider;
-    private Color _dashDisabledColor = new Color(1f, 0.2770096f, 0.2122642f, 1f);
-    private Color _dashEnabledColor = new Color(0.2667724f, 1f, 0.2117647f, 1f);
+    private Color _dashDisabledColor = new Color(0.878431373f, 0.274509804f, 0.152941176f, 1f);
+    private Color _dashEnabledColor = new Color(0.078431373f, 0.62745098f, 0.180392157f, 1f);
 
     [SerializeField] public float speed;
     [SerializeField] public InputManager inputManager;
