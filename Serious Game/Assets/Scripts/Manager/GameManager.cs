@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,11 +13,19 @@ public class GameManager : MonoBehaviour
 
     // Controllers
     public LevelLoadingAnimationController levelLoadingAnimationController; // Link this object in the scene to get level animations
+    private List<string> scenesToExcludeLoadingAnimation = new List<string> {
+        SceneType.MAIN_MENU_SCENE.GetSceneName(), 
+        SceneType.IMPACT_SCENE.GetSceneName(),
+        SceneType.BACKSTORY_SCENE.GetSceneName(), 
+        SceneType.FINAL_ROOM_SCENE.GetSceneName()
+    };
 
     // Singletons 
     private GameState _gameState;
     private CoroutineUtility _coroutineUtility;
     private AppLogger _logger;
+
+    public GameObject[] doors;
 
     private void Start()
     {
@@ -111,11 +120,11 @@ public class GameManager : MonoBehaviour
     // When the player made a decision
     public void OnReachDecisionRoomExitDoor()
     {
-        GoToNextRoom(SceneType.STATUS_SCENE);
+        GoToNextRoom(SceneType.IMPACT_SCENE);
     }
 
     // When the status scene gets exited
-    public void OnExitStatusScene()
+    public void OnExitImpactScene()
     {
         _gameState.IncrementPlayedDecisionRoomCount();
 
@@ -139,21 +148,21 @@ public class GameManager : MonoBehaviour
 
     public async void StartNextScene(SceneType sceneType)
     {
-        if (levelLoadingAnimationController != null && _coroutineUtility != null)
+        if (levelLoadingAnimationController != null && _coroutineUtility != null && !scenesToExcludeLoadingAnimation.Contains(sceneType.GetSceneName()))
         {
             playerManager?.SetCanMove(false);
 
-            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
-
-            SceneManager.LoadScene(sceneType.GetSceneName());
+            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayExitLevelAnimation());
         }
+
+        SceneManager.LoadScene(sceneType.GetSceneName());
     }
 
     public async void RestartScene()
     {
         if (levelLoadingAnimationController != null && _coroutineUtility != null)
         {
-            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayExitLevelAnimation");
+            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayExitLevelAnimation());
         }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -162,17 +171,30 @@ public class GameManager : MonoBehaviour
 
     public async void PlayLevelLoadingAnimation()
     {
-        if (levelLoadingAnimationController == null )
+        if (levelLoadingAnimationController == null || scenesToExcludeLoadingAnimation.Contains(SceneManager.GetActiveScene().name))
         {
             return;
         }
 
-        if (!SceneManager.GetActiveScene().name.Equals(SceneType.MAIN_MENU_SCENE.GetSceneName()) && !SceneManager.GetActiveScene().name.Equals(SceneType.STATUS_SCENE.GetSceneName()) && !SceneManager.GetActiveScene().name.Equals(SceneType.BACKSTORY_SCENE.GetSceneName()))
+        levelLoadingAnimationController.Initialize();
+        if (playerManager != null) playerManager.SetCanMove(false);
+        await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayLoadLevelAnimation());
+        if (playerManager != null) playerManager.SetCanMove(true);
+    }
+
+    public void LockAllDoors()
+    {
+        foreach (GameObject door in doors)
         {
-            levelLoadingAnimationController.Initialize();
-            if (playerManager != null) playerManager.SetCanMove(false);
-            await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, "PlayLoadLevelAnimation");
-            if (playerManager != null) playerManager.SetCanMove(true);
+            door.GetComponent<DoorBehaviour>().Lock();
+        }
+    }
+
+    public void UnlockAllDoors()
+    {
+        foreach (GameObject door in doors)
+        {
+            door.GetComponent<DoorBehaviour>().Unlock();
         }
     }
 }

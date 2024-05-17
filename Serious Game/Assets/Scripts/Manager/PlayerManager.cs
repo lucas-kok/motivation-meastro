@@ -6,8 +6,10 @@ public class PlayerManager : MonoBehaviour
     public PlayerMovement playerMovement;
     public PlayerHealth playerHealth;
     public PlayerAnimationController playerAnimationController;
+    
+    public InputManager inputManager;
 
-    public bool CanMove
+    public bool canMove
     {
         get => playerMovement.GetCanMove();
     }
@@ -49,5 +51,10 @@ public class PlayerManager : MonoBehaviour
         {
             playerMovement.SetCanMove(canMove);
         }
+    }
+
+    public void SetPlayerAfk()
+    {
+        inputManager.ResetLatestPlayerMovement();
     }
 }

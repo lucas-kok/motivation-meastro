@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+    public GameManager gameManager;
     public PlayerManager playerManager;
     public InputManager inputManager;
-    public GameObject bookshelf;
+   
     public GameObject exitDoorArrow;
     public GameObject[] tutorialStepsUI;
     public KeyCode[] tutorialKeys;
+    public GameObject menu;
 
     private AppLogger _logger;
     private int _currentStep = 0;
@@ -15,8 +17,8 @@ public class TutorialManager : MonoBehaviour
     private void Start()
     {
         _logger = AppLogger.Instance;
-        bookshelf.SetActive(true);
         exitDoorArrow.SetActive(false);
+        gameManager.LockAllDoors();
 
         if (tutorialStepsUI.Length != tutorialKeys.Length)
         {
@@ -46,7 +48,7 @@ public class TutorialManager : MonoBehaviour
 
     private void HandleKeyPress(KeyCode key)
     {
-        if (!playerManager.CanMove)
+        if (!playerManager.canMove || menu.activeSelf)
         {
             return;
         }
@@ -76,8 +78,8 @@ public class TutorialManager : MonoBehaviour
 
         if (_currentStep == tutorialStepsUI.Length - 1)
         {
-            bookshelf.SetActive(false);
             exitDoorArrow.SetActive(true);
+            gameManager.UnlockAllDoors();
         }
     }
 }

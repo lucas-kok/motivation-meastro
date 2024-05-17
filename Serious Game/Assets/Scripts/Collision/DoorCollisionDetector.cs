@@ -5,15 +5,17 @@ public class DoorEntryTrigger : MonoBehaviour
     public DecisionManager decisionManager;
     public GameManager gameManager;
     private AppLogger _logger;
+    private DoorBehaviour _doorBehaviour;
 
     private void Start()
     {
         _logger = AppLogger.Instance;
+        _doorBehaviour = GetComponentInParent<DoorBehaviour>();
     }
 
     private void OnCollisionEnter2D(Collision2D col)
    {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player" && !_doorBehaviour.isLocked)
         {
             if (gameObject.CompareTag("ExitChallengeRoomDoor"))
             {

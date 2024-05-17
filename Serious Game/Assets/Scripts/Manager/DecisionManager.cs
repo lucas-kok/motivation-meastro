@@ -1,12 +1,11 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 {
     // Managers
     public PlayerManager playerManager;
+    public GameManager gameManager;
 
     // Singletons
     private AppLogger _logger;
@@ -14,6 +13,7 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 
     // Data 
     private Scenario _scenario;
+    private bool _hasViewedScenarios = false;
 
     // UI View data 
     private Decision _leftDecision;
@@ -21,6 +21,8 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 
     // UI objects
     public GameObject enterKeypressHintUI;
+    private TextMeshProUGUI enterKeypressHintText;
+
     public GameObject decisionsPanelsUI;
     public GameObject scenarioPanelUI;
     public GameObject firstDecisionPanel;
@@ -32,7 +34,12 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 
     void Start()
     {
-        if (enterKeypressHintUI != null) enterKeypressHintUI.SetActive(false);
+        if (enterKeypressHintUI != null)
+        {
+            enterKeypressHintUI.SetActive(false);
+            enterKeypressHintText = enterKeypressHintUI.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>();
+        }
+
         if (decisionsPanelsUI != null) decisionsPanelsUI.SetActive(false);
 
         _logger = AppLogger.Instance;
@@ -42,6 +49,7 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
         _scenario = _gameState.GetRandomAvailableScenario();
 
         // Populate UI 
+        gameManager.LockAllDoors();
         PopulateDecisionsUI(); 
     }
 
@@ -87,11 +95,17 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
         _canMakeDecision = false;
     }
 
-    public void ShowScenarioAndDecisions()
+    public void ToggleScenarioAndDecisions()
     {
-        decisionsPanelsUI.SetActive(true);
-        _isReadingDecisions = true;
-        HidePressEnterButtonUI();
+        if (!_hasViewedScenarios)
+        {
+            _hasViewedScenarios = true;
+            gameManager.UnlockAllDoors();
+        }
+        
+        decisionsPanelsUI.SetActive(!decisionsPanelsUI.activeSelf);
+        _isReadingDecisions = !_isReadingDecisions;
+        enterKeypressHintText.text = _isReadingDecisions ? "Sluit" : "Open";
     }
 
     public void HideScenarioAndDecisions()
@@ -108,18 +122,20 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
             return;
         }
 
-        ShowScenarioAndDecisions();
+        ToggleScenarioAndDecisions();
     }
 
     // Methods when a door is chosen
     public void ChooseLeftDecision()
     {
         RecordDecision(_leftDecision);
+        _gameState.ScenariosAndChosenDoorIndex.Add((_scenario, 0));
     }
 
     public void ChooseRightDecision()
     {
         RecordDecision(_rightDecision);
+        _gameState.ScenariosAndChosenDoorIndex.Add((_scenario, 1));
     }
 
     // Record the decision the player made and let the GameState process this

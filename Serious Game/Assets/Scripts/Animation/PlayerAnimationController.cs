@@ -10,6 +10,7 @@ public class PlayerAnimationController : MonoBehaviour
     public int secondsUntilAfk = 5;
     private bool _isAfk = false;
     private bool _isIdleCoroutineRunning = false;
+    private bool _isDashing = false;
 
     // Coroutine reference
     private Coroutine idleTimerCoroutine;
@@ -22,7 +23,12 @@ public class PlayerAnimationController : MonoBehaviour
 
     void Update()
     {
-        if (playerManager != null && !playerManager.CanMove)
+        if (_isDashing)
+        {
+            return;
+        }
+
+        if (playerManager != null && !playerManager.canMove)
         {
             _animator.SetBool("IsIdle", true);
             return;
@@ -70,6 +76,8 @@ public class PlayerAnimationController : MonoBehaviour
         yield return new WaitForSeconds(secondsUntilAfk);
         PlayAfkAnimation();
 
+        playerManager.SetPlayerAfk();
+
         _isAfk = true;
         _isIdleCoroutineRunning = false;
         idleTimerCoroutine = null;
@@ -78,6 +86,8 @@ public class PlayerAnimationController : MonoBehaviour
     public void PlayAfkAnimation()
     {
         _animator.SetBool("IsAfk", true);
+        _animator.SetFloat("VelocityX", 0f);
+        _animator.SetFloat("VelocityY", -1f);
     }
 
     public void PlayHurtAnimation()
@@ -88,5 +98,13 @@ public class PlayerAnimationController : MonoBehaviour
     public void PlayHitAnimation()
     {
         _animator.Play("Hit");
+    }
+
+    public void SetDashing(bool isDashing)
+    {
+        _isDashing = isDashing;
+        _animator.SetBool("IsIdle", !isDashing);
+        _isAfk = !isDashing ? false : _isAfk;
+        _animator.SetBool("IsAfk", _isAfk);
     }
 }
