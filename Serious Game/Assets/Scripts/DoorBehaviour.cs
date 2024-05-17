@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static Unity.Collections.AllocatorManager;
 
@@ -6,12 +7,19 @@ public class DoorBehaviour : MonoBehaviour
     public bool isLocked { get; private set; }
     private Animator _animator;
     private GameObject _lock;
+    public List<string> doorTagsToUnlockOnDefault = new List<string>() { "ExitChallengeRoomDoor" };
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _lock = gameObject.transform.Find("Padlock")?.gameObject;
-        Unlock();
+        
+        Lock();
+
+        if (doorTagsToUnlockOnDefault.Contains(gameObject.tag))
+        {
+            Unlock();
+        }
     }
 
     public void Unlock()

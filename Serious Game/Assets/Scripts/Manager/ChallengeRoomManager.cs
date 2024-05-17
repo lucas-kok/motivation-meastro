@@ -27,7 +27,6 @@ public class ChallengeRoomManager : MonoBehaviour
         
         var randomIndex = Random.Range(0, layoutsCount);
         layoutContainer.transform.GetChild(randomIndex).gameObject.SetActive(true);
-
     }
 
     private void SetDifficultyBar(GameDifficulty diff)
