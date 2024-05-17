@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class StatusSceneManager : MonoBehaviour
+public class ImpactSceneManager : MonoBehaviour
 {
     private GameState _gameState;
     private Scenario _scenario;
@@ -49,7 +49,7 @@ public class StatusSceneManager : MonoBehaviour
     {
         if (key == KeyCode.Return)
         {
-            gameManager.OnExitStatusScene();
+            gameManager.OnExitImpactScene();
         }
     }
 
@@ -65,20 +65,38 @@ public class StatusSceneManager : MonoBehaviour
 
     private void SetAutonomy()
     {
-        AutonomyAngry.SetActive(_scenario.AutonomyScore == 0 || !_scenario.ChoseCorrectly);
-        AutonomyHappy.SetActive(_scenario.AutonomyScore == 1 && _scenario.ChoseCorrectly);
+        AutonomyAngry.SetActive(!_scenario.ChoseCorrectly);
         AutonomyNeutral.SetActive(_scenario.AutonomyScore == 0.5 && _scenario.ChoseCorrectly);
+        AutonomyHappy.SetActive(_scenario.AutonomyScore == 1 && _scenario.ChoseCorrectly);
+
+        if (_scenario.AutonomyScore == 0 && _scenario.ChoseCorrectly)
+        {
+            AutonomyNeutral.SetActive(true);
+            AutonomyNeutral.transform.GetChild(1).transform.gameObject.SetActive(false);
+        }
     }
     private void SetCompetence()
     {
-        CompetenceAngry.SetActive(_scenario.CompetencyScore == 0 || !_scenario.ChoseCorrectly);
-        CompetenceHappy.SetActive(_scenario.CompetencyScore == 1 && _scenario.ChoseCorrectly);
+        CompetenceAngry.SetActive(!_scenario.ChoseCorrectly);
         CompetenceNeutral.SetActive(_scenario.CompetencyScore == 0.5 && _scenario.ChoseCorrectly);
+        CompetenceHappy.SetActive(_scenario.CompetencyScore == 1 && _scenario.ChoseCorrectly);
+
+        if (_scenario.CompetencyScore == 0 && _scenario.ChoseCorrectly)
+        {
+            CompetenceNeutral.SetActive(true);
+            CompetenceNeutral.transform.GetChild(1).transform.gameObject.SetActive(false);
+        }
     }
     private void SetConnectedness()
     {
-        ConnectednessAngry.SetActive(_scenario.ConnectednessScore == 0 || !_scenario.ChoseCorrectly);
-        ConnectednessHappy.SetActive(_scenario.ConnectednessScore == 1 && _scenario.ChoseCorrectly);
+        ConnectednessAngry.SetActive(!_scenario.ChoseCorrectly);
         ConnectednessNeutral.SetActive(_scenario.ConnectednessScore == 0.5 && _scenario.ChoseCorrectly);
+        ConnectednessHappy.SetActive(_scenario.ConnectednessScore == 1 && _scenario.ChoseCorrectly);
+
+        if (_scenario.ConnectednessScore == 0 && _scenario.ChoseCorrectly)
+        {
+            ConnectednessNeutral.SetActive(true);
+            ConnectednessNeutral.transform.GetChild(1).transform.gameObject.SetActive(false);
+        }
     }
 }
