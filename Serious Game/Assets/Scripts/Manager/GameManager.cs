@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
     }
 
     // When the status scene gets exited
-    public void OnExitStatusScene()
+    public void OnExitImpactScene()
     {
         _gameState.IncrementPlayedDecisionRoomCount();
 
