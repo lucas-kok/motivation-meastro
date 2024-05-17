@@ -9,6 +9,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject exitDoorArrow;
     public GameObject[] tutorialStepsUI;
     public KeyCode[] tutorialKeys;
+    public GameObject menu;
 
     private AppLogger _logger;
     private int _currentStep = 0;
@@ -47,7 +48,7 @@ public class TutorialManager : MonoBehaviour
 
     private void HandleKeyPress(KeyCode key)
     {
-        if (!playerManager.canMove)
+        if (!playerManager.canMove || menu.activeSelf)
         {
             return;
         }

@@ -17,14 +17,14 @@ public class DoorBehaviour : MonoBehaviour
     public void Unlock()
     {
         isLocked = false;
-        _animator.SetBool("IsLocked", isLocked);
+        if (_animator != null)  _animator.SetBool("IsLocked", isLocked);
         if (_lock != null) _lock.SetActive(isLocked);
     }
 
     public void Lock()
     {
         isLocked = true;
-        _animator.SetBool("IsLocked", isLocked);
+        if (_animator != null) _animator.SetBool("IsLocked", isLocked);
         if (_lock != null) _lock.SetActive(isLocked);
     }
 }

@@ -1,10 +1,13 @@
+using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class StatusSceneManager : MonoBehaviour
 {
     private GameState _gameState;
     private Scenario _scenario;
+
+    public GameObject leftChoiseIcon;
+    public GameObject rightChoiseIcon;
 
     public GameObject AutonomyHappy;
     public GameObject AutonomyAngry;
@@ -18,14 +21,46 @@ public class StatusSceneManager : MonoBehaviour
     public GameObject CompetenceAngry;
     public GameObject CompetenceNeutral;
 
+    public GameManager gameManager;
+    public InputManager inputManager;
+
     void Start()
     {
         _gameState = GameState.Instance;
         _scenario = _gameState.CurrentScenario;
 
+        SetChoiceIcon();
         SetAutonomy();
         SetCompetence();
         SetConnectedness();
+    }
+
+    private void OnEnable()
+    {
+        inputManager.OnKeyPress += HandleKeyPress;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.OnKeyPress -= HandleKeyPress;
+    }
+
+    private void HandleKeyPress(KeyCode key)
+    {
+        if (key == KeyCode.Return)
+        {
+            gameManager.OnExitStatusScene();
+        }
+    }
+
+    private void SetChoiceIcon()
+    {
+        var scenarioAndDoor = _gameState.ScenariosAndChosenDoorIndex.Where(s => s.scenario.Equals(_scenario)).FirstOrDefault();
+
+        var chosenDoorIndex = scenarioAndDoor.doorIndex; // 0 when no scenario could be found
+
+        leftChoiseIcon.SetActive(chosenDoorIndex == 0);
+        rightChoiseIcon.SetActive(chosenDoorIndex == 1);
     }
 
     private void SetAutonomy()
@@ -46,5 +81,4 @@ public class StatusSceneManager : MonoBehaviour
         ConnectednessHappy.SetActive(_scenario.ConnectednessScore == 1 && _scenario.ChoseCorrectly);
         ConnectednessNeutral.SetActive(_scenario.ConnectednessScore == 0.5 && _scenario.ChoseCorrectly);
     }
-
 }
