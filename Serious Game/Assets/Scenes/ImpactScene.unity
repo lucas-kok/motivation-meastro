@@ -1374,7 +1374,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1110208534}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: OnExitStatusScene
+        m_MethodName: OnExitImpactScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1720,7 +1720,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0

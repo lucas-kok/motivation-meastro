@@ -9,7 +9,6 @@ using System;
 // Responsible for IO operations related to scenarios (and with that, decisions) 
 public static class ScenarioIOUtility
 {
-
     public static IEnumerator LoadScenarios(Action<List<Scenario>> callback)
     {
         var filePath = Path.Combine(Application.streamingAssetsPath, "ScenariosDecisions.csv");

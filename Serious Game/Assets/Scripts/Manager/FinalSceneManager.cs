@@ -1,15 +1,12 @@
 
-using JetBrains.Annotations;
-using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TempFinalSceneManager : MonoBehaviour
+public class FinalSceneManager : MonoBehaviour
 {
     public TextMeshProUGUI wrongDecisionExplaination;
-    public TextMeshProUGUI scoreDisplay;
 
     public GameObject content;
     public GameObject template;
@@ -23,15 +20,16 @@ public class TempFinalSceneManager : MonoBehaviour
     {
         template.SetActive(false);
         wrongDecisionExplaination.text = "";
-        scoreDisplay.text = "";
 
         _gameState = GameState.Instance;
-      
+        var scenarios = _gameState.Scenarios;
 
         var contentRectTransform = content.GetComponent<RectTransform>();
         var templateRectTransofrm = template.GetComponent<RectTransform>();
         var templateHeight = templateRectTransofrm.rect.height;
-        contentRectTransform.sizeDelta = new Vector2(contentRectTransform.rect.width, templateHeight * (_gameState.Scenarios.Count + 1));
+
+        var numberOfCompletedScenarios = scenarios.Where(s => s.IsCompleted).Count();
+        contentRectTransform.sizeDelta = new Vector2(contentRectTransform.rect.width, templateHeight * (numberOfCompletedScenarios + 1));
 
         _gameState = GameState.Instance;
 
@@ -120,7 +118,7 @@ public class TempFinalSceneManager : MonoBehaviour
         if (score == -1)
         {
             autonomyNeutral.gameObject.SetActive(true);
-            scoreDisplay.text += "\n\t nvt";
+            scoreDisplay.text += "\nN.v.t.";
             return;
         } 
         else if(score < 50)
@@ -136,7 +134,7 @@ public class TempFinalSceneManager : MonoBehaviour
             autonomyHappy.gameObject.SetActive(true);
         }
 
-        scoreDisplay.text += "\n\t" + score.ToString("0.0") + "%";
+        scoreDisplay.text += "\n" + score.ToString("0.0") + "%";
     }
 
     private void SetCompetencyScore(double score)
@@ -150,7 +148,7 @@ public class TempFinalSceneManager : MonoBehaviour
         if (score == -1)
         {
             competencyNeutral.gameObject.SetActive(true);
-            scoreDisplay.text += "\n\t nvt";
+            scoreDisplay.text += "\nN.v.t.";
             return;
         }
         else if (score < 50)
@@ -166,7 +164,7 @@ public class TempFinalSceneManager : MonoBehaviour
             competencyHappy.gameObject.SetActive(true);
         }
 
-        scoreDisplay.text += "\n\t" + score.ToString("0.0") + "%";
+        scoreDisplay.text += "\n" + score.ToString("0.0") + "%";
     }
 
     private void SetConnectednessScore(double score)
@@ -182,7 +180,7 @@ public class TempFinalSceneManager : MonoBehaviour
         if (score == -1)
         {
             connectednessNeutral.gameObject.SetActive(true);
-            scoreDisplay.text += "\n\t nvt";
+            scoreDisplay.text += "\nN.v.t.";
             return;
         }
         else if (score < 50)
@@ -198,7 +196,6 @@ public class TempFinalSceneManager : MonoBehaviour
             connectednessHappy.gameObject.SetActive(true);
         }
 
-        scoreDisplay.text += "\n\t" + score.ToString("0.0") + "%";
-
+        scoreDisplay.text += "\n" + score.ToString("0.0") + "%";
     }
 }
