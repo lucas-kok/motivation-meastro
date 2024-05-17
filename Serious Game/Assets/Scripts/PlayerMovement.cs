@@ -56,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator Dash(Vector2 movementInput)
     {
-        Debug.Log("X: " + movementInput.x + ", Y: " + movementInput.y);
         // Check on dashing state
         if (!_canMove || isDashing || !canDash)
         {
