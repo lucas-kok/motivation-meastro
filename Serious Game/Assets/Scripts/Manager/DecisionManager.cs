@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class DecisionManager : MonoBehaviour, IInteractableBehaviour
@@ -20,6 +21,8 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 
     // UI objects
     public GameObject enterKeypressHintUI;
+    private TextMeshProUGUI enterKeypressHintText;
+
     public GameObject decisionsPanelsUI;
     public GameObject scenarioPanelUI;
     public GameObject firstDecisionPanel;
@@ -31,7 +34,12 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 
     void Start()
     {
-        if (enterKeypressHintUI != null) enterKeypressHintUI.SetActive(false);
+        if (enterKeypressHintUI != null)
+        {
+            enterKeypressHintUI.SetActive(false);
+            enterKeypressHintText = enterKeypressHintUI.transform.Find("Text (TMP)").GetComponent<TextMeshProUGUI>();
+        }
+
         if (decisionsPanelsUI != null) decisionsPanelsUI.SetActive(false);
 
         _logger = AppLogger.Instance;
@@ -97,6 +105,7 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
         
         decisionsPanelsUI.SetActive(!decisionsPanelsUI.activeSelf);
         _isReadingDecisions = !_isReadingDecisions;
+        enterKeypressHintText.text = _isReadingDecisions ? "Sluit" : "Open";
     }
 
     public void HideScenarioAndDecisions()
