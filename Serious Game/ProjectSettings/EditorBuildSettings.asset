@@ -12,18 +12,18 @@ EditorBuildSettings:
     path: Assets/Scenes/TutorialScene.unity
     guid: 180f92654d56df743863ffa0d941bda5
   - enabled: 1
+    path: Assets/Scenes/BackstoryScene.unity
+    guid: 4ce0d95610ff90f46b1550d4738e91aa
+  - enabled: 1
     path: Assets/Scenes/DecisionRoomScene.unity
     guid: 51121c694a1625646a0b58121e8cd266
+  - enabled: 1
+    path: Assets/Scenes/ImpactScene.unity
+    guid: c7eed7ecf88a187498b5eeae5e754439
   - enabled: 1
     path: Assets/Scenes/ChallengeRoomScene.unity
     guid: 955fb582e467c19499e91698271e5bc8
   - enabled: 1
     path: Assets/Scenes/FinalRoomScene.unity
     guid: 73bc93bee0d91e44cb3c143c3ba79e72
-  - enabled: 1
-    path: Assets/Scenes/ImpactScene.unity
-    guid: c7eed7ecf88a187498b5eeae5e754439
-  - enabled: 1
-    path: Assets/Scenes/BackstoryScene.unity
-    guid: 4ce0d95610ff90f46b1550d4738e91aa
   m_configObjects: {}
