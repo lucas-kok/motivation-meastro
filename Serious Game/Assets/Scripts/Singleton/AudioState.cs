@@ -5,7 +5,8 @@ using UnityEngine.Audio;
 public class AudioState : GenericSingleton<AudioState>
 {
     public Sound[] sounds;
-    private float _volume = 1; 
+    private float _volume = 1;
+    public bool IsMuted { get; set; } = false;
 
     public override void Awake()
     {
@@ -31,8 +32,6 @@ public class AudioState : GenericSingleton<AudioState>
         }
 
     }
-
-    public bool IsMuted { get; set; } = false;
 
     public void SetVolume(float volume)
     {

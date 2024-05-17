@@ -111,7 +111,7 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
             decisionsPanelsUI.SetActive(false);
         } else
         {
-            _audioState.Play("open-scenario");
+            _audioState.Play("open-book-sound");
             decisionsPanelsUI.SetActive(true);
         }
 
