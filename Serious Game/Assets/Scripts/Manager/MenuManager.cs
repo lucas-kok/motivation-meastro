@@ -3,6 +3,10 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+    // Singleton
+    private AudioState _audioState; 
+
+
     // UI 
     public GameObject menu;
     
@@ -13,8 +17,14 @@ public class MenuManager : MonoBehaviour
     public Button startButton;
     public Button resumeButton;
 
+    private void Start()
+    {
+        _audioState = AudioState.Instance;
+    }
+
     public void OpenMenu(MenuType type)
     {
+
         startButton.gameObject.SetActive(type is MenuType.MAIN_MENU);
         resumeButton.gameObject.SetActive(type is MenuType.IN_GAME_MENU);
 
@@ -33,4 +43,9 @@ public class MenuManager : MonoBehaviour
     }
 
     public void CloseOptions() => optionsPanel.SetActive(false);
+
+    public void OnChangeVolumeSlider(float volume)
+    {
+        _audioState.SetVolume(volume);
+    }
 }
