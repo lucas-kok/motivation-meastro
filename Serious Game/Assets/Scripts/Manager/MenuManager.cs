@@ -22,7 +22,7 @@ public class MenuManager : MonoBehaviour
     {
         _audioState = AudioState.Instance;
 
-        var currentVolume = _audioState.audioMixer.GetFloat("volume", out var v) ? v : 0;
+        var currentVolume = _audioState.GetCurrentVolume();
         audioSlider.value = currentVolume;
 
         muteToggle.isOn = _audioState.IsMuted;  
@@ -50,10 +50,9 @@ public class MenuManager : MonoBehaviour
 
     public void CloseOptions() => optionsPanel.SetActive(false);
 
-    // Feat: if a user slides to the min value (-60), the mute Toggle should trigger
     public void OnChangeVolumeSlider(float volume)
     {
-        if (volume <= -60f)
+        if (volume <= 0)
         {
             muteToggle.isOn = true;
             _audioState.IsMuted = true;
@@ -72,11 +71,11 @@ public class MenuManager : MonoBehaviour
         if (muteToggle.isOn)
         {
             _audioState.IsMuted = true;
-            _audioState.SetVolume(-60f);
+            _audioState.SetVolume(0);
         } else
         {
             _audioState.IsMuted = false;
-            _audioState.SetVolume(audioSlider.value);
+            _audioState.SetVolume(1);
         }
 
         audioSlider.value = _audioState.GetCurrentVolume();

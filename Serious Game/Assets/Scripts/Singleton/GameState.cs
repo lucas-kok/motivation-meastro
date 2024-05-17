@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameState : GenericSingleton<GameState>
 {
+    private AudioState _audioState; 
+
     // Game rules
     private static readonly int REQUIRED_DECISIONS_FOR_CHALLENGE_ROOM = 3;
     private static readonly int REQUIRED_DECISIONS_FOR_FINAL_ROOM = 3;
@@ -42,12 +44,15 @@ public class GameState : GenericSingleton<GameState>
 
     }
 
-    // When the singleton is created, we're gonna read the scenarios from the filesystem once
-    public override void Awake()
+    // When the singleton is created, we're gonna read the scenarios from the filesystem once and start the background music
+    public void Start()
     {
-        base.Awake();
+        _audioState = AudioState.Instance;
+
+        _audioState.Play("background");
         LoadScenarios();
     }
+
 
     private void LoadScenarios()
     {
