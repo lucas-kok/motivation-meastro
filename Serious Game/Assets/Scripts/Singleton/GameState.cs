@@ -22,6 +22,7 @@ public class GameState : GenericSingleton<GameState>
 
     // Data 
     public List<Scenario> Scenarios { get; private set; } = new List<Scenario>();
+    public List<(Scenario scenario, int doorIndex)> ScenariosAndChosenDoorIndex = new List<(Scenario, int)>(); // Used to keep track of which scenario is behind which door
     public Scenario CurrentScenario { get; private set; }
 
     /// <summary>

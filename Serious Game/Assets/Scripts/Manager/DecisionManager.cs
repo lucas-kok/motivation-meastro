@@ -141,11 +141,13 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
     public void ChooseLeftDecision()
     {
         RecordDecision(_leftDecision);
+        _gameState.ScenariosAndChosenDoorIndex.Add((_scenario, 0));
     }
 
     public void ChooseRightDecision()
     {
         RecordDecision(_rightDecision);
+        _gameState.ScenariosAndChosenDoorIndex.Add((_scenario, 1));
     }
 
     // Record the decision the player made and let the GameState process this
