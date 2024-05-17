@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class TempFinalSceneManager : MonoBehaviour
@@ -23,7 +24,6 @@ public class TempFinalSceneManager : MonoBehaviour
         template.SetActive(false);
         wrongDecisionExplaination.text = "";
         scoreDisplay.text = "";
-
 
         _gameState = GameState.Instance;
       
@@ -47,15 +47,20 @@ public class TempFinalSceneManager : MonoBehaviour
             var tmp = duplicatedObject.GetComponentInChildren<TextMeshProUGUI>();
             tmp.text = scenario.Title;
 
-            var infoIcon = duplicatedObject.transform.Find("InfoIcon");
             var wrongDecisionIcon = duplicatedObject.transform.Find("WrongDecisionIcon");
             var rightDecisionIcon = duplicatedObject.transform.Find("RightDecisionIcon");
+
+            var infoIcon = duplicatedObject.transform.Find("InfoIcon");
 
             if (infoIcon != null)
             {
                 infoIcon.gameObject.SetActive(!scenario.ChoseCorrectly);
                 if (!scenario.ChoseCorrectly)
                 {
+                    var hoverFunctionality = duplicatedObject.transform.Find("InfoHover");
+                    hoverFunctionality.GetComponent<HoverFunctionallity>().infoIcon = infoIcon.gameObject;
+                    hoverFunctionality.GetComponent<HoverFunctionallity>().stillInfoButton = infoIcon.GetComponent<Image>().sprite;
+
                     infoIcon.GetComponent<Button>().onClick.AddListener(() => ShowInfo(scenario));
                 }
             }
@@ -67,11 +72,12 @@ public class TempFinalSceneManager : MonoBehaviour
             duplicatedObject.SetActive(true);
 
             scenarioYAxisPosition -= scenarioYAxisGap;
+
+            
         }
 
         ShowScore();
     }
-
     private void ShowInfo(Scenario scenario)
     {
         wrongDecisionExplaination.text = scenario.Explanation;
@@ -83,6 +89,5 @@ public class TempFinalSceneManager : MonoBehaviour
         scoreDisplay.text = $"Uw score is: {stats.AchievedAutonomyScore} / {stats.MaxAutonomyScore} op autonomie. \n" +
             $"Uw score is: {stats.AchievedCompetencyScore} / {stats.MaxCompetencyScore} op competentie. \n" +
             $"Uw score is: {stats.AchievedConnectednessScore} / {stats.MaxConnectednessScore} op verbondenheid.";
-
     }
 }
