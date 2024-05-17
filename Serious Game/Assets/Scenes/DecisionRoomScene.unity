@@ -193,7 +193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5978956
+      value: 0.6015854
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3456,7 +3456,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.026000023, y: 0.000030517578}
-  m_SizeDelta: {x: 0.00012207031, y: 0}
+  m_SizeDelta: {x: 0.00012207031, y: -0.007999999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1679563231
 MonoBehaviour:
@@ -3480,8 +3480,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Open
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5c671ca7465192440a9bcb9afd2f328b, type: 2}
+  m_sharedMaterial: {fileID: 8746048749853516746, guid: 5c671ca7465192440a9bcb9afd2f328b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3505,8 +3505,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.18
-  m_fontSizeBase: 0.18
+  m_fontSize: 0.22
+  m_fontSizeBase: 0.22
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
