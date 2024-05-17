@@ -396,6 +396,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 537333067}
     - target: {fileID: 3890366308571164505, guid: 5dec2d13413c33c44a0eb2fd263eab12, type: 3}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 488926218}
+    - target: {fileID: 3890366308571164505, guid: 5dec2d13413c33c44a0eb2fd263eab12, type: 3}
       propertyPath: PlayerMovement
       value: 
       objectReference: {fileID: 537333065}
@@ -2888,7 +2892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.702568
+      value: 8.699523
       objectReference: {fileID: 0}
     - target: {fileID: 3965370435878235041, guid: 3b9b655042aa02e46b5d5bcb925c38b0, type: 3}
       propertyPath: m_LocalPosition.y

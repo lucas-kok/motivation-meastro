@@ -34,7 +34,7 @@ public class InputManager : MonoBehaviour
 
     private void Start()
     {
-        _latestPlayerMovement = new Vector2(0f, -500f);
+        ResetLatestPlayerMovement();
     }
 
     private void Update()
@@ -75,7 +75,12 @@ public class InputManager : MonoBehaviour
         if (movementInputs.y != 0 || movementInputs.x != 0) _latestPlayerMovement = movementInputs;
     }
 
-    private Vector2 GetMovementInputs()
+    public void ResetLatestPlayerMovement()
+    {
+        _latestPlayerMovement = new Vector2(0, -500);
+    }
+
+    public Vector2 GetMovementInputs()
     {
         //movement input
         float x = 0f;
