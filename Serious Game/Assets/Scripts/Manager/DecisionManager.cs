@@ -10,6 +10,7 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
     // Singletons
     private AppLogger _logger;
     private GameState _gameState;
+    private AudioState _audioState;
 
     // Data 
     private Scenario _scenario;
@@ -34,6 +35,11 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
 
     void Start()
     {
+        // Assign singletons
+        _logger = AppLogger.Instance;
+        _gameState = GameState.Instance;
+        _audioState = AudioState.Instance;
+
         if (enterKeypressHintUI != null)
         {
             enterKeypressHintUI.SetActive(false);
@@ -41,9 +47,6 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
         }
 
         if (decisionsPanelsUI != null) decisionsPanelsUI.SetActive(false);
-
-        _logger = AppLogger.Instance;
-        _gameState = GameState.Instance;
 
         // Get a Scenario to "manage" from the GameState
         _scenario = _gameState.GetRandomAvailableScenario();
@@ -103,7 +106,16 @@ public class DecisionManager : MonoBehaviour, IInteractableBehaviour
             gameManager.UnlockAllDoors();
         }
         
-        decisionsPanelsUI.SetActive(!decisionsPanelsUI.activeSelf);
+        if (decisionsPanelsUI.activeSelf)
+        {
+            decisionsPanelsUI.SetActive(false);
+        } else
+        {
+            _audioState.Play("open-book-sound");
+            decisionsPanelsUI.SetActive(true);
+        }
+
+        //decisionsPanelsUI.SetActive(!decisionsPanelsUI.activeSelf);
         _isReadingDecisions = !_isReadingDecisions;
         enterKeypressHintText.text = _isReadingDecisions ? "Sluit" : "Open";
     }
