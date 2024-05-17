@@ -589,13 +589,25 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 76c980ad4d93c6841b93cb80d487afb8, type: 3}
     volume: 1
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: background
-    clip: {fileID: 8300000, guid: 3fa62ac79ec403e42bf82c4f7869148e, type: 3}
+    clip: {fileID: 8300000, guid: 14f1f30b0993d724080896e19972f324, type: 3}
     volume: 1
     pitch: 1
     loop: 1
+    source: {fileID: 0}
+  - name: open-door
+    clip: {fileID: 8300000, guid: d502febd487d5b34b8ac64ece3658298, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: locked-door
+    clip: {fileID: 8300000, guid: ff8e606f2b488b14db5dd029c5c4888c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
     source: {fileID: 0}
 --- !u!114 &540658880 stripped
 MonoBehaviour:

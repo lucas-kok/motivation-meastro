@@ -2,21 +2,27 @@ using UnityEngine;
 
 public class DoorEntryTrigger : MonoBehaviour
 {
+    private AppLogger _logger;
+    private AudioState _audioState;
+
     public DecisionManager decisionManager;
     public GameManager gameManager;
-    private AppLogger _logger;
     private DoorBehaviour _doorBehaviour;
 
     private void Start()
     {
         _logger = AppLogger.Instance;
+        _audioState = AudioState.Instance;
+
         _doorBehaviour = GetComponentInParent<DoorBehaviour>();
     }
 
     private void OnCollisionEnter2D(Collision2D col)
-   {
+    {
         if (col.gameObject.tag == "Player" && !_doorBehaviour.isLocked)
         {
+            _audioState.Play("open-door");
+
             if (gameObject.CompareTag("ExitChallengeRoomDoor"))
             {
                 gameManager.OnReachChallengeRoomExitDoor();
@@ -36,6 +42,10 @@ public class DoorEntryTrigger : MonoBehaviour
                 decisionManager.ChooseRightDecision();
                 gameManager.OnReachDecisionRoomExitDoor();
             }
+        } else
+        {
+            Debug.Log("Door is locked");
+            _audioState.Play("locked-door");
         }
     }
 }

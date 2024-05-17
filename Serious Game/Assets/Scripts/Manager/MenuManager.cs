@@ -30,6 +30,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenMenu(MenuType type)
     {
+        _audioState.Play("open-scenario");
 
         startButton.gameObject.SetActive(type is MenuType.MAIN_MENU);
         resumeButton.gameObject.SetActive(type is MenuType.IN_GAME_MENU);
