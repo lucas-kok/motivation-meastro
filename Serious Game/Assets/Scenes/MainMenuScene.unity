@@ -682,8 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 767b21beedfdbaf4abcdf9a6894bb9d0, type: 2}
-  isMute: 0
-  audioSource: {fileID: 406423282}
+  audioSource: {fileID: 0}
 --- !u!114 &540658880 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5461504344707685754, guid: 612be868b233e674c968d466d6426ea7, type: 3}
@@ -2804,6 +2803,7 @@ MonoBehaviour:
   optionsPanel: {fileID: 1837535146}
   startButton: {fileID: 3451659651581393873}
   resumeButton: {fileID: 239328814}
+  audioSlider: {fileID: 2092170460}
 --- !u!1 &3789120857846753601
 GameObject:
   m_ObjectHideFlags: 0

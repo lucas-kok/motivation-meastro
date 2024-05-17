@@ -6,20 +6,23 @@ public class MenuManager : MonoBehaviour
     // Singleton
     private AudioState _audioState; 
 
-
     // UI 
     public GameObject menu;
     
     // UI - panels
     public GameObject optionsPanel;
 
-    // UI - buttons
+    // UI - interactables 
     public Button startButton;
     public Button resumeButton;
+    public Slider audioSlider; 
 
     private void Start()
     {
         _audioState = AudioState.Instance;
+
+        var currentVolume = _audioState.audioMixer.GetFloat("volume", out var v) ? v : 0;
+        audioSlider.value = currentVolume;
     }
 
     public void OpenMenu(MenuType type)
