@@ -11,13 +11,24 @@ public class AudioState : GenericSingleton<AudioState>
     public override void Awake()
     {
         base.Awake();
-        InstantiateSounds();
+
+        if (GameObject.FindGameObjectsWithTag("AudioManager").Length >= 1)
+        {
+            InstantiateSounds();
+        }
     }
 
     public void Play(string name)
     {
-        Sound sound = Array.Find(sounds, sound => sound.name == name);
-        sound?.source.Play();
+        try
+        {
+            Sound sound = Array.Find(sounds, sound => sound.name == name);
+            sound.source.Play();
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning("Sounds are not loaded in due to not starting from main menu scene.");
+        }
     }
 
     private void InstantiateSounds()

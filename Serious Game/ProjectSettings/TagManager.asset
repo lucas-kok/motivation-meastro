@@ -11,6 +11,7 @@ TagManager:
   - DecisionTitle
   - ExitChallengeRoomDoor
   - ExitTutorialRoomDoor
+  - AudioManager
   layers:
   - Default
   - TransparentFX
