@@ -585,7 +585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: open-scenario
+  - name: open-book-sound
     clip: {fileID: 8300000, guid: 76c980ad4d93c6841b93cb80d487afb8, type: 3}
     volume: 1
     pitch: 1

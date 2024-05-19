@@ -25,12 +25,13 @@ public class MenuManager : MonoBehaviour
         var currentVolume = _audioState.GetCurrentVolume();
         audioSlider.value = currentVolume;
 
-        muteToggle.isOn = _audioState.IsMuted;  
+        muteToggle.isOn = _audioState.IsMuted;
     }
 
     public void OpenMenu(MenuType type)
     {
-        _audioState?.Play("open-book-sound");
+
+        if (_audioState != null) _audioState.Play("open-book-sound");
 
         startButton.gameObject.SetActive(type is MenuType.MAIN_MENU);
         resumeButton.gameObject.SetActive(type is MenuType.IN_GAME_MENU);
@@ -58,14 +59,15 @@ public class MenuManager : MonoBehaviour
             muteToggle.isOn = true;
             _audioState.IsMuted = true;
 
-        } else
+        }
+        else
         {
             muteToggle.isOn = false;
             _audioState.IsMuted = false;
         }
 
         _audioState.SetVolume(volume);
-    }   
+    }
 
     public void OnToggleVolumeMute(bool isOn)
     {
@@ -73,7 +75,8 @@ public class MenuManager : MonoBehaviour
         {
             _audioState.IsMuted = true;
             _audioState.SetVolume(0);
-        } else
+        }
+        else
         {
             _audioState.IsMuted = false;
             _audioState.SetVolume(1);
