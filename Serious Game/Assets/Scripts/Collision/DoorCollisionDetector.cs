@@ -44,7 +44,6 @@ public class DoorEntryTrigger : MonoBehaviour
             }
         } else
         {
-            Debug.Log("Door is locked");
             _audioState.Play("locked-door");
         }
     }

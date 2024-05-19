@@ -65,11 +65,11 @@ public class MenuManager : MonoBehaviour
         }
 
         _audioState.SetVolume(volume);
-    }
+    }   
 
-    public void OnToggleVolumeMute()
+    public void OnToggleVolumeMute(bool isOn)
     {
-        if (muteToggle.isOn)
+        if (isOn)
         {
             _audioState.IsMuted = true;
             _audioState.SetVolume(0);

@@ -1188,7 +1188,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -334, y: 505.0401}
+  m_AnchoredPosition: {x: -334, y: 505.04037}
   m_SizeDelta: {x: 668, y: 1010}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &547552715
@@ -2986,6 +2986,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 753209010190617490, guid: 5d8720bcb8fe9bb4bba72912b9d88799, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 9366394}
+    - target: {fileID: 753209010190617490, guid: 5d8720bcb8fe9bb4bba72912b9d88799, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnToggleVolumeMute
+      objectReference: {fileID: 0}
     - target: {fileID: 1009600849685888799, guid: 5d8720bcb8fe9bb4bba72912b9d88799, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3077,6 +3085,14 @@ PrefabInstance:
     - target: {fileID: 4701545609343056074, guid: 5d8720bcb8fe9bb4bba72912b9d88799, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4930802351201055716, guid: 5d8720bcb8fe9bb4bba72912b9d88799, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 9366394}
+    - target: {fileID: 4930802351201055716, guid: 5d8720bcb8fe9bb4bba72912b9d88799, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnChangeVolumeSlider
       objectReference: {fileID: 0}
     - target: {fileID: 5111224996112122849, guid: 5d8720bcb8fe9bb4bba72912b9d88799, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5021,8 +5037,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1625603906}
   m_HandleRect: {fileID: 1625603905}
   m_Direction: 2
-  m_Value: -0.0015267176
-  m_Size: 0.9998894
+  m_Value: -0.005339436
+  m_Size: 0.9998032
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
