@@ -15,11 +15,12 @@ public class PlayerMovement : MonoBehaviour
     private bool _canMove = true;
 
     public Slider dashCooldownSlider;
-    private Color _dashDisabledColor = new Color(1f, 0.2770096f, 0.2122642f, 1f);
-    private Color _dashEnabledColor = new Color(0.2667724f, 1f, 0.2117647f, 1f);
+    private Color _dashDisabledColor = new Color(0.878431373f, 0.274509804f, 0.152941176f, 1f);
+    private Color _dashEnabledColor = new Color(0.078431373f, 0.62745098f, 0.180392157f, 1f);
 
     [SerializeField] public float speed;
     [SerializeField] public InputManager inputManager;
+    [SerializeField] public PlayerAnimationController playerAnimationController;
     [SerializeField] public ParticleSystem dustParticle;
     [SerializeField] public float dashingPower = 0.075f;
     [SerializeField] public float dashingTime = 0.2f;
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb = GetComponent<Rigidbody2D>();
+        playerAnimationController = GetComponent<PlayerAnimationController>();
         rb.gravityScale = 0f;
     }
 
@@ -67,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         isDashing = true;
 
+        playerAnimationController.SetDashing(true);
+
         if (movementInput.x != 0 && movementInput.y != 0)
         {
             rb.velocity = new Vector2(movementInput.x * dashingPower * 0.707f, movementInput.y * dashingPower * 0.707f);
@@ -81,6 +85,8 @@ public class PlayerMovement : MonoBehaviour
 
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
+
+        playerAnimationController.SetDashing(false);
 
         StartCoroutine("PlayDashCooldownAnimation");
 

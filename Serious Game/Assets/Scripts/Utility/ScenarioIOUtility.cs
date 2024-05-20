@@ -4,16 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
-
+using System;
 
 // Responsible for IO operations related to scenarios (and with that, decisions) 
 public static class ScenarioIOUtility
 {
-
-    public static IEnumerator LoadScenarios(System.Action<List<Scenario>> callback)
+    public static IEnumerator LoadScenarios(Action<List<Scenario>> callback)
     {
-        string filePath = Path.Combine(Application.streamingAssetsPath, "ScenariosDecisions.csv");
-
+        var filePath = Path.Combine(Application.streamingAssetsPath, "ScenariosDecisions.csv");
         string[] lines = null;
 
         // Check if we're running in WebGL
@@ -29,34 +27,52 @@ public static class ScenarioIOUtility
                 yield break;
             }
 
-            lines = www.downloadHandler.text.Split(new string[] { "\r\n", "\n" }, System.StringSplitOptions.None);
+            lines = www.downloadHandler.text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
         }
         else
         {
             Debug.Log("Reading scenarios from file: " + filePath);
             lines = File.ReadAllLines(filePath);
-         
         }
 
         List<Scenario> scenariosBuffer = new List<Scenario>();
         for (int i = 1; i < lines.Length; i++) // Start from index 1 to skip the header line
         {
-            // log line
-            Debug.Log(lines[i]);
-            string[] values = lines[i].Split(';');
-            Scenario scenario = new Scenario()
+            if (string.IsNullOrWhiteSpace(lines[i]))
             {
-                Title = values[0],
-                Description = values[1],
-                CorrectDecision = new Decision() { Title = values[2], Description = values[3] },
-                IncorrectDecision = new Decision() { Title = values[4], Description = values[5] },
-                IsCompleted = false,
-                Explanation = values[6],
-                AutonomyScore = double.Parse(values[7]) / 10,
-                CompetencyScore = double.Parse(values[8]) / 10,
-                ConnectednessScore = double.Parse(values[9]) / 10
-            };
-            scenariosBuffer.Add(scenario);
+                continue;
+            }
+
+            var line = lines[i].Trim('"');
+            var values = line.Split(';');
+
+            if (values.Length != 10)
+            {
+                Debug.LogError($"Line {i + 1} is invalid. Expected 10 values but got {values.Length}. Line content: {lines[i]}");
+                continue;
+            }
+
+            try
+            {
+                var scenario = new Scenario()
+                {
+                    Title = values[0].Trim('"'),
+                    Description = values[1].Trim('"'),
+                    CorrectDecision = new Decision() { Title = values[2].Trim('"'), Description = values[3].Trim('"') },
+                    IncorrectDecision = new Decision() { Title = values[4].Trim('"'), Description = values[5].Trim('"') },
+                    IsCompleted = false,
+                    Explanation = values[6].Trim('"'),
+                    AutonomyScore = double.Parse(values[7].Trim('"')) / 10,
+                    CompetencyScore = double.Parse(values[8].Trim('"')) / 10,
+                    ConnectednessScore = double.Parse(values[9].Trim('"')) / 10
+                };
+
+                scenariosBuffer.Add(scenario);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error parsing line {i + 1}: {ex.Message}. Line content: {lines[i]}");
+            }
         }
 
         callback?.Invoke(scenariosBuffer);

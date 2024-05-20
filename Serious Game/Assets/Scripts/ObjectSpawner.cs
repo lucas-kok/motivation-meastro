@@ -23,7 +23,7 @@ public class Objectspawner : MonoBehaviour
 
     void Update()
     {
-        if (playerManager != null && !playerManager.CanMove)
+        if (playerManager != null && !playerManager.canMove)
         {
             return;
         }
@@ -41,8 +41,8 @@ public class Objectspawner : MonoBehaviour
         if (_gameState.CurrentGameDifficulty is GameDifficulty.EASY)
         {
             // Set easy properties
-            SpawnInterval = 3.0f;
-            LaunchForce = 5.0f;
+            SpawnInterval = 2.5f;
+            LaunchForce = 8.5f;
         }
         else if (_gameState.CurrentGameDifficulty is GameDifficulty.MEDIUM)
         {
@@ -53,8 +53,8 @@ public class Objectspawner : MonoBehaviour
         else if (_gameState.CurrentGameDifficulty is GameDifficulty.HARD)
         {
             // Set hard properties
-            SpawnInterval = 1.0f;
-            LaunchForce = 15.0f;
+            SpawnInterval = 1.5f;
+            LaunchForce = 11.5f;
         }
     }
 

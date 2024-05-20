@@ -1211,7 +1211,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3757874253590469474}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: OnToggleVolumeMute
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &1335336499
 GameObject:
@@ -2066,12 +2078,24 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1335336500}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
-  m_WholeNumbers: 1
-  m_Value: 100
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3757874253590469474}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: OnChangeVolumeSlider
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2093999547
 GameObject:
   m_ObjectHideFlags: 0
@@ -2648,6 +2672,8 @@ MonoBehaviour:
   optionsPanel: {fileID: 1837535146}
   startButton: {fileID: 3451659651581393873}
   resumeButton: {fileID: 239328814}
+  muteToggle: {fileID: 1289301869}
+  audioSlider: {fileID: 2092170460}
 --- !u!1 &3789120857846753601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,7 +2759,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Title
+  m_text: Motivatie Maestro
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5c671ca7465192440a9bcb9afd2f328b, type: 2}
   m_sharedMaterial: {fileID: 8746048749853516746, guid: 5c671ca7465192440a9bcb9afd2f328b, type: 2}
@@ -2776,7 +2802,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -3128,7 +3154,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -3157,7 +3183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &5695142841690727106
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3540,7 +3566,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -632, y: 141.03}
+  m_AnchoredPosition: {x: -610, y: 141.03}
   m_SizeDelta: {x: 456.6772, y: 101.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &8946043320096905069
@@ -3566,9 +3592,9 @@ RectTransform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1937939394}
   - {fileID: 1868119751}
   - {fileID: 948521707}
-  - {fileID: 5896101060188219617}
-  - {fileID: 6657972286546366851}
   - {fileID: 1021313822}
-  - {fileID: 1937939394}
+  - {fileID: 6657972286546366851}
+  - {fileID: 5896101060188219617}
