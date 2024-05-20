@@ -23,7 +23,7 @@ public class BackstorySceneManager : MonoBehaviour
         "Bij het bereiken van de studenten hangt de toekomst van de school af van jouw pogingen tot motivatie onderweg...\n \n \t Veel succes!",
     };
     public int loreEntryIndexWithTutorial = 4;
-    private int _currentIndex = 0;
+    private int _currentIndex = -1;
 
     private CoroutineUtility _coroutineUtility;
 
@@ -56,7 +56,7 @@ public class BackstorySceneManager : MonoBehaviour
             if (!nextButton.activeSelf && exitButton.activeSelf) 
             {
                 gameManager.OnExitBackstory();    
-            } else if (nextButton.activeSelf)
+            } else
             {
                 PlayNextTextEntry();
             }
@@ -65,6 +65,8 @@ public class BackstorySceneManager : MonoBehaviour
 
     public async void PlayNextTextEntry()
     {
+        _currentIndex++;
+
         if (_currentIndex < loreTextEntries.Length)
         {            
             nextButton.SetActive(false);
@@ -76,8 +78,6 @@ public class BackstorySceneManager : MonoBehaviour
         }
 
         playTutorialButton.SetActive(_currentIndex == loreEntryIndexWithTutorial);
-
-        _currentIndex++;
 
         if (_currentIndex == loreTextEntries.Length)
         {
