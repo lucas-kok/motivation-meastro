@@ -122,14 +122,13 @@ public class GameManager : MonoBehaviour
     // When the player made a decision
     public void OnReachDecisionRoomExitDoor()
     {
+        _gameState.IncrementPlayedDecisionRoomCount();
         GoToNextRoom(SceneType.IMPACT_SCENE);
     }
 
     // When the status scene gets exited
     public void OnExitImpactScene()
     {
-        _gameState.IncrementPlayedDecisionRoomCount();
-
         if (_gameState.NextRoomShouldBeChallengeRoom())
         {
             _gameState.UpdateGameDifficulty();
@@ -150,7 +149,7 @@ public class GameManager : MonoBehaviour
 
     public async void StartNextScene(SceneType sceneType)
     {
-        if (levelLoadingAnimationController != null && _coroutineUtility != null && !scenesToExcludeExitLoadingAnimation.Contains(SceneManager.GetActiveScene().name))
+        if (levelLoadingAnimationController != null && _coroutineUtility != null && !scenesToExcludeExitLoadingAnimation.Contains(SceneManager.GetActiveScene().name) && !sceneType.Equals(SceneType.MAIN_MENU_SCENE))
         {
             playerManager?.SetCanMove(false);
 
