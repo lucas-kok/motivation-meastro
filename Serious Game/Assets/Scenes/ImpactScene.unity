@@ -1535,6 +1535,7 @@ MonoBehaviour:
   CompetenceHappy: {fileID: 2029489497}
   CompetenceAngry: {fileID: 1678683819}
   CompetenceNeutral: {fileID: 2137175247}
+  continueButtonText: {fileID: 207658966}
   gameManager: {fileID: 1110208534}
   inputManager: {fileID: 336286143}
 --- !u!4 &597278488

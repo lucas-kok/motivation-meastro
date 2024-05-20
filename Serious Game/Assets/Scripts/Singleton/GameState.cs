@@ -35,14 +35,13 @@ public class GameState : GenericSingleton<GameState>
     {
         GameIsActive = true;
 
-        PlayedDecisionRoomsCount = 0;
+        PlayedDecisionRoomsCount = 0;        
         PlayedChallengeRoomsCount = 0;
 
         foreach (var scenario in Scenarios)
         {
             scenario.IsCompleted = false;
         }
-
     }
 
     // When the singleton is created, we're gonna read the scenarios from the filesystem once and start the background music
@@ -87,7 +86,7 @@ public class GameState : GenericSingleton<GameState>
     /// <summary>
     /// Apply Game rule: After a certain number of played decision rooms in a row (see "// Game rules"), a challenge room should be played 
     /// </summary>
-    public bool NextRoomShouldBeChallengeRoom() => PlayedDecisionRoomsCount % REQUIRED_DECISIONS_FOR_CHALLENGE_ROOM == 0;
+    public bool NextRoomShouldBeChallengeRoom() => PlayedDecisionRoomsCount > 0 && PlayedDecisionRoomsCount % REQUIRED_DECISIONS_FOR_CHALLENGE_ROOM == 0;
 
     /// <summary>
     /// APPLY Game rule: a final room should be played after a certain number of played challenge and decisions rooms in total (see "// Game rules")

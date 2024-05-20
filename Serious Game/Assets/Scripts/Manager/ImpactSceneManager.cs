@@ -1,4 +1,5 @@
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class ImpactSceneManager : MonoBehaviour
@@ -21,6 +22,8 @@ public class ImpactSceneManager : MonoBehaviour
     public GameObject CompetenceAngry;
     public GameObject CompetenceNeutral;
 
+    public TextMeshProUGUI continueButtonText;
+
     public GameManager gameManager;
     public InputManager inputManager;
 
@@ -33,6 +36,8 @@ public class ImpactSceneManager : MonoBehaviour
         SetAutonomy();
         SetCompetence();
         SetConnectedness();
+        
+        SetContinueButtonText();
     }
 
     private void OnEnable()
@@ -51,6 +56,16 @@ public class ImpactSceneManager : MonoBehaviour
         {
             gameManager.OnExitImpactScene();
         }
+    }
+
+    private void SetContinueButtonText()
+    {
+        if (continueButtonText == null)
+        {
+            return;
+        }
+        
+        continueButtonText.text = _gameState.NextRoomShouldBeChallengeRoom() ? "Doorgaan naar de Challenge Room" : "Doorgaan";
     }
 
     private void SetChoiceIcon()

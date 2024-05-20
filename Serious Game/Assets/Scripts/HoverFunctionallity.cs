@@ -12,13 +12,11 @@ public class HoverFunctionallity : MonoBehaviour
     // Start is called before the first frame update
     public void OnMouseEnter()
     {
-        Debug.Log(infoIcon);
         if (infoIcon != null)
         {
             infoIcon.GetComponent<Animator>().enabled = false;
             infoIcon.GetComponent<Animator>().speed = 0;
             infoIcon.GetComponent<Image>().sprite = stillInfoButton;
-            Debug.Log("Mouse Enter");
         }
     }
 
@@ -29,7 +27,6 @@ public class HoverFunctionallity : MonoBehaviour
             infoIcon.gameObject.GetComponent<Animator>().enabled = true;
             infoIcon.gameObject.GetComponent<Animator>().speed = 1;
             //infoIcon.gameObject.GetComponent<Image>().sprite = null;
-            Debug.Log("Mouse Exit");
         }
     }
 }

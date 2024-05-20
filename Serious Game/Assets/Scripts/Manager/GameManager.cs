@@ -13,24 +13,26 @@ public class GameManager : MonoBehaviour
 
     // Controllers
     public LevelLoadingAnimationController levelLoadingAnimationController; // Link this object in the scene to get level animations
-    private List<string> scenesToExcludeLoadingAnimation = new List<string> {
+    private List<string> scenesToExcludeEnterLoadingAnimation = new List<string> {
         SceneType.MAIN_MENU_SCENE.GetSceneName(), 
+        SceneType.BACKSTORY_SCENE.GetSceneName(),
         SceneType.IMPACT_SCENE.GetSceneName(),
-        SceneType.BACKSTORY_SCENE.GetSceneName(), 
-        SceneType.FINAL_ROOM_SCENE.GetSceneName()
+    };
+    private List<string> scenesToExcludeExitLoadingAnimation = new List<string> {
+        SceneType.MAIN_MENU_SCENE.GetSceneName(),
+        SceneType.BACKSTORY_SCENE.GetSceneName(),
+        SceneType.IMPACT_SCENE.GetSceneName(),
     };
 
     // Singletons 
     private GameState _gameState;
     private CoroutineUtility _coroutineUtility;
-    private AppLogger _logger;
 
     public GameObject[] doors;
 
     private void Start()
     {
         // Assign singletons
-        _logger = AppLogger.Instance;
         _coroutineUtility = CoroutineUtility.Instance;
         _gameState = GameState.Instance;
 
@@ -148,7 +150,7 @@ public class GameManager : MonoBehaviour
 
     public async void StartNextScene(SceneType sceneType)
     {
-        if (levelLoadingAnimationController != null && _coroutineUtility != null && !scenesToExcludeLoadingAnimation.Contains(sceneType.GetSceneName()))
+        if (levelLoadingAnimationController != null && _coroutineUtility != null && !scenesToExcludeExitLoadingAnimation.Contains(SceneManager.GetActiveScene().name))
         {
             playerManager?.SetCanMove(false);
 
@@ -171,7 +173,7 @@ public class GameManager : MonoBehaviour
 
     public async void PlayLevelLoadingAnimation()
     {
-        if (levelLoadingAnimationController == null || scenesToExcludeLoadingAnimation.Contains(SceneManager.GetActiveScene().name))
+        if (levelLoadingAnimationController == null || scenesToExcludeEnterLoadingAnimation.Contains(SceneManager.GetActiveScene().name))
         {
             return;
         }
