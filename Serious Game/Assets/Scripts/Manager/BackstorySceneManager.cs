@@ -10,6 +10,9 @@ public class BackstorySceneManager : MonoBehaviour
     public GameObject nextButton;
     public GameObject exitButton;
     public GameObject skipButton;
+    public GameObject autonomyCharacter;
+    public GameObject connectednessCharacter;
+    public GameObject competenceCharacter;
     public GameManager gameManager;
     public float timeBetweenTypingChars = 3f;
 
@@ -20,10 +23,11 @@ public class BackstorySceneManager : MonoBehaviour
         "Het drietal studenten representeren ieder een van de motivatie basisbehoeften die zij missen, namelijk: \n \n \t Autonomie, Competentie en Verbondenheid.",
         "Onderweg zul je beslissingskamers en uitdagingskamers tegenkomen. \n \nBinnen beslissingskamers zul je geconfronteerd worden met een scenario omtrent motivatie bij studenten en een aantal keuzes van mogelijke reacties hierop. \n \nKies hierbij de meest passende keuze om de studenten te motiveren. De keuzes hebben allemaal een bepaalde impact op ieder van de basisbehoeften, en dus ook de studenten!",
         "Na een aantal beslissingskamers zul je in een uitdagingskamer terechtkomen, waarbij je de uitgang moet bereiken terwijl de ongemotiveerde studenten objecten naar je toe gooien. \n \nHoe ongemotiveerder de studenten, hoe moeilijker dit zal zijn. Probeer de vragen vooraf dus zo goed mogelijk te beantwoorden!",
-        "Bij het bereiken van de studenten hangt de toekomst van de school af van jouw pogingen tot motivatie onderweg...\n \n \t Veel succes! \n \n(Het is aan te raden om eerst de tutorial te spelen om comfortabel te raken met de besturing en knoppen.)",
+        "Bij het bereiken van de studenten hangt de toekomst van de school af van jouw pogingen tot motivatie onderweg...\n \n \t Veel succes!",
     };
     public int loreEntryIndexWithTutorial = 4;
-    private int _currentIndex = 0;
+    public int loreEntryIndexWithStudents = 1;
+    private int _currentIndex = -1;
 
     private CoroutineUtility _coroutineUtility;
 
@@ -56,7 +60,7 @@ public class BackstorySceneManager : MonoBehaviour
             if (!nextButton.activeSelf && exitButton.activeSelf) 
             {
                 gameManager.OnExitBackstory();    
-            } else if (nextButton.activeSelf)
+            } else
             {
                 PlayNextTextEntry();
             }
@@ -65,6 +69,12 @@ public class BackstorySceneManager : MonoBehaviour
 
     public async void PlayNextTextEntry()
     {
+        autonomyCharacter.SetActive(false);
+        connectednessCharacter.SetActive(false);
+        competenceCharacter.SetActive(false);
+
+        _currentIndex++;
+
         if (_currentIndex < loreTextEntries.Length)
         {            
             nextButton.SetActive(false);
@@ -75,9 +85,11 @@ public class BackstorySceneManager : MonoBehaviour
             nextButton.SetActive(true);
         }
 
-        playTutorialButton.SetActive(_currentIndex == loreEntryIndexWithTutorial);
+        autonomyCharacter.SetActive(_currentIndex == loreEntryIndexWithStudents);
+        connectednessCharacter.SetActive(_currentIndex == loreEntryIndexWithStudents);
+        competenceCharacter.SetActive(_currentIndex == loreEntryIndexWithStudents);
 
-        _currentIndex++;
+        playTutorialButton.SetActive(_currentIndex == loreEntryIndexWithTutorial);
 
         if (_currentIndex == loreTextEntries.Length)
         {
