@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792d87a2962754a4d87a95eca100dc6c, type: 3}
+  m_Name: SoundsData
+  m_EditorClassIdentifier: 
+  Sounds:
+  - name: background
+    clip: {fileID: 8300000, guid: 14f1f30b0993d724080896e19972f324, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: open-book-sound
+    clip: {fileID: 8300000, guid: 76c980ad4d93c6841b93cb80d487afb8, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: open-door
+    clip: {fileID: 8300000, guid: d502febd487d5b34b8ac64ece3658298, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: locked-door
+    clip: {fileID: 8300000, guid: ff8e606f2b488b14db5dd029c5c4888c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

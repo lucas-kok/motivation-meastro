@@ -1,39 +1,32 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class AudioState : GenericSingleton<AudioState>
 {
-    public Sound[] sounds;
+    private SoundsData _soundsData;
     private float _volume = 1;
+
     public bool IsMuted { get; set; } = false;
 
     public override void Awake()
     {
         base.Awake();
+        _soundsData = Resources.Load<SoundsData>("SoundsData");
 
-        if (GameObject.FindGameObjectsWithTag("AudioManager").Length >= 1)
-        {
-            InstantiateSounds();
-        }
+        InstantiateSounds();
     }
 
     public void Play(string name)
     {
-        try
-        {
-            Sound sound = Array.Find(sounds, sound => sound.name == name);
-            sound.source.Play();
-        }
-        catch (Exception e)
-        {
-            Debug.LogWarning("Sounds are not loaded in due to not starting from main menu scene.");
-        }
+        Sound sound = Array.Find(_soundsData.Sounds, sound => sound.name == name);
+        sound.source.Play();
     }
 
     private void InstantiateSounds()
     {
-        foreach (Sound sound in sounds)
+        foreach (Sound sound in _soundsData.Sounds)
         {
             sound.source = gameObject.AddComponent<AudioSource>();
             sound.source.clip = sound.clip;
@@ -46,7 +39,7 @@ public class AudioState : GenericSingleton<AudioState>
 
     public void SetVolume(float volume)
     {
-        foreach (Sound sound in sounds)
+        foreach (Sound sound in _soundsData.Sounds)
         {
             sound.source.volume = volume;
         }
