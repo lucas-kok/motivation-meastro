@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ìnfoHoverDisable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class InfoHoverDisable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public GameObject stillInfoIcon;
     public GameObject infoIcon;
