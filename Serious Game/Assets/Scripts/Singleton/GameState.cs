@@ -34,6 +34,7 @@ public class GameState : GenericSingleton<GameState>
     public void Initialize()
     {
         GameIsActive = true;
+        Time.timeScale = 1;
 
         PlayedDecisionRoomsCount = 0;
         PlayedChallengeRoomsCount = 0;
