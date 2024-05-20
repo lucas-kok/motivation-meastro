@@ -9,8 +9,8 @@ public class GameState : GenericSingleton<GameState>
 
     // Game rules
     private static readonly int REQUIRED_DECISIONS_FOR_CHALLENGE_ROOM = 3;
-    private static readonly int REQUIRED_DECISIONS_FOR_FINAL_ROOM = 3;
-    private static readonly int REQUIRED_CHALLENGES_FOR_FINAL_ROOM = 1;
+    private static readonly int REQUIRED_DECISIONS_FOR_FINAL_ROOM = 9;
+    private static readonly int REQUIRED_CHALLENGES_FOR_FINAL_ROOM = 3;
 
     // General Game state
     public bool GameIsActive { get; set; } = false;
