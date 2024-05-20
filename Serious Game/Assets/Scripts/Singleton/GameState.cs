@@ -46,13 +46,15 @@ public class GameState : GenericSingleton<GameState>
     }
 
     // When the singleton is created, we're gonna read the scenarios from the filesystem once and start the background music
-    public void Start()
+    public override void Awake()
     {
+        base.Awake();
         _audioState = AudioState.Instance;
 
         _audioState.Play("background");
         LoadScenarios();
     }
+
 
 
     private void LoadScenarios()
