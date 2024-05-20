@@ -927,8 +927,7 @@ MonoBehaviour:
     naar je toe gooien. \n \nHoe ongemotiveerder de studenten, hoe moeilijker dit
     zal zijn. Probeer de vragen vooraf dus zo goed mogelijk te beantwoorden!"
   - "Bij het bereiken van de studenten hangt de toekomst van de school af van jouw
-    pogingen tot motivatie onderweg...\n \n \t Veel succes! \n \n(Het is aan te raden
-    om eerst de tutorial te spelen om comfortabel te raken met de besturing en knoppen.)"
+    pogingen tot motivatie onderweg...\n \n \t Veel succes! "
   loreEntryIndexWithTutorial: 4
 --- !u!4 &879879949
 Transform:
