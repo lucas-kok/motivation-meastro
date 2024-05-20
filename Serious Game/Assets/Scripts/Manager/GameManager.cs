@@ -157,6 +157,11 @@ public class GameManager : MonoBehaviour
             await _coroutineUtility.RunCoroutineAndWait(levelLoadingAnimationController, () => levelLoadingAnimationController.PlayExitLevelAnimation());
         }
 
+        if (sceneType == SceneType.MAIN_MENU_SCENE)
+        {
+            Time.timeScale = 1;
+        }
+
         SceneManager.LoadScene(sceneType.GetSceneName());
     }
 

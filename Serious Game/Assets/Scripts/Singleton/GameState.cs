@@ -34,6 +34,7 @@ public class GameState : GenericSingleton<GameState>
     public void Initialize()
     {
         GameIsActive = true;
+        Time.timeScale = 1;
 
         PlayedDecisionRoomsCount = 0;        
         PlayedChallengeRoomsCount = 0;
@@ -45,13 +46,15 @@ public class GameState : GenericSingleton<GameState>
     }
 
     // When the singleton is created, we're gonna read the scenarios from the filesystem once and start the background music
-    public void Start()
+    public override void Awake()
     {
+        base.Awake();
         _audioState = AudioState.Instance;
 
         _audioState.Play("background");
         LoadScenarios();
     }
+
 
 
     private void LoadScenarios()
@@ -93,9 +96,17 @@ public class GameState : GenericSingleton<GameState>
     /// </summary>
     public bool NextRoomShouldBeFinalRoom() => PlayedChallengeRoomsCount == REQUIRED_CHALLENGES_FOR_FINAL_ROOM && PlayedDecisionRoomsCount == REQUIRED_DECISIONS_FOR_FINAL_ROOM;
 
-    public void Pause() => GameIsActive = false;
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        GameIsActive = false;
+    }
 
-    public void Resume() => GameIsActive = true;
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        GameIsActive = true;
+    }
 
     // ASSUMPTION: what is defined under // Game rules in terms of required played decision rooms count, is always the same as the amount of scenarios in "ScenariosDecisions.csv
     public Scenario GetRandomAvailableScenario()
